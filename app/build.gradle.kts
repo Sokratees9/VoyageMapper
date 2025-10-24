@@ -1,5 +1,17 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
+}
+
+// Load properties from local.properties manually
+val localProps = Properties()
+val localPropsFile = rootProject.file("local.properties")
+if (localPropsFile.exists()) {
+    localProps.load(localPropsFile.inputStream())
+    localProps.forEach { key, value ->
+        project.extensions.extraProperties[key.toString()] = value
+    }
 }
 
 android {
@@ -14,6 +26,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders["MAPS_API_KEY"] =
+            if (project.hasProperty("MAPS_API_KEY"))
+                project.property("MAPS_API_KEY") as String
+            else
+                ""
     }
 
     buildTypes {

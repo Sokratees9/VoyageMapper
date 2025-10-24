@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Voyage Map</string>
+    <string name="google_maps_key">${MAPS_API_KEY}</string>
+    <string name="preview">Preview...</string>
+    <string name="external_open">Open in Wikivoyage</string>
+    <string name="map_sights">Map the Sights</string>
+    <string name="welcome">Welcome to Voyage Map</string>
+    <string name="description">Use your current location to find articles within 20km from where you are, or search for aplace to find Wikivoyage articles</string>
+    <string name="search">Search</string>
+    <string name="location">Use Current Location</string>
+    <string name="search_box">Search for a place</string>
+    <string name="title">TitleWhereIsThis???</string>
+</resources>

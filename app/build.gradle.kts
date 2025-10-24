@@ -36,7 +36,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -70,5 +70,6 @@ dependencies {
     implementation(libs.desugar)
     implementation(libs.location)
     implementation(libs.glide)
+    implementation(libs.places)
     annotationProcessor(libs.compiler)
 }

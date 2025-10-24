@@ -16,4 +16,8 @@
 
 # Keys and secrets
 app/src/**/res/values/google_maps_api.xml
-local.properties
+
+app/release/
+app/debug/
+*.jks
+*.keystore

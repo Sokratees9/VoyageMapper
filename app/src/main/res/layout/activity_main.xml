@@ -43,6 +43,16 @@
             android:text="@string/search"
             android:layout_marginTop="8dp" android:layout_marginBottom="12dp"/>
 
+        <TextView
+            android:id="@+id/searchPrompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select"
+            android:textAlignment="center"
+            android:padding="8dp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/resultsRecycler"
             android:layout_width="match_parent" android:layout_height="wrap_content"/>

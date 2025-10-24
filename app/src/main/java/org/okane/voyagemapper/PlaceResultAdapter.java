@@ -30,21 +30,25 @@ public class PlaceResultAdapter extends RecyclerView.Adapter<PlaceResultAdapter.
 
     @NonNull @Override public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(android.R.layout.simple_list_item_2, parent, false);
+                .inflate(R.layout.item_place_result, parent, false);
         return new VH(v);
     }
 
     @Override public void onBindViewHolder(@NonNull VH h, int position) {
         PlaceResult item = data.get(position);
-        ((TextView) h.itemView.findViewById(android.R.id.text1)).setText(item.title);
-        ((TextView) h.itemView.findViewById(android.R.id.text2))
-                .setText(String.format("Lat %.5f, Lon %.5f", item.lat, item.lon));
+        h.title.setText(item.title);
         h.itemView.setOnClickListener(v -> onItemClick.onClick(item));
     }
 
-    @Override public int getItemCount() { return data.size(); }
+    @Override public int getItemCount() {
+        return data.size();
+    }
 
     static class VH extends RecyclerView.ViewHolder {
-        VH(@NonNull View itemView) { super(itemView); }
+        TextView title;
+        VH(@NonNull View itemView) {
+            super(itemView);
+            title = itemView.findViewById(R.id.placeTitle);
+        }
     }
 }

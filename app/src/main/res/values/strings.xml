@@ -10,4 +10,6 @@
     <string name="location">Use Current Location</string>
     <string name="search_box">Search for a place</string>
     <string name="title">TitleWhereIsThis???</string>
+    <string name="select">Select a place from the list below to view on the map:</string>
+    <string name="open_map">Open Map</string>
 </resources>

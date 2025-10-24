@@ -3,6 +3,7 @@ package org.okane.voyagemapper;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -151,8 +152,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (item.getSnippet() != null && !item.getSnippet().isEmpty()) {
                 info.append(item.getSnippet()).append("\n");
             }
-            info.append(String.format("Lat: %.5f  Lon: %.5f",
-                    item.getPosition().latitude, item.getPosition().longitude));
 
             details.setText(info.toString());
         }
@@ -224,7 +223,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 List<SeeListing> listings = WikitextSeeParser.parse(wikitext);
                 if (listings.isEmpty()) {
-                    // Toast.makeText(MapActivity.this, "No sights with coordinates found.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            MapActivity.this,
+                            "No sights found in " + pageTitle + ", a sad lonely place.",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 

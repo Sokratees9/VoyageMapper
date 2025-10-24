@@ -1,9 +1,7 @@
 package org.okane.voyagemapper;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -233,7 +231,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 // Add markers (reuse your PlaceItem so they render with labeled pins)
                 List<PlaceItem> pins = new ArrayList<>();
                 for (SeeListing s : listings) {
-                    String snippet = s.content + (s.phone != null ? " ☎ " + s.phone + "  " : "")
+                    String snippet = (s.content != null ? s.content + " " : "")
+                            + (s.phone != null ? "☎ " + s.phone + "  " : "")
                             + (s.url != null ? s.url : "");
                     pins.add(new PlaceItem(
                             s.lat, s.lon, s.name, snippet, /*thumb*/ null, /*pageId*/ pageId, PlaceItem.Kind.SIGHT));

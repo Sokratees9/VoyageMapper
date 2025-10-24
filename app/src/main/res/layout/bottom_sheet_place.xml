@@ -37,7 +37,7 @@
             android:layout_marginTop="8dp"
             android:maxLines="6"
             android:ellipsize="end"
-            android:text="Preview…" />
+            android:text="@string/preview" />
 
         <!-- Details block for green SIGHT pins (shows contact info etc.), no buttons -->
         <TextView
@@ -64,7 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Open in Wikivoyage"
+                android:text="@string/external_open"
                 android:layout_marginEnd="6dp"/>
 
             <com.google.android.material.button.MaterialButton
@@ -72,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Map the Sights"
+                android:text="@string/map_sights"
                 android:layout_marginStart="6dp"/>
         </LinearLayout>
     </LinearLayout>

@@ -9,26 +9,26 @@
         <TextView
             android:id="@+id/header"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Welcome to Voyage Mapper"
+            android:text="@string/welcome"
             android:textStyle="bold" android:textSize="24sp"
             android:layout_marginBottom="8dp"/>
 
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Use your current location to find articles within 20km from where you are, or search for a place to find WikiVoyage articles."
+            android:text="@string/description"
             android:layout_marginBottom="16dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/useCurrentLocationBtn"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Use Current Location"
+            android:text="@string/location"
             android:layout_marginBottom="16dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/searchInputLayout"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:hint="Search for a place">
+            android:hint="@string/search_box">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchEditText"
@@ -40,7 +40,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/searchButton"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Search"
+            android:text="@string/search"
             android:layout_marginTop="8dp" android:layout_marginBottom="12dp"/>
 
         <androidx.recyclerview.widget.RecyclerView

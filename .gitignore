@@ -5,6 +5,7 @@
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
+/.idea/studiobot.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
@@ -12,4 +13,7 @@
 /captures
 .externalNativeBuild
 .cxx
+
+# Keys and secrets
+app/src/**/res/values/google_maps_api.xml
 local.properties

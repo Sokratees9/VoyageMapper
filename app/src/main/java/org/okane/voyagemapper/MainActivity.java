@@ -13,6 +13,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -35,7 +39,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_main);
+
+        View root = findViewById(R.id.root); // your top-level container in activity_main.xml
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+            Insets sys = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), sys.top, v.getPaddingRight(), v.getPaddingBottom());
+            return insets;
+        });
 
         String apiKey = readMapsKeyFromManifest();
         Log.d("VoyageMapper", "Maps/Places key prefix: " + (apiKey != null && apiKey.length() >= 8 ? apiKey.substring(0,8) : "NULL"));

@@ -7,7 +7,7 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
-jwiki = "1.9.0"
+#jwiki = "1.9.0"
 lifecycle = "2.8.6"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
@@ -27,7 +27,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-jwiki = { module = "org.fastily:jwiki", version.ref = "jwiki" }
+#jwiki = { module = "org.fastily:jwiki", version.ref = "jwiki" }
 livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "lifecycle"}
 viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle"}
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp"}

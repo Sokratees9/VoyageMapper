@@ -16,14 +16,14 @@ if (localPropsFile.exists()) {
 
 android {
     namespace = "org.okane.voyagemapper"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "org.okane.voyagemapper"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 35
+        versionCode = 3
+        versionName = "1.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -37,6 +37,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -48,6 +49,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = false
     }
 }
 
@@ -67,7 +69,7 @@ dependencies {
     implementation(libs.convertergson)
     implementation(libs.playservicesmaps)
     implementation(libs.androidmaps)
-    implementation(libs.desugar)
+    coreLibraryDesugaring(libs.desugar)
     implementation(libs.location)
     implementation(libs.glide)
     implementation(libs.places)

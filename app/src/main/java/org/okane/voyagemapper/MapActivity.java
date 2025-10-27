@@ -225,7 +225,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (listings.isEmpty()) {
                     Toast.makeText(
                             MapActivity.this,
-                            "No sights found in " + pageTitle + ", a sad lonely place.",
+                            "No sights found in " + pageTitle + ", it's either quiet here or there are districts to explore.",
                             Toast.LENGTH_SHORT).show();
                     return;
                 }

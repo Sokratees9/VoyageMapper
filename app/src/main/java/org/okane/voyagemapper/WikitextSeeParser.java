@@ -30,8 +30,12 @@ public class WikitextSeeParser {
             String phone = firstNonEmpty(params, "phone", "tel");
             String url = firstNonEmpty(params, "url", "website", "wikidata");
             String content = firstNonEmpty(params, "content");
+            String address = firstNonEmpty(params, "address");
+            String hours = firstNonEmpty(params, "hours");
+            String price = firstNonEmpty(params, "price");
+            String wikpediaUrl = firstNonEmpty(params, "wikipedia");
 
-            out.add(new SeeListing(name, lat, lon, phone, url, content));
+            out.add(new SeeListing(name, lat, lon, phone, url, content, address, hours, price, wikpediaUrl));
         }
         return out;
     }

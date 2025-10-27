@@ -1,11 +1,17 @@
 package org.okane.voyagemapper;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -17,6 +23,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
@@ -98,66 +106,90 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void showPlaceSheet(PlaceItem item) {
-        com.google.android.material.bottomsheet.BottomSheetDialog dialog =
-                new com.google.android.material.bottomsheet.BottomSheetDialog(this);
-        android.view.View v = getLayoutInflater().inflate(R.layout.bottom_sheet_place, null);
-        dialog.setContentView(v);
-
-        android.widget.TextView title   = v.findViewById(R.id.title);
-        android.widget.TextView snippet = v.findViewById(R.id.snippet);
-        android.widget.TextView details = v.findViewById(R.id.details);
-        android.widget.ImageView thumb  = v.findViewById(R.id.thumb);
-        android.view.View buttonRow     = v.findViewById(R.id.buttonRow);
-        com.google.android.material.button.MaterialButton openBtn = v.findViewById(R.id.openButton);
-        com.google.android.material.button.MaterialButton mapSightsBtn = v.findViewById(R.id.mapSightsButton);
-
-        title.setText(item.getTitle());
-
-        // Thumbnail
-        if (item.getThumbUrl() != null && !item.getThumbUrl().isEmpty()) {
-            thumb.setVisibility(android.view.View.VISIBLE);
-            Glide.with(this).load(item.getThumbUrl()).into(thumb);
-        } else {
-            thumb.setVisibility(android.view.View.GONE);
-        }
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
 
         if (item.getKind() == PlaceItem.Kind.ARTICLE) {
-            // 🟩 Black pin: show snippet + two buttons
-            snippet.setVisibility(android.view.View.VISIBLE);
-            snippet.setText(item.getSnippet() == null || item.getSnippet().isEmpty()
-                    ? "Open the article for details."
-                    : item.getSnippet());
+            View v = getLayoutInflater().inflate(R.layout.bottom_sheet_article, null);
+            dialog.setContentView(v);
 
-            buttonRow.setVisibility(android.view.View.VISIBLE);
-            details.setVisibility(android.view.View.GONE);
+            TextView title = v.findViewById(R.id.title);
+            TextView snippet = v.findViewById(R.id.snippet);
+            ImageView thumb = v.findViewById(R.id.thumb);
+            MaterialButton openBtn = v.findViewById(R.id.openButton);
+            MaterialButton mapSightsBtn = v.findViewById(R.id.mapSightsButton);
+
+            title.setText(item.getTitle());
+            setThumbOrHide(thumb, item.getThumbUrl());
+            snippet.setText(empty(item.getSnippet()) ? getString(R.string.preview) : item.getSnippet());
 
             openBtn.setOnClickListener(b -> {
                 String url = "https://en.wikivoyage.org/?curid=" + item.getPageId();
-                startActivity(new android.content.Intent(
-                        android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             });
-
             mapSightsBtn.setOnClickListener(b -> {
                 dialog.dismiss();
                 mapSightsForPage(item.getPageId(), item.getTitle());
             });
 
         } else {
-            // 🟩 Green pin: hide snippet + hide buttons; show details instead
-            snippet.setVisibility(android.view.View.GONE);
-            buttonRow.setVisibility(android.view.View.GONE);
-            details.setVisibility(android.view.View.VISIBLE);
+            View v = getLayoutInflater().inflate(R.layout.bottom_sheet_sight, null);
+            dialog.setContentView(v);
 
-            StringBuilder info = new StringBuilder();
-            if (item.getSnippet() != null && !item.getSnippet().isEmpty()) {
-                info.append(item.getSnippet()).append("\n");
-            }
+            TextView title = v.findViewById(R.id.title);
+            TextView content = v.findViewById(R.id.content);
+            ImageView thumb = v.findViewById(R.id.thumb);
 
-            details.setText(info.toString());
+            title.setText(item.getTitle());
+            content.setText(empty(item.getSnippet()) ? getString(R.string.preview) : item.getSnippet());
+            setThumbOrHide(thumb, item.getThumbUrl());
+
+            bindRow(v, R.id.phoneRow, R.id.phone, item.getPhone(), val ->
+                    startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + val))));
+
+            bindRow(v, R.id.websiteRow, R.id.website, item.getUrl(), val ->
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(val))));
+
+            bindRow(v, R.id.addressRow, R.id.address, item.getAddress(), val -> {
+                Uri gmm = Uri.parse("geo:" + item.getPosition().latitude + "," + item.getPosition().longitude +
+                        "?q=" + Uri.encode(val));
+                startActivity(new Intent(Intent.ACTION_VIEW, gmm));
+            });
+
+            bindRow(v, R.id.hoursRow, R.id.hours, item.getHours(), null);
+            bindRow(v, R.id.priceRow, R.id.price, item.getPrice(), null);
+
+            // If you extract a Wikipedia link out of the listing:
+            bindRow(v, R.id.wikiRow, R.id.wiki, item.getWikipediaUrl(), val ->
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(val))));
         }
 
         dialog.show();
     }
+
+    private void bindRow(View root, int rowId, int textId, @Nullable String value,
+            @Nullable java.util.function.Consumer<String> onClick) {
+        View row = root.findViewById(rowId);
+        TextView tv = root.findViewById(textId);
+        if (empty(value)) {
+            row.setVisibility(View.GONE);
+        } else {
+            row.setVisibility(View.VISIBLE);
+            tv.setText(value);
+            if (onClick != null) row.setOnClickListener(v -> onClick.accept(value));
+        }
+    }
+
+    private void setThumbOrHide(ImageView iv, @Nullable String url) {
+        if (!empty(url)) {
+            iv.setVisibility(View.VISIBLE);
+            Glide.with(this).load(url).into(iv);
+        } else {
+            iv.setVisibility(View.GONE);
+        }
+    }
+
+    private boolean empty(@Nullable String s) { return s == null || s.trim().isEmpty(); }
+
 
     // ---- WIKIVOYAGE FETCH + CLUSTERING ----
     private void loadNearbyFor(double lat, double lon) {
@@ -236,8 +268,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     String snippet = (s.content != null ? s.content + " " : "")
                             + (s.phone != null ? "☎ " + s.phone + "  " : "")
                             + (s.url != null ? s.url : "");
-                    pins.add(new PlaceItem(
-                            s.lat, s.lon, s.name, snippet, /*thumb*/ null, /*pageId*/ pageId, PlaceItem.Kind.SIGHT));
+                    pins.add(new PlaceItem(s.phone, s.url, s.address, s.hours, s.price, s.wikipediaUrl,
+                            s.lat, s.lon, s.name, s.content, /*thumb*/ null, /*pageId*/ pageId, PlaceItem.Kind.SIGHT));
                 }
 
                 // Drop them on the map (+ keep existing items)

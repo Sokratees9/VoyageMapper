@@ -3,9 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp"
-    android:clipToPadding="false"
-    android:clipToOutline="false">
+    android:layout_margin="12dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -18,8 +16,7 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Title" />
+            android:layout_height="wrap_content"/>
 
         <ImageView
             android:id="@+id/thumb"
@@ -27,7 +24,6 @@
             android:layout_height="180dp"
             android:scaleType="centerCrop"
             android:layout_marginTop="8dp"
-            android:contentDescription="@null"
             android:visibility="gone"/>
 
         <TextView
@@ -39,25 +35,12 @@
             android:ellipsize="end"
             android:text="@string/preview" />
 
-        <!-- Details block for green SIGHT pins (shows contact info etc.), no buttons -->
-        <TextView
-            android:id="@+id/details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:autoLink="web|phone"
-            android:linksClickable="true"
-            android:textColorLink="?attr/colorPrimary"
-            android:visibility="gone"/>
-
-        <!-- Button row (only for black ARTICLE pins) -->
         <LinearLayout
             android:id="@+id/buttonRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp"
-            android:visibility="gone">
+            android:layout_marginTop="12dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/openButton"

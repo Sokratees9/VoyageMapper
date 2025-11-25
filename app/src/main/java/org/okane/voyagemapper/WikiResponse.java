@@ -1,5 +1,7 @@
 package org.okane.voyagemapper;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,14 @@ public class WikiResponse {
         public String extract;
         public Thumbnail thumbnail;
         public List<Coordinate> coordinates;
+
+        // Add this for Wikidata linkage
+        public PageProps pageprops;
+
+        public static class PageProps {
+            @SerializedName("wikibase_item")
+            public String wikibaseItem;
+        }
     }
     public static class Thumbnail { public String source; public int width; public int height; }
     public static class Coordinate { public double lat; public double lon; }

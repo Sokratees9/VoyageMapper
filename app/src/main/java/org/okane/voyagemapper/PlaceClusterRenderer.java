@@ -3,6 +3,8 @@ package org.okane.voyagemapper;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -28,7 +30,7 @@ public class PlaceClusterRenderer extends DefaultClusterRenderer<PlaceItem> {
     }
 
     @Override
-    protected void onBeforeClusterItemRendered(PlaceItem item, MarkerOptions markerOptions) {
+    protected void onBeforeClusterItemRendered(PlaceItem item, @NonNull MarkerOptions markerOptions) {
         boolean isSight = item.getKind() == PlaceItem.Kind.SIGHT;
         String key = (isSight ? "S|" : "A|") + (item.getTitle() == null ? "" : item.getTitle());
 

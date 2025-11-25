@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Voyage Map</string>
-    <string name="preview">Preview...</string>
-    <string name="external_open">Open in Wikivoyage</string>
-    <string name="map_sights">Map the Sights</string>
+    <string name="preview">Preview…</string>
+    <string name="external_open">Go to Wikivoyage</string>
+    <string name="map_sights">View Sights</string>
     <string name="welcome">Welcome to Voyage Map</string>
     <string name="description">Use your current location to find articles within 20km from where you are, or search for a place to find Wikivoyage articles</string>
     <string name="search">Search</string>
@@ -12,4 +12,23 @@
     <string name="title">TitleWhereIsThis???</string>
     <string name="select">Select a place from the list below to view on the map:</string>
     <string name="open_map">Open Map</string>
+    <string name="refresh">Refresh</string>
+    <string name="boring_or_district">No sights found, it\'s quiet here or there are districts to explore.</string>
+    <string name="learn_more">Learn more</string>
+    <string name="got_it">Got it</string>
+    <string name="info">Info</string>
+    <string name="how_to_use">How to use Voyage Map</string>
+    <string name="phone">Phone</string>
+    <string name="website">Website</string>
+    <string name="address">Address</string>
+    <string name="hours">Hours</string>
+    <string name="price">Price</string>
+    <string name="wikipedia">Wikipedia</string>
+    <string name="instructions">• Tap the Use Current Location button to find nearby Wikivoyage guides within a 20 km radius of where you are.\n• Search for a location to view it in a map with nearby guides.\n• Tap black pins to view the opening information from the Wikivoyage article on that place.\n• There are two buttons, one to open the actual Wikivoyage article in your browser, and one to view the sights from that place on the map\n• The green pins are for sights, click on one to see info about the sight.\n• If you move the map around, use the Refresh button to reload articles around the map center.</string>
+    <string name="directions">Directions</string>
+    <string name="google_maps">Open Google Maps</string>
+    <string name="loading_articles">Loading articles...</string>
+    <string name="loading_articles_near_you">Loading articles near you...</string>
+    <string name="refreshing_articles">Refreshing articles...</string>
+    <string name="loaded_x_articles">Loaded %d articles</string>
 </resources>

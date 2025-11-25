@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="12dp">
@@ -12,12 +13,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/title"
-            android:textStyle="bold"
-            android:textSize="18sp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/title"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <ImageButton
+                android:id="@+id/directionsButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/directions"
+                android:padding="6dp"
+                app:tint="?attr/colorPrimary"
+                app:srcCompat="@drawable/ic_directions_24" />
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/thumb"
@@ -25,7 +42,8 @@
             android:layout_height="180dp"
             android:scaleType="centerCrop"
             android:layout_marginTop="8dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
 
         <!-- content/description -->
         <TextView
@@ -41,116 +59,58 @@
             android:layout_marginTop="12dp"/>
 
         <!-- Info rows -->
-        <LinearLayout
-            android:id="@+id/phoneRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="8dp"
-            android:visibility="gone">
-            <ImageView
-                android:layout_width="20dp" android:layout_height="20dp"
-                android:src="@android:drawable/ic_menu_call"
-                app:tint="?attr/colorOnSurfaceVariant" />
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:layout_marginStart="8dp"
-                android:autoLink="phone" android:linksClickable="true"/>
-        </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/SightRowText"
+            android:id="@+id/phone"
+            android:visibility="gone"
+            android:autoLink="phone"
+            android:linksClickable="true"
+            android:drawableStart="@drawable/ic_call_24"
+            android:contentDescription="@string/phone" />
 
-        <LinearLayout
-            android:id="@+id/websiteRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="6dp"
-            android:visibility="gone">
-            <ImageView
-                android:layout_width="20dp" android:layout_height="20dp"
-                app:tint="?attr/colorOnSurfaceVariant"
-                android:src="@android:drawable/ic_menu_view"/>
-            <TextView
-                android:id="@+id/website"
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:layout_marginStart="8dp"
-                android:autoLink="web" android:linksClickable="true"/>
-        </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/SightRowText"
+            android:id="@+id/website"
+            android:visibility="gone"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:drawableStart="@drawable/ic_web_24"
+            android:contentDescription="@string/website" />
 
-        <LinearLayout
-            android:id="@+id/addressRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="6dp"
-            android:visibility="gone">
-            <ImageView
-                android:layout_width="20dp" android:layout_height="20dp"
-                app:tint="?attr/colorOnSurfaceVariant"
-                android:src="@android:drawable/ic_dialog_map"/>
-            <TextView
-                android:id="@+id/address"
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:layout_marginStart="8dp"/>
-        </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/SightRowText"
+            android:id="@+id/address"
+            android:visibility="gone"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:drawableStart="@drawable/ic_map_24"
+            android:contentDescription="@string/address" />
 
-        <LinearLayout
-            android:id="@+id/hoursRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="6dp"
-            android:visibility="gone">
-            <ImageView
-                android:layout_width="20dp" android:layout_height="20dp"
-                app:tint="?attr/colorOnSurfaceVariant"
-                android:src="@android:drawable/ic_menu_recent_history"/>
-            <TextView
-                android:id="@+id/hours"
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:layout_marginStart="8dp"/>
-        </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/SightRowText"
+            android:id="@+id/hours"
+            android:visibility="gone"
+            android:drawableStart="@drawable/ic_access_time_24"
+            android:contentDescription="@string/hours" />
 
-        <LinearLayout
-            android:id="@+id/priceRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="6dp"
-            android:visibility="gone">
-            <ImageView
-                android:layout_width="20dp" android:layout_height="20dp"
-                app:tint="?attr/colorOnSurfaceVariant"
-                android:src="@android:drawable/ic_menu_info_details"/>
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:layout_marginStart="8dp"/>
-        </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/SightRowText"
+            android:id="@+id/price"
+            android:visibility="gone"
+            android:drawableStart="@drawable/ic_currency_pound_24"
+            android:contentDescription="@string/price" />
 
-        <LinearLayout
-            android:id="@+id/wikiRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="6dp"
-            android:visibility="gone">
-            <ImageView
-                android:layout_width="20dp" android:layout_height="20dp"
-                app:tint="?attr/colorOnSurfaceVariant"
-                android:src="@android:drawable/ic_menu_info_details"/>
-            <TextView
-                android:id="@+id/wiki"
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:layout_marginStart="8dp"
-                android:autoLink="web" android:linksClickable="true"/>
-        </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/SightRowText"
+            android:id="@+id/wiki"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:autoLink="web"
+            android:drawableStart="@drawable/wikipedia_s_w"
+            android:contentDescription="@string/wikipedia" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

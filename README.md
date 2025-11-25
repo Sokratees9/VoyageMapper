@@ -9,7 +9,7 @@ Use your **current location** or **search for a place**, view nearby articles, a
 
 - 🧭 **Map-based discovery** — View Wikivoyage destinations within 20 km of your current location.  
 - 🔍 **Search anywhere** — Find destinations worldwide and see related travel articles.  
-- 🗺️ **Map the Sights** — Tap a place to fetch all `{{see}}` listings from Wikivoyage and plot them on the map (with contact info).  
+- 🗺️ **Map the Sights** — Tap a place to fetch all `{{see|do|listing}}` listings from Wikivoyage and plot them on the map (with contact and practical info).  
 - 📍 **Custom markers** — Black pins for places, green pins for sights, with labeled titles.  
 - 📱 **Bottom sheet previews** — Article details, images, and quick links.  
 - 🧑‍💻 **Built in Java** — Uses AndroidX, Google Maps SDK, Retrofit, and Glide.
@@ -18,39 +18,14 @@ Use your **current location** or **search for a place**, view nearby articles, a
 
 ## 🛠️ Tech Stack
 
-| Purpose | Library / API |
-|----------|----------------|
+| Purpose        | Library / API                           |
+|----------------|-----------------------------------------|
 | Map & location | Google Maps SDK, Play Services Location |
-| HTTP / API | Retrofit2 + OkHttp |
-| JSON parsing | Gson |
-| Image loading | Glide |
-| Clustering | Google Maps Utils |
-| Material UI | Material Components for Android |
-
----
-
-## 🏗️ Project Structure
-
-app/
-├── java/org/okane/voyagemapper/
-│ ├── MainActivity.java
-│ ├── MapActivity.java
-│ ├── model/
-│ │ ├── PlaceItem.java
-│ │ ├── SeeListing.java
-│ ├── network/
-│ │ ├── WikiService.java
-│ │ ├── WikiRepository.java
-│ │ ├── WikiResponse.java
-│ └── ui/
-│ ├── PlaceClusterRenderer.java
-│ └── MarkerBitmapFactory.java
-├── res/
-│ ├── layout/
-│ ├── drawable/
-│ └── values/
-└── build.gradle
-
+| HTTP / API     | Retrofit2 + OkHttp                      |
+| JSON parsing   | Gson                                    |
+| Image loading  | Glide                                   |
+| Clustering     | Google Maps Utils                       |
+| Material UI    | Material Components for Android         |
 
 ---
 
@@ -82,3 +57,6 @@ Future Enhancements
 🧭 Compass / route directions integration
 
 🌐 Multi-language Wikivoyage support
+
+* Add an option to somehow load something useful when a user goes to an area with no articles within 20km (wikivoyage limit)
+* Fix entries like "** {{marker | name=Cloonacauneen | url=https://www.clooncastle.com/ | type=see | lat=53.323 | long=-8.988 }} is a restored 15th-century towerhouse that's now a restaurant, often booked for weddings." to use the trailing text

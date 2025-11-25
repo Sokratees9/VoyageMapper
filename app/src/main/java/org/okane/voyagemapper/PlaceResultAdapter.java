@@ -1,5 +1,6 @@
 package org.okane.voyagemapper;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceResultAdapter extends RecyclerView.Adapter<PlaceResultAdapter.VH> {
+public class PlaceResultAdapter extends RecyclerView.Adapter<PlaceResultAdapter.PlaceResultViewHolder> {
 
     public interface OnItemClick {
         void onClick(PlaceResult item);
@@ -22,19 +23,20 @@ public class PlaceResultAdapter extends RecyclerView.Adapter<PlaceResultAdapter.
         this.onItemClick = onItemClick;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void submit(List<PlaceResult> items) {
         data.clear();
         data.addAll(items);
         notifyDataSetChanged();
     }
 
-    @NonNull @Override public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    @NonNull @Override public PlaceResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_place_result, parent, false);
-        return new VH(v);
+        return new PlaceResultViewHolder(v);
     }
 
-    @Override public void onBindViewHolder(@NonNull VH h, int position) {
+    @Override public void onBindViewHolder(@NonNull PlaceResultViewHolder h, int position) {
         PlaceResult item = data.get(position);
         h.title.setText(item.title);
         h.itemView.setOnClickListener(v -> onItemClick.onClick(item));
@@ -44,9 +46,9 @@ public class PlaceResultAdapter extends RecyclerView.Adapter<PlaceResultAdapter.
         return data.size();
     }
 
-    static class VH extends RecyclerView.ViewHolder {
-        TextView title;
-        VH(@NonNull View itemView) {
+    static class PlaceResultViewHolder extends RecyclerView.ViewHolder {
+        final TextView title;
+        PlaceResultViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.placeTitle);
         }

@@ -1,5 +1,6 @@
 package org.okane.voyagemapper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -40,6 +41,7 @@ public class PlaceItem implements ClusterItem {
         this(null, null, null, null, null, null, lat, lon, title, snippet, thumbUrl, pageId, kind);
     }
 
+    @NonNull
     @Override public LatLng getPosition() { return position; }
     @Override public String getTitle() { return title; }
     @Override public String getSnippet() { return snippet; }

@@ -12,9 +12,9 @@ public class WikiRepository {
                 "query", "json",
                 "geosearch",
                 coord,
-                radiusMeters, limit,
-                "coordinates|pageimages|extracts",
-                "thumbnail", 200,
+                radiusMeters, limit, "all",
+                "coordinates|pageimages|extracts|pageprops",
+                "all", "thumbnail", 400,
                 1, 1, "*"
         ).enqueue(cb);
     }

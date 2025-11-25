@@ -2,6 +2,7 @@ package org.okane.voyagemapper;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -10,7 +11,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -40,7 +45,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences p = getSharedPreferences("voyage_prefs", MODE_PRIVATE);
+        boolean seen = p.getBoolean("onboarding_seen", false);
+
+        if (!seen) {
+            new org.okane.voyagemapper.OnboardingBottomSheetDialogFragment()
+                    .show(getSupportFragmentManager(), "onboarding");
+        }
 
         View root = findViewById(R.id.root); // your top-level container in activity_main.xml
         ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
@@ -65,7 +79,12 @@ public class MainActivity extends AppCompatActivity {
         searchEditText = findViewById(R.id.searchEditText);
         searchPrompt = findViewById(R.id.searchPrompt);
         resultsRecycler = findViewById(R.id.resultsRecycler);
+        ImageButton infoButton = findViewById(R.id.infoButton);
         resultsRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        infoButton.setOnClickListener(v ->
+                new org.okane.voyagemapper.OnboardingBottomSheetDialogFragment()
+                        .show(getSupportFragmentManager(), "onboarding"));
 
         adapter = new PlaceResultAdapter(item -> {
             if (item.placeId == null) {
@@ -96,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("mode", "CENTER_AT");
                 i.putExtra("lat", lat);
                 i.putExtra("lon", lon);
-                i.putExtra("title", place.getName());
+//                i.putExtra("title", place.getName());
                 startActivity(i);
             }).addOnFailureListener(err -> {
                 // Show a toast or log
@@ -129,12 +148,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter a place to search", Toast.LENGTH_SHORT).show();
             return;
         }
-//        geocodePlaces(this, q, results -> {
-//            if (results.isEmpty()) {
-//                Toast.makeText(this, "No results", Toast.LENGTH_SHORT).show();
-//            }
-//            adapter.submit(results);
-//        });
         searchPlaces(q);
     }
 
@@ -196,27 +209,32 @@ public class MainActivity extends AppCompatActivity {
                 if (list != null) {
                     for (Address a : list) {
                         if (a.hasLatitude() && a.hasLongitude()) {
-                            String label = a.getFeatureName();
-                            if (label == null || label.isEmpty()) {
-                                label = a.getLocality();
-                            }
-                            if (label == null || label.isEmpty()) {
-                                label = a.getAdminArea();
-                            }
-                            if (label == null || label.isEmpty()) {
-                                label = a.getCountryName();
-                            }
-                            if (label == null) {
-                                label = "Unknown";
-                            }
+                            String label = getLabel(a);
                             out.add(new PlaceResult(label, ""));
                         }
                     }
                 }
             } catch (IOException ignored) { }
-            List<PlaceResult> finalOut = out;
-            runOnUiThread(() -> cb.onDone(finalOut));
+            runOnUiThread(() -> cb.onDone(out));
         }).start();
+    }
+
+    @NonNull
+    private String getLabel(Address a) {
+        String label = a.getFeatureName();
+        if (label == null || label.isEmpty()) {
+            label = a.getLocality();
+        }
+        if (label == null || label.isEmpty()) {
+            label = a.getAdminArea();
+        }
+        if (label == null || label.isEmpty()) {
+            label = a.getCountryName();
+        }
+        if (label == null) {
+            label = "Unknown";
+        }
+        return label;
     }
 
     interface GeocodeCallback { void onDone(List<PlaceResult> results); }

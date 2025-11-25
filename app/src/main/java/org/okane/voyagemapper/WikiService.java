@@ -17,7 +17,9 @@ public interface WikiService {
             @Query("ggscoord") String ggscoord,
             @Query("ggsradius") int radiusMeters,
             @Query("ggslimit") int limit,
+            @Query("ggsprimary") String primary,
             @Query("prop") String prop,
+            @Query("coprimary") String coprimary,
             @Query("piprop") String piprop,
             @Query("pithumbsize") int thumbSize,
             @Query("exintro") int exintro,
@@ -38,7 +40,7 @@ public interface WikiService {
     );
 
     static WikiService create() {
-        String UA = "VoyageMapper/1.0 (https://yourapp.example; contact@yourapp.example)";
+        String UA = "VoyageMapper/1.0 (http://noflyzone.o-kane.org; sokratees99@gmail.com)";
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(chain -> {
                     Request req = chain.request().newBuilder()

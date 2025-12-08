@@ -1,4 +1,4 @@
-package org.okane.voyagemapper;
+package org.okane.voyagemapper.service;
 
 import java.util.List;
 

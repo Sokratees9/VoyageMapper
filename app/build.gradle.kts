@@ -2,6 +2,8 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 // Load properties from local.properties manually
@@ -12,6 +14,10 @@ if (localPropsFile.exists()) {
     localProps.forEach { key, value ->
         project.extensions.extraProperties[key.toString()] = value
     }
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
 }
 
 android {
@@ -55,13 +61,11 @@ android {
 
 dependencies {
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
     implementation(libs.livedata)
     implementation(libs.viewmodel)
     implementation(libs.okhttp)
@@ -69,9 +73,27 @@ dependencies {
     implementation(libs.convertergson)
     implementation(libs.playservicesmaps)
     implementation(libs.androidmaps)
-    coreLibraryDesugaring(libs.desugar)
     implementation(libs.location)
     implementation(libs.glide)
     implementation(libs.places)
+    implementation(libs.constraintlayout)
+
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.params)
+    testImplementation(libs.mockito.junit.jupiter)
+    testImplementation(libs.mockito)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.robo.ext)
+    testImplementation(libs.hosuaby)
+    testImplementation (libs.json)
+
+    testRuntimeOnly(libs.junit.jupiter.engine)
+
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+
+    coreLibraryDesugaring(libs.desugar)
+
     annotationProcessor(libs.compiler)
 }

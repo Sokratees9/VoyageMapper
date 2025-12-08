@@ -1,6 +1,8 @@
 [versions]
 agp = "8.7.3"
-junit = "4.13.2"
+firebaseBom = "34.6.0"
+junitJupiter = "5.11.2"
+mockitoCore = "5.14.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
 appcompat = "1.7.1"
@@ -18,9 +20,20 @@ desugar = "2.1.5"
 location = "21.3.0"
 glide = "4.16.0"
 places = "3.5.0"
+mockito = "5.11.0"
+robolectric = "4.12.1"
+robo-ext = "0.9.0"
+hosuaby = "1.0.0"
+json = "20240303"
 
 [libraries]
-junit = { group = "junit", name = "junit", version.ref = "junit" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitJupiter"}
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api" }
+junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine" }
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockitoCore" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -40,6 +53,11 @@ location = { group = "com.google.android.gms", name = "play-services-location", 
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 places = { group = "com.google.android.libraries.places", name = "places", version.ref = "places" }
+mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric"}
+robo-ext = { group = "tech.apter.junit5.jupiter", name = "robolectric-extension", version.ref = "robo-ext" }
+hosuaby = { group = "io.hosuaby", name = "inject-resources-junit-jupiter", version.ref = "hosuaby" }
+json = { module = "org.json:json", version.ref = "json" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

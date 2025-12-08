@@ -1,4 +1,4 @@
-package org.okane.voyagemapper;
+package org.okane.voyagemapper.service;
 
 import com.google.gson.annotations.SerializedName;
 

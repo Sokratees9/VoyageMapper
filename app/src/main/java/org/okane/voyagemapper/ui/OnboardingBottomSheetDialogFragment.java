@@ -1,4 +1,4 @@
-package org.okane.voyagemapper;
+package org.okane.voyagemapper.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

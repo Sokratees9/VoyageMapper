@@ -1,4 +1,4 @@
-package org.okane.voyagemapper;
+package org.okane.voyagemapper.ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +11,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
+
+import org.okane.voyagemapper.R;
+import org.okane.voyagemapper.model.PlaceItem;
 
 import java.util.HashMap;
 import java.util.Map;

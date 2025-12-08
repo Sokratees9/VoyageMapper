@@ -1,0 +1,219 @@
+== See ==
+[[File:Altes Rathaus in München Ostseite.jpg | thumb | 300px | Old City Hall ]]
+=== Marienplatz ===
+* '''Marienplatz''' (''on S- and U-Bahn'') is the square at the heart of the old city. It takes its name from Mariensäule, the central golden statue to the Virgin Mary, who was credited with saving the city in 1638 from destruction during Swedish occupation: ''De Optimo Maximo Virgini Deiparae, Boicae Dominae . . . '', yadda yadda yah. The south part of the square is flanked by the imposing old and new Town Halls. North part is a heroic crater, as it's being excavated for the new S-Bahn tunnel and station. You can still access all shops, pubs etcetera here but it's expected to remain a mess at least until 2026.
+* {{see
+| name=Altes Rathaus & Spielzeugmuseum | alt=Old Town Hall & Toy Museum | url=https://www.spielzeugmuseummuenchen.de/ | email=
+| address=Marienplatz 15 | lat=NA | long=NA | directions=east end of square
+| phone=+49 89 294001 | tollfree=
+| hours=Daily 10:00-17:30 | price=Museum adult €6, child €2
+| wikipedia=Old Town Hall, Munich | image=Altes Rathaus in München Ostseite.jpg | wikidata=Q439458
+| lastedit=2022-10-18
+| content=This was built in 1474 to replace an even older town hall, and was the city chambers until Neues Rathaus was built in the late 19th century. It was bombed during World War II but rebuilt. It's now mostly a ceremonial hall and events venue, but the tower contains a toy museum.
+}}
+* {{see
+| name=Neues Rathaus | alt=New Town Hall | url= | email=
+| address=Marienplatz 8 | lat=NA | long=NA | directions=
+| phone= | tollfree= | fax= | hours=Daily 10:00-18:00 | price=Tower €6
+| wikipedia=New Town Hall (Munich) | image=Rathaus and Marienplatz from Peterskirche - August 2006.jpg | wikidata=Q152979 | lastedit=2022-10-18
+| content=This was built in phases from 1867 to 1909. It's still a busy city chambers, with access only on business, but you can ride the lift to the observation deck of the tower. For most visitors the ornate neo-Gothic exterior is experience enough. At 11:00, 12:00 and 17:00 the '''Glockenspiel''' cranks into life: medieval minstrels parade, knights joust (the knight in Bavarian blue always wins) and Morris dancers pirouette to the sound of the bells. They all freeze ''en tableaux'' to the tune of "I don't have a wooden heart" (Elvis Presley, 1960) which alas they do.
+}}
+* {{see
+| name=Peterskirche | alt= | url=https://alterpeter.de/pfarrkirche-st-peter/| email=
+| address=Rindermarkt 1 | lat=NA | long=NA | directions=south corner of Marienplatz
+| phone= | tollfree= | fax=
+| hours=Daily 07:30-19:00 | price=Tower adult €5, conc €3, child €2
+| wikipedia=St Peter's Church (Munich) | image=Alter Peter und Rindermarkt.jpg | wikidata=Q707645 | lastedit=2022-10-18
+| content=Munich's first parish church was started in the 12th century, but burned down in the great city fire of 1327. It was rebuilt by 1368 in Gothic style. The 92 m main tower (called ''Alter Peter'') stands between the stumps of two original towers. The interior is basilica plan, with an elaborate gilded high altar, richly decorated side chapels and artwork. Roman Catholic mass is held Tu-Su at 10:00, 17:15 & 18:00. You can climb the 306 steps of the tower for city views.
+}}
+* {{see
+| name=Frauenkirche | alt=Church of Our Lady | url=https://www.muenchner-dom.de/ | email=
+| address=Frauenplatz | lat=48.1386 | long=11.5739 | directions=S- and U-Bahn: Marienplatz
+| phone=+49 89 290 0820 | tollfree=
+| hours=Daily 07:30-20:30, tower ascent 10:00-17:00 | price=Free; tower ascent adult €7.50, child €5.50
+| wikipedia=Munich Frauenkirche | image=Frauenkirche Munich - View from Peterskirche Tower.jpg | wikidata=Q167193
+| lastedit=2022-10-07
+| content=This huge church defines the Munich skyline with its twin onion-domed towers, a shade over 98 m tall - the money ran out for the planned spires. It's the Roman Catholic cathedral, but always known locally as Frauenkirche. It was built from 1469 to 1488 in brick because of a lack of suitable local stone; the towers were only completed in 1525, cleverly anticipating a law of 2004 that no structure within Altstadt may exceed 99 m in height. Although its style is Gothic, it's fairly simple outside and in, without the usual ornamentation of that style. Eleven kings or archdukes of Bavaria are interred here. The church was bombed in wartime and full restoration took until 1994. Its three naves are of equal height, creating a single hall soaring so high that you can't see the windows, and light floods in from no visible source. This is in legend is the feature that caused the devil to stamp in pique, leaving a black footprint (''Teufelstritt'') within a yellow flagstone just inside the entrance. You can climb the south tower.
+}}
+* {{marker | name=Viktualienmarkt | type=see | lat=48.1354 | long=11.5762 }} is the pedestrianised street and outdoor market running south from Marienplatz opposite Old Town Hall.
+* '''Heiliggeistkirche''' faces Peterskirche across Viktualienmarkt. It's a Gothic church of 1392, open daily 09:00-20:00.
+
+=== Odeonsplatz ===
+[[File:München_Feldherrnhalle_BW_2017-03-16_19-44-35.jpg | thumb | 300px | Feldherrnhalle ]]
+This area north of medieval Altstadt was developed in the 19th century. The square was named for Odeon concert hall, now a government building. U-Bahn Odeonsplatz is at its north end.
+* '''Feldherrnhalle''' (mind the spelling, not "Feldherren-") closes the south end of the square. It was built 1841-44 under Ludwig I to the glory of the Bavarian army. It's modelled on the Loggia dei Lanzi in Florence. On the morning of 9 Nov 1923, this was the scene of Hitler's first power-grab, the short-lived ''putsch'' which ended in a bloody shoot-out and his arrest. In 1933 it became a Nazi shrine, and all passers-by were required to give the Nazi salute. "Drückebergergasse" was the nickname given to the alley behind, used by those who didn't care to salute: "Drücke" means "ducking out".
+* '''Preysing Palais''' on Drückebergergasse just behind Feldherrnhalle was built in the 1720s as a bling palace. It's now shops and offices.
+* {{see
+| name=Theatinerkirche | alt=Church of St Cajetan and Adelheid | url=http://www.theatinerkirche.de/ | email=
+| address=Odeonsplatz | lat=NA | long=NA | directions=west side of square
+| phone= | tollfree= | fax= | hours=Daily 07:00-20:00 | price=Free
+| wikipedia=Theatine Church, Munich | image=Exterior of Theatinerkirche, Munich.jpg | wikidata=Q259799
+| lastedit=2022-10-19
+| content=Roman Catholic church in eye-catching Italianate High Baroque, looking like it belongs in Syracuse. The Theatins were an austere monastic order founded by the 15th century Saint Cajetan, and they built several similar churches. This one was built from 1662 as thanksgiving for the birth of Maximilian II Emanuel, which secured the royal succession. The church was damaged in wartime but restored, and is now in the care of the Dominican Order.
+}}
+* {{see
+| name=Kunsthalle München der Hypo Kulturstiftung | alt= | url=https://www.kunsthalle-muc.de/ | email=kontakt@kunsthalle-muc.de
+| address=Theatinerstraße 8 | lat=48.1399 | long=11.5759 | directions=midway between U- & S-Bahn Marienplatz and Odeonsplatz; Tram: Theatinerstraße
+| phone=+49 89 224412 | tollfree= | fax=
+| hours=Daily 10:00-20:00 | price=Adult €15
+| wikipedia=de:Kunsthalle der Hypo-Kulturstiftung | image=Kunsthalle der Hypo-Kulturstiftung.jpg | wikidata=Q1367890
+| lastedit=2022-10-19
+| content=Modern art museum, no permanent collection but rotating exhibitions. It's funded by HypoVereinsbank.
+}}
+* {{see
+| name=Residenz | alt= | url=https://www.residenz-muenchen.de/ | email=ResidenzMuenchen@bsv.bayern.de
+| address=Residenzstraße 1 | lat=48.1411 | long=11.5781 | directions=
+| phone=+49 89 290 671 | tollfree= | fax=
+| hours=Daily Apr-15 Oct 09:00-18:00, 16 Oct-Mar 10:00-16:00 | price=Combi adult €14, conc €12
+| wikipedia=Munich Residenz | image=Münchner Residenz 2014-08-02 Pano.jpg | wikidata=Q686548 | lastedit=2022-10-19
+| content=Royal Palace and seat of government of the Wittelsbach dynasty, bombed in wartime but rebuilt. The two principal areas are the Treasury and the Museum (separate admission €9 each). The Treasury (''Schatzkammer'') has a huge collection of ecclesiastical and secular bling, such as the royal crowns, orb and sceptre. In the Museum, the Antiquarium is the barrel-vaulted banqueting hall. The Papal Rooms accommodated Pius VI on his visit to Munich and are Baroque. The Ancestral Gallery, Porcelain Cabinet and Ornate Rooms are Rococo. The neo-classical Königsbau, added in the 19th century, houses the Charlotte Rooms, the royal apartments and the Halls of Battles. There's an additional charge for the Cuvilliés Theatre.
+}}
+[[File:Antiquarium Residenz Munich.jpg | thumb | 300px | Antiquarium banqueting hall ]]
+* {{marker | name=Hofgarten | type=see | lat=48.1428 | long=11.580 }} is a stately Italianate garden laid out from 1613 as part of the Residenz development. The main entrance is west opposite the U-Bahn station. Most of its embellishments were lost to wartime bombing but the central statue of Diana is original. The garden is free to enter 24 hours and has a pleasant cafe. A pedestrian tunnel links north to the [[Munich/North#See | English Garden]].
+* {{see
+| name=Deutsches Theatermuseum | alt= | url=http://www.deutschestheatermuseum.de | email=
+| address=Galeriestraße 4a | lat=NA | long=NA | directions=north side of Hofgarten
+| phone=+49 89 210 6910 | tollfree= | fax=
+| hours=Closed | price=
+| wikipedia=Deutsches Theatermuseum | image=München Theatermuseum (Schild).JPG | wikidata=Q1206066 | lastedit=2022-10-19
+| content=This museum about German Theatre remains closed in 2022. Some exhibits are on temporary display elsewhere in the city.
+}}
+* '''[http://www.finanzgarten.net/ Finanzgarten]''' is the bosky, informal green space just north of Hofgarten, a complete contrast. The area was part of Altstadt's defensive walls until those were no longer needed after the Thirty Years' War. Later uses included a market garden for a monastery that contrived to go bust (they're probably still reciting penitential ''Ave Maria''s to this day) and a Ministry of Finance, hence the name. In 1984 the Ministry of Agriculture was finally persuaded to park its cars elsewhere and the garden was landscaped into its present form. It's adorned with statues of notable German poets such as, um, Confucius.
+* {{see
+| name=State Chancellery | alt=Staatskanzlei | url=https://www.bayern.de/staatskanzlei/aufgaben-und-organisation/ | email=
+| address=Franz-Josef-Strauß-Ring 1 | lat=48.1424 | long=11.5828 | directions=
+| phone= | tollfree= | hours= | price=
+| wikipedia=Bayerische Staatskanzlei | image=Bayerische Staatskanzlei, München, Deutschland04.jpg | wikidata=Q812286
+| lastedit=2022-10-19
+| content=This fills the east side of Hofgarten, housing the Bavarian Minister (president of the Lande government) and his / her cabinet meetings. The central dome was built in 1879 to house the Royal Bavarian Army Museum. It was bombed out in World War II and only restored in the 1980s. The modern side wings were built 1989-93. In front of the building is a memorial to Munich citizens who died in wartime, and a statue of Duke Otto I, 12th century founder of the Bavarian royal dynasty. Admission to the Chancellery is only on business but their website gives an online tour.
+}}
+
+=== Lehel ===
+"Lehel" means scrubs or boondocks, floodprone land by the river with shacks and small fields. Lying just east of the centre, it became part of Munich in the 18th century, and blossomed in the 19th with the construction of Prinzregentenstraße. It's now a high-price district not part of the historic Altstadt, but convenient to describe on this page as it's just a short walk east.
+[[File:Bayerische Staatskanzlei, München, Deutschland04.jpg | thumb | 300px | Bavarian State Chancellery ]]
+* '''St Anna''' is the name of two churches next to Lehel U-Bahn station. The first, west side of the street, is the monastery church built in the 1730s. It also served as the parish church for this poor district, whose residents were locked out of Altstadt gates by night. The Franciscans took over the monastery in 1827 and remain there. The new parish church east side of the street was completed in 1892.
+* {{see
+| name=Haus der Kunst | alt= | url=https://www.hausderkunst.de | email=
+| address=Prinzregentenstraße 1 | lat=48.1442 | long=11.5858 | directions=
+| phone=+49 89 211 27113 | tollfree=
+| hours=W-M 10:00-20:00 | price=
+| wikipedia=Haus der Kunst | image=Haus der Kunst - Munich - 2013.jpg | wikidata=Q697782
+| lastedit=2022-10-18
+| content=Grand exhibition hall completed in 1937 in Nazi - Art Deco style. It doesn't have a permanent collection but mounts ever-changing graphic arts exhibitions.
+}}
+* '''The English Garden''' is the huge park starting just beyond Lehel and described as part of [[Munich/North#See | northern Munich]]. However its southern section is within walking distance, or use U-Bahn U3 or U6 to Universität. {{marker | name=Monopteros | type=see | lat=48.1499 | long=11.5909 }} is the focal point of this section, a prominent neo-classical rotunda. 200 m further north is the Chinese Tower, with a beer garden, and site of a Christmas Market. The section is bounded by a busy highway, Isarring. The northern section is more easily accessed from U-bahn U6 Nordfriedhof.
+* {{see
+| name=Bayerisches Nationalmuseum | alt= | url=https://www.bayerisches-nationalmuseum.de/ | email=
+| address=Prinzregentenstraße 3 | lat=48.1432 | long=11.5910 | directions=Tram 16: Nationalmuseum
+| phone=+49 89 211 2401 | tollfree= | fax=
+| hours=Tu W F-Su 10:00-17:00, Th 10:00-20:00 | price=Adult €7, conc €6; Sunday €1; child free
+| wikipedia=Bavarian National Museum | image=Bayerisches Nationalmuseum - Muenchen - 2013.jpg | wikidata=Q631056 | lastedit=2022-10-19
+| content=Huge and fascinating museum of European history from the Middle Ages until early 20th century. There's armour, pottery, furniture, fashions, porcelain, beer mugs, the lot; plus Oct-April a display of nativity scenes. The Bollert medieval art collection is only open Th F 10:00-17:00.
+}}
+* '''Archaeology Museum''' behind the Nationalmuseum has been closed for rebuilding since 2016. It might reopen in 2024.
+* {{see
+| name=Schack Gallery | alt= | url=https://www.pinakothek.de/besuch/sammlung-schack | email=
+| address=Prinzregentenstraße 9 | lat=48.1423 | long=11.5934 | directions=
+| phone=+49 89 238 05224 | tollfree= | fax= | hours=W-Su 10:00-18:00 | price=Adult €4, conc or child €3
+| wikipedia=Schackgalerie | image=München Schack-Galerie.JPG | wikidata=Q523652 | lastedit=2022-10-19
+| content=An extensive private collection of 19th century Late Romantic art.
+}}
+* {{see
+| name=Museum Fünf Kontinente | alt=Museum of Five Continents | url=https://www.museum-fuenf-kontinente.de/ | email=
+| address=Maximilianstraße 42 | lat=48.1376 | long=11.5856 | directions=
+| phone=+49 89 210 136100 | tollfree= | fax= | hours=Tu-Su 09:30-17:30 | price=Adult €4, conc or child €3, Sunday €1
+| lastedit=2022-10-21
+| content=Omitting Europe and Antarctica, the former Museum für Völkerkunde is a global ethnological collection.
+}}
+* {{see
+| name=Kunstfoyer VKB | alt= | url=https://www.versicherungskammer-kulturstiftung.de/kunstfoyer/ | email=
+| address=Maximilianstraße 53 | lat=48.1376 | long=11.5900 | directions=Tram 18, 19: Maxmonument
+| phone=+49 89 21600 | tollfree= | fax=
+| hours=Daily 09:30-19:00 | price=Free
+| lastedit=2022-10-19
+| content=Changing art exhibitions provided by the art foundation of Versicherungskammer Bayern.
+}}
+* '''St Lukas''' is on Mariannenplatz near the footbridge to Prater Island. It's a Lutheran church built in the 1890s in neo-Gothic / Romanesque.
+* {{marker | name=Prater island | type=see | lat=48.136 | long=11.590 }} is one of two large river islands in the Isar. Originally these were small, shifting sandbanks, then in the 19th century they were consolidated and developed. A tavern opened, with a funfair inspired by Prater in Vienna, and so the island (a fusion of three) got its name. But Orson Welles never got to ride its carousel, and the funfair went bust through disruption of building Maximilianstraße, which now bisects it and connects to the eastern district of [[Munich/Haidhausen | Haidhausen]]. One fellow wanted to experiment with fireworks was ordered to live away at the south tip, thus dubbed ''Feuerwerkinsel''. This tip is linked by footbridge to Mariannenplatz in Lehel, to Haidhausen, and upriver to Museum Island, described as part of Ludwigsvordstadt
+* {{see
+| name=Alpine Museum | alt= | url=https://www.alpenverein.de/Kultur/ | email=
+| address=Praterinsel 5 | lat=NA | long=NA | directions=south tip of Prater
+| phone=+49 89 211 2240 | tollfree= | fax= | hours=Closed | price=
+| wikipedia=de:Alpines Museum (München) | image=Alpines Museum in München, 2013.jpg | wikidata=Q520455
+| lastedit=2022-10-19
+| content=A small museum displaying the history of alpine exploration in the Bavarian Alps. It remains closed in 2022.
+}}
+* {{see
+| name=Beer and Oktoberfest Museum | alt= | url=https://www.bier-und-oktoberfestmuseum.de/| email=
+| address=Sterneckerstraße 2 | lat=NA | long=NA | directions=alley between Tal and Westenriederstraße
+| phone=+49 89 242 31607 | tollfree= | fax= | hours=Tu-Sa 13:00-18:00 | price=
+| lastedit=2022-10-21
+| content=History of the festival, in a townhouse of 1340. The "Himmelsleiter" is its characteristic early staircase, a straight flight with no corners.
+}}
+* {{marker | name=Isartor | type=see | lat=48.1350 | long=11.5818 }} (''S-Bahn: Isartor'') was built in 1337 as one of the city gates. It was rebuilt in the 19th to the original plan. It marks the natural boundary of Altstadt-Lehel: for sights south and east such as the Deutsches Museum, see [[Munich/Ludwigsvorstadt-Isarvorstadt#See | Ludwigsvorstadt]].
+* {{see
+| name=Valentin-Karlstadt Musäum | alt= | url=https://www.valentin-musaeum.de/| email=
+| address=Tal 50 | lat=NA | long=NA | directions=within Isartor city gate
+| phone=+49 89 223 266 | tollfree= | fax= | hours=Th-Tu 11:00-18:00 | price=
+| lastedit=2022-10-21
+| content=Karl Valentin (Valentin Ludwig Fey, 1882-1948) was the Charlie Chaplin of Weimar Germany, appearing alongside a padded-up Liesl Karlstadt (Elisabeth Wellano, 1892-1960). Their typical guise was a pair of factory hands raging against their boss, and this quirky museum celebrates their style, which influenced many such as Brecht. The humour is mostly non-verbal but it will help if your German is good.
+}}
+
+=== Maximiliansplatz ===
+[[File:Exterior of Theatinerkirche, Munich.jpg | thumb | 300px | Theatinerkirche on Odeonsplatz]]
+* {{marker | name=Maximiliansplatz | type=see | lat=48.1419 | long=11.5711 }} is a long plaza laid out at the beginning of the 19th century over the former city walls. Those circled west to Karlsplatz and east to Odeonsplatz, bounding the northwest segment of Altstadt. Within the plaza are the Wittelsbacherbrunnen fountain, the New Stock Exchange (''Neue Börse'') of 1901 and the House of Artists (''Künstlerhaus''). It's a lively place at night. U-Bahn Karlsplatz (Stachus) is closest for the west end, Odeonsplatz for the east end, and Tram 19 (stop ''Lenbachplatz'') runs through it.
+* '''Platz der Opfer des Nationalsozialismus''' (Square of the Victims of Nazism, ''U-Bahn U3, U4, U5, U6: Odeonsplatz'') is the northeast extension of Maximiliansplatz - the Gestapo headquarters stood here. Today an eternal flame burns in its centre.
+* '''Dreifaltigkeitskirche''' (Trinity) is a small baroque church of 1710 at Pacellistraße 6 off Maximiliansplatz. It's seldom open.
+* '''Salvatorkirche''' 200 m east of Platz der Opfer was built in 1492 as the cemetery church for Frauenkirche. In 1829 it became Greek Orthodox.
+* {{marker | name=Brienner Straße | type=see | lat=48.1430 | long=11.5755 }} is the short boulevard connecting Maximiliansplatz to Odeonsplatz. It's lined with neo-classical bulidings, with the grandest in Wittelsbacherplatz.
+* '''[https://www.luitpoldblock.de/sammlung-cafe-luitpold/ Cafe Luitpold Museum]''' on Brienner Straße facing Wittelsbacherplatz is an exhibition of the history of coffee shops. It remains closed in 2022, but the pricey Cafe Luitpold itself is open.
+* {{see
+| name=Michaelskirche | alt= | url= | email=
+| address=Neuhauser Straße 6 | lat=48.1389 | long=11.5705 | directions=
+| phone=+49 89 231 7060 | tollfree= | fax= | hours=M-Sa 08:00-19:00, Su 07:00-22:00 | price=Free
+| wikipedia=St Michael's Church (Neuhauser Straße, Munich) | image=Michaelskirche Muenchen-full.jpg | wikidata=Q265745 | lastedit=2022-10-19
+| content=Grand Renaissance church built for the Jesuits 1583-1599 by Duke Wilhelm V, as a bastion of the Counter-Reformation against those awful Lutherans. The Duke nearly busted the state coffers in buying up the land and funding a construction that townsfolk reckoned was too big to stand. And down fell the tower: "I know, I'll build it bigger". This version survived until bombed in wartime and was restored in the 1950s. The facade and interior continue the triumphal theme, for example the statue of Archangel Michael slaying a demon who might be Protestant. The church crypt holds many tombs of the Wittelsbach dynasty, including "mad king" Ludwig II.
+}}
+* '''[https://www.jagd-fischerei-museum.de/ Deutsches Jagd- und Fischereimuseum]''' (Hunting & Fishing Museum) is just east of Michaelskirche, open daily 09:30-17:00. Signage is only in German. It's within the 13th century Augustinerkirche St. Johann - after bombing damage this was rebuilt as shops and only the facade survives.
+* '''[https://www.mmkbuergersaal.de/ Bürgersaalkirche]''' is a two-story church of 1710 just west of Michaelskirche.
+
+=== Sendlinger Straße ===
+[[File:MUC Karlstor Abends.jpg | thumb | 300px | Karls gate at night ]]
+This street leads southwest to the city gate ("Sendlinger Tor") then on towards Sendling, now a suburb. It's been partly pedestrianised and the "red light district" ejected, but there's disagreement over further extension of the pedestrian zone.
+* {{see
+| name=Münchner Stadtmuseum | alt=Munich City Museum | url=https://www.muenchner-stadtmuseum.de/ | email=stadtmuseum@muenchen.de
+| address=St Jakobs Platz 1 | lat=48.1351 | long=11.5730 | directions=
+| phone=+49 89 233 22370 | tollfree= | fax=
+| hours=Tu-Su 10:00-18:00 | price=Adult €7, conc €3.50, under 18s free
+| wikipedia=Munich Stadtmuseum | image=Muenchener Stadtmuseum-1.jpg | wikidata=Q452685 | lastedit=2022-10-07
+| content=Extensive museum, occupying most of a city block; absorbing but signage is only in German. The oldest part of the building is an armory of 1500, the newest is the former Uhlfelder department store (all bombed in wartime, but the collections had been taken to safety), and it's growing still. The permanent exhibitions are "Typically Munich!" (how the city acquired its identity), Migration, National Socialism (the movement was launched here), Puppets and Fairground, and Music. "Collections" (whose highlights may figure in exhibitions) include photography, applied arts, graphics, textiles and music. Temporary exhibitions are generally on site for a year or so. There's also a film museum and theatre with daily screenings. Check ahead online for gallery closures, and search the online catalogue.
+}}
+* {{see
+| name=Jewish Museum | alt= המוזיאון היהודי במינכן | url=http://www.juedisches-museum-muenchen.de | email=juedisches.museum@muenchen.de
+| address=St Jakobs Platz 16 | lat=NA | long=NA | directions=south side of square facing Stadtmuseum
+| phone=+49 89 233 96096 | tollfree= | fax=
+| hours=Tu-Su 10:00-18:00 | price=Adult €6, conc €3, under 18 free
+| wikipedia=Jewish Museum Munich | image=München Jüdisches Zentrum und Jüdisches Museum.jpg | wikidata=Q320903
+| lastedit=2022-10-07
+| content=Small museum of Jewish life in the city - and death. It adjoins the Ohel Jakov synagogue and the Jewish community centre.
+}}
+* '''Fire Brigade Museum''' on St Jakobs Platz remains closed, and was never as exciting as Google Maps makes out, translating ''Feuerwehr'' as "fireworks".
+* {{see
+| name=Museum of Urban and Contemporary Art | alt= | url=https://www.muca.eu/ | email=
+| address=Hotterstraße 12 | lat=48.1366 | long=11.5700 | directions=U-Bahn: Sendlinger Tor
+| phone=+49 89 215 524310 | tollfree= | fax=
+| hours=W-Su 10:00-18:00 | price=Adult €9, under 12 free
+| wikipedia=Museum of Urban and Contemporary Art | wikidata= | lastedit=2022-10-21
+| content=Street and urban art is ephemeral but the idea of MUCA, opened in 2016, is to bring it into the artistic mainstream. There's a permanent collection and rotating exhibitions.
+}}
+* '''Herzogspitalkirche St Elisabeth''' 100 m east of Karlsplatz was the chapel for the 16th century ducal hospital and a pilgrimage destination. It was destroyed by wartime bombing and only the tower was rebuilt to the original design, the rest is modern.
+* {{see
+| name=Asamkirche | alt= | url=https://alterpeter.de/nebenkirchen/#asamkirche | email=
+| address=Sendlinger Straße 32 | lat=48.1350 | long=11.5694 | directions=U-Bahn: Sendlinger Tor
+| phone= | tollfree= | fax=
+| hours=Su-Th 09:00-18:00, F 13:00-18:00 | price=
+| wikipedia=Asam Church, Munich | image=Asam-kirche 1.jpg | wikidata=Q152973  | lastedit=2022-10-19
+| content=This Late Baroque confection was built from 1733 to 1746 as a private chapel by Egid Quirin Asam - he could see the altar from his house next door. His brother, Cosmas Damian Asam, did the frescoes. The church is dedicated to St John Nepomuk (1345-93), a Bohemian monk cast into the river Vltava in Prague at the behest of King Wenceslaus IV. Legend has it that Nepomuk refused to divulge the queen's confessional secrets, but his real crime was to back the wrong candidate for abbot. The church is wonderful by candlelight, especially at the Christmas Eve service, replete with Bavarian singers in the choir stall.
+}}
+* '''Kreuzkirche''' midway down Kreuzstraße was built in 1478 as a cemetery church - the ''kreuz'' (cross) in this case was a crossroads. It has a plain brick exterior, the interior was re-done in Baroque style in 1620.
+* '''Sendlinger Tor''', one of the ancient city gates, is where you step out of Altstadt into [[Munich/Ludwigsvorstadt-Isarvorstadt | Ludwigsvorstadt]]. The U-Bahn station is just beyond.

@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -33,14 +31,26 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.maps.android.clustering.ClusterManager;
 
+import org.okane.voyagemapper.model.PlaceItem;
+import org.okane.voyagemapper.model.SeeListing;
+import org.okane.voyagemapper.service.NetworkErrorHandler;
+import org.okane.voyagemapper.service.PageContentResponse;
+import org.okane.voyagemapper.service.WikiRepository;
+import org.okane.voyagemapper.service.WikiResponse;
+import org.okane.voyagemapper.ui.PlaceClusterRenderer;
+import org.okane.voyagemapper.util.NetworkUtils;
+import org.okane.voyagemapper.util.TemplateMatcher;
+
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -167,12 +177,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void showLoading(String message) {
-        if (loadingText != null) loadingText.setText(message);
-        if (loadingOverlay != null) loadingOverlay.setVisibility(View.VISIBLE);
+        if (loadingText != null) {
+            loadingText.setText(message);
+        }
+        if (loadingOverlay != null) {
+            loadingOverlay.setVisibility(View.VISIBLE);
+        }
     }
 
     private void hideLoading() {
-        if (loadingOverlay != null) loadingOverlay.setVisibility(View.GONE);
+        if (loadingOverlay != null) {
+            loadingOverlay.setVisibility(View.GONE);
+        }
     }
 
     private void showPlaceSheet(PlaceItem item) {
@@ -320,17 +336,45 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     // ---- WIKIVOYAGE FETCH + CLUSTERING ----
     private void loadNearbyFor(double lat, double lon) {
+
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+            Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
+            hideLoading();
+            return;
+        }
+
         repo.loadNearby20km(lat, lon, new Callback<>() {
             @Override public void onResponse(@NonNull Call<WikiResponse> call, @NonNull Response<WikiResponse> res) {
                 int pageCount = 0;
                 if (res.isSuccessful() && res.body() != null && res.body().query != null) {
                     Map<String, WikiResponse.Page> pages = res.body().query.pages;
                     pageCount = pages.size();
-                    fillMissingCoords(new ArrayList<>(pages.values()), () -> {
-                        // Now every page either has coords or none could be found.
-                        // You can safely update your markers on the map here.
-                        updateMapMarkers(new ArrayList<>(pages.values()));
-                    });
+
+                    // pages is a Map<String, Page>
+                    Collection<WikiResponse.Page> allPages = pages.values();
+                    Log.d("loadNearbyFor", pageCount + " pages found near" + lat + "," + lon);
+
+                    // Pages that DO have coordinates
+                    List<WikiResponse.Page> pagesWithCoords = allPages.stream()
+                            .filter(page -> page.coordinates != null)
+                            .collect(Collectors.toList());
+
+                    // Pages that are missing coordinates (should be rare with colimit, but we log just in case)
+                    allPages.stream()
+                            .filter(page -> page.coordinates == null)
+                            .forEach(p -> {
+                                String message = "Page missing coords: " + p.title;
+                                Log.w("loadNearbyFor", message);
+                                FirebaseCrashlytics.getInstance().log(message);
+                                FirebaseCrashlytics.getInstance().recordException(new Exception(message));
+                            });
+
+//                    fillMissingCoords(new ArrayList<>(pages.values()), () -> {
+//                        // Now every page either has coords or none could be found.
+//                        // You can safely update your markers on the map here.
+//                        updateMapMarkers(new ArrayList<>(pages.values()));
+//                    });
+                    updateMapMarkers(new ArrayList<>(pagesWithCoords));
                 }
                 hideLoading();
                 Toast.makeText(MapActivity.this, String.format(getString(R.string.loaded_x_articles), pageCount), Toast.LENGTH_SHORT).show();
@@ -338,7 +382,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override public void onFailure(@NonNull Call<WikiResponse> call, @NonNull Throwable t) {
                 hideLoading();
-                // You could Toast/log here
+                View root = findViewById(android.R.id.content);
+                NetworkErrorHandler.handle(root, (Exception) t);
+                FirebaseCrashlytics.getInstance().recordException(t);
             }
         });
     }
@@ -361,39 +407,46 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         clusterManager.cluster();
     }
 
-    private void fillMissingCoords(List<WikiResponse.Page> pages, Runnable onAllDone) {
-        WikidataHelper helper = new WikidataHelper();
-        AtomicInteger remaining = new AtomicInteger(pages.size());
-
-        for (WikiResponse.Page p : pages) {
-            if (p.coordinates != null && !p.coordinates.isEmpty()) {
-                // Already has coords — just count down
-                if (remaining.decrementAndGet() == 0) onAllDone.run();
-                continue;
-            }
-
-            String wikiBaseId = p.pageprops != null ? p.pageprops.wikibaseItem : null;
-            if (wikiBaseId == null) {
-                if (remaining.decrementAndGet() == 0) onAllDone.run();
-                continue;
-            }
-
-            helper.fetchCoordinates(wikiBaseId, latLng -> {
-                if (latLng != null) {
-                    // attach new coordinates
-                    WikiResponse.Coordinate c = new WikiResponse.Coordinate();
-                    c.lat = latLng.latitude;
-                    c.lon = latLng.longitude;
-                    p.coordinates = Collections.singletonList(c);
-                }
-
-                // When all async calls have finished, trigger the callback
-                if (remaining.decrementAndGet() == 0) {
-                    new Handler(Looper.getMainLooper()).post(onAllDone);
-                }
-            });
-        }
-    }
+//    private void fillMissingCoords(List<WikiResponse.Page> pages, Runnable onAllDone) {
+//        WikidataHelper helper = new WikidataHelper();
+//        AtomicInteger remaining = new AtomicInteger(pages.size());
+//
+//        for (WikiResponse.Page p : pages) {
+//            Log.d("fillMissingCoords","Page: " + p.title);
+//            if (p.coordinates != null && !p.coordinates.isEmpty()) {
+//                Log.d("fillMissingCoords","Coords found: " + p.coordinates);
+//                // Already has coords — just count down
+//                if (remaining.decrementAndGet() == 0) {
+//                    onAllDone.run();
+//                }
+//                continue;
+//            }
+//            Log.d("fillMissingCoords","Coordinates not found");
+//
+//            String wikiBaseId = p.pageprops != null ? p.pageprops.wikibaseItem : null;
+//            if (wikiBaseId == null) {
+//                if (remaining.decrementAndGet() == 0) onAllDone.run();
+//                continue;
+//            }
+//
+//            helper.fetchCoordinates(wikiBaseId, latLng -> {
+//                if (latLng != null) {
+//                    // attach new coordinates
+//                    WikiResponse.Coordinate c = new WikiResponse.Coordinate();
+//                    c.lat = latLng.latitude;
+//                    c.lon = latLng.longitude;
+//                    p.coordinates = Collections.singletonList(c);
+//                    Log.d("fillMissingCoords","Coordinates looked up for: " + p.title
+//                            + ", found: " + latLng);
+//                }
+//
+//                // When all async calls have finished, trigger the callback
+//                if (remaining.decrementAndGet() == 0) {
+//                    new Handler(Looper.getMainLooper()).post(onAllDone);
+//                }
+//            });
+//        }
+//    }
 
     private void setLocationEnabled() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -424,16 +477,25 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void mapSightsForPage(PlaceItem item) {
-        new WikiRepository().fetchPageWikitext(item.getPageId(), new retrofit2.Callback<>() {
-            @Override public void onResponse(retrofit2.Call<PageContentResponse> call,
-                    retrofit2.Response<PageContentResponse> res) {
+
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+            Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        repo.fetchPageWikitext(item.getPageId(), new Callback<>() {
+            @Override public void onResponse(@NonNull retrofit2.Call<PageContentResponse> call,
+                    @NonNull retrofit2.Response<PageContentResponse> res) {
                 if (!res.isSuccessful() || res.body() == null || res.body().query == null
                         || res.body().query.pages == null || res.body().query.pages.isEmpty()) {
+                    View root = findViewById(android.R.id.content);
+                    Snackbar.make(root, "Server error: " + res.code(), Snackbar.LENGTH_LONG).show();
                     return;
                 }
                 String wikitext = res.body().query.pages.get(0).revisions.get(0).slots.main.content;
 
-                List<SeeListing> listings = WikitextSeeParser.parse(wikitext);
+//                List<SeeListing> listings = WikitextSeeParser.parse(wikitext);
+                List<SeeListing> listings = TemplateMatcher.parse(wikitext);
                 if (listings.isEmpty()) {
                     Toast.makeText(
                             MapActivity.this,
@@ -445,8 +507,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 // Add markers (reuse your PlaceItem so they render with labeled pins)
                 List<PlaceItem> pins = new ArrayList<>();
                 for (SeeListing s : listings) {
-                    pins.add(new PlaceItem(s.phone, s.url, s.address, s.hours, s.price, s.wikipediaUrl,
-                            s.lat, s.lon, s.name, s.content, s.thumbUrl, item.getPageId(), PlaceItem.Kind.SIGHT));
+                    pins.add(new PlaceItem(s.phone(), s.url(), s.address(), s.hours(), s.price(), s.wikipediaUrl(),
+                            s.lat(), s.lon(), s.name(), s.content(), s.thumbUrl(), item.getPageId(),
+                            PlaceItem.Kind.SIGHT));
                 }
 
                 // Drop them on the map (+ keep existing items)
@@ -466,9 +529,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
 
             @Override public void onFailure(@NonNull retrofit2.Call<PageContentResponse> call, @NonNull Throwable t) {
-                Log.w("SIGHTS", "failed to load sights for "
+                Log.w("mapSightsForPage", "failed to load sights for "
                         + item.getTitle() + ": "
                         + t.getLocalizedMessage());
+                View root = findViewById(android.R.id.content);
+                NetworkErrorHandler.handle(root, (Exception) t);
+                FirebaseCrashlytics.getInstance().recordException(t);
             }
         });
     }

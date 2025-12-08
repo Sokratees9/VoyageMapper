@@ -1,0 +1,380 @@
+{{pagebanner|Edinburgh West banner Donaldson's School.JPG|caption=The former Donaldson's School|pgname=West Edinburgh}}
+The west of [[Edinburgh]] is the area you traverse coming from the airport or Glasgow towards city centre. It's a modern low-rise tract of suburbs, retail and light industry that could be on the edge of any British city, but it has accommodation, the zoo, and Murrayfield rugby stadium.
+
+The city is expanding rapidly at its western edge near the airport, with a new district taking shape around the villages of Newbridge and Kirkliston. The city boundaries extended in 1995 and now include [[South Queensferry]], but this continues to feel like a separate town.
+
+== Get in ==
+{{Mapframe | 55.940 | -3.305 | height=600 | width=600 | zoom=12 }}
+{{marker | name=Edinburgh Airport | type=go | lat=55.9486 | long=-3.3641 }} ({{IATA|EDI}}) is at the west edge of the city, see [[Edinburgh#Get in]] for flights and facilities. The tram and Airlink Bus 100 run downtown with stops in the west city, and Skylink Bus 400 runs through the west and south city fringes.
+
+{{marker | name=Haymarket station | type=go | lat=55.9453 | long=-3.2187}} is the west transport hub. All trains from the north, west and southwest stop here on their way to the main station at Waverley; so do the trams, Airlink Bus 100 and many city bus routes. The station is modern behind its Victorian facade, with ticket offices, machines, shops, toilets and waiting areas; lots more facilities in the streets outside. There is lift access to all platforms, including the mysterious Platform 0.
+
+{{marker | name=South Gyle station | type=go | lat=55.9366 | long=-3.2998}} is a halt for trains from Fife.
+
+{{marker | name=Edinburgh Park station | type=go | lat=55.9276 | long=-3.3077}} has trains from [[Dunblane]] via [[Stirling]] and [[Falkirk]], and from [[Helensburgh]] via [[Dumbarton]], Glasgow Queen St and Livingston - don't take this ponderous route for Glasgow, go into Haymarket for the fast trains.
+
+{{marker | name=Slateford | type=go | lat=55.9265 | long=-3.2441 }} has even slower trains from Glasgow Central, taking 80 min across the central industrial brownfields. These also groan to a halt at {{marker | name=Kingsknowe | type=go | lat=55.9190 | long=-3.2642 }}, {{marker | name=Wester Hailes | type=go | lat=55.9144 | long=-3.2838 }} and {{marker | name=Curriehill | type=go | lat=55.9006 | long=-3.3185}}. You'd only ride them to city centre to connect with another train, otherwise the bus is more convenient and cheaper.
+
+'''[http://www.lothianbuses.com/ Buses]''' fan out from city centre across the west. Principal routes are:
+: - west from Haymarket to Murrayfield and Corstorphine: 12, 26 (with N26 at night), 31 and Airlink 100.
+: - southwest from Haymarket to Sighthill, Wester Hailes, Gyle and Heriot Watt University: 3, 22, 25 (with N25 the university night bus), 33, 34 and 35.
+: - from Haymarket to Slateford and Balerno: 44
+
+'''The tram''' runs every 10 min from the airport to Ingliston Park & Ride, Gogarburn, Edinburgh Gateway station, Gyle Park shopping centre, Edinburgh Park central and station, Bankhead, Saughton, Balgreen, Murrayfield Stadium, Haymarket, West End, Princes St, St Andrews Square (for main bus and railway stations), then away down to Leith and Newhaven. See [[Edinburgh#Get around]] for times and fares.
+
+== See ==
+* '''Donaldson's School''' or Hospital is the grand mock-Jacobean building (pictured at top of page) on the main road a quarter mile west of Haymarket station. Completed in 1850, it was a school for pupils with communication difficulties. But it became impractical and the school moved out to Linlithgow in 2008; the building has been converted to luxury flats.
+* {{marker | name=Lochrin Basin | type=see | lat=55.9427 | long=-3.2081 }} is the east terminus of the Union Canal. When completed in 1822 it continued a little further to Tolcross at the edge of [[Edinburgh/Old Town | Old Town]]. It fell into disuse and was closed in 1965, but re-opened in 2001 and is fully navigable, with a firm towpath for strolling or cycling. The canal courses west to Slateford, vaulting over the Water of Leith by an aqueduct, and out to Kingsknowe, Wester Hailes and eventually to [[Falkirk]], where a wheel hoists boats into the Forth and Clyde Canal.
+* {{See|name=Edinburgh Printmakers|url=https://edinburghprintmakers.co.uk/|email=info@edinburghprintmakers.co.uk|address=Castle Mills, 1 Dundee Street|lat=55.9422474|long=-3.213065437|directions=close to Fountain Park entertainment centre|phone=+44 131 557-2479|hours=Su & M closed; Tu 10:00-17:30; W & Th 10:00-21:00; F & Sa 10:17:30|price=Free for galleries|lastedit=2024-04-06|content=Creative centre for printmaking & visual arts, Two free galleries & shop. Vegan Cafe.|wikidata=Q105320053}}
+* {{see
+| name=Edinburgh Zoo | alt= | url=https://www.edinburghzoo.org.uk/ | email=
+| address=134 Corstorphine Road EH12 6TS | lat=55.9424 | long=-3.2693 | directions=Bus 12, 26, 31 or Airlink 100
+| phone=+44 131 334-9171 | tollfree=
+| hours=Daily Apr-Sep 9AM-6PM, Oct & Mar 9AM-5PM, Nov-Feb 9AM-4PM | price=Adult £26.70, child £16.80, conc £24.25, parking £3
+| wikipedia=Edinburgh Zoo | wikidata=Q1284778
+| lastedit=2023-12-16
+| content=The pandas have returned to China but there's still plenty here. Penguins include gentoo, rockhopper and king, most famously Major General Sir Nils Olav III, Baron of the [[Bouvet Island]]s and mascot of the Norwegian King's Guard. Budongo Trail leads through the troupe of 15 chimpanzees. The only koalas in the UK are here, and there are some beautiful tropical birds. The zoo is on the slopes of Corstorphine Hill and some paths are steep but all attractions are wheelchair accessible.  Check the website for cheaper online offers, and temporary closures eg in harsh weather or avian flu outbreaks.
+}}
+[[Image:Murrayfield Flag.jpg | thumb | 300px | Human Saltire at Murrayfield ]]
+* {{see
+| name=Corstorphine Old Parish Church | alt= | url=https://www.corstorphineoldparish.org.uk | email=
+| address=Kirk Loan EH12 7ST | lat=55.9414 | long=-3.2819 | directions=
+| phone= | tollfree= | hours= | price=
+| wikipedia=Corstorphine Old Parish Church | wikidata=Q17570258 | lastedit=2023-12-16
+| content=The present building is a collegiate church of 1429, becoming a parish church in 1646, and re-modeled in 1828.
+}}
+* {{see
+| name=Lauriston Castle | alt= | url=https://www.edinburghmuseums.org.uk/venue/lauriston-castle | email=
+| address=2 Cramond Road South EH4 6AD | lat=55.9712 | long=-3.2784 | directions=
+| phone=+44 131 336-2060 | tollfree= | hours=Sa Su 11AM-3PM | price=Tour adult £8, conc £6
+| wikipedia=Lauriston Castle | wikidata=Q2969689 | lastedit=2023-12-17
+| content=This 1590s tower house was extended in the 1820s and housed a series of prosperous families. It passed into council ownership in 1926 and the interior has been preserved in its last occupants' plush Edwardian style. Visit by pre-booked guided tour. There is free entry to the gardens (daily 8AM-4:30PM), where the centrepiece is the Japanese garden. The castle is also used as an event space.
+}}
+* {{marker | name=Cramond | type=see | lat=55.9803 | long=-3.3003 }} is an attractive little village at the outlet of the River Almond, popular with amateur painters. It may be older than Edinburgh itself, as there are Mesolithic remains from 8500 BC, and the Romans built a fort later called ''Caer Amon'', fort on the Almond, hence Cramond. There's a little sandy beach behind the breakwater but the Forth this far up is muddy. Walks lead upstream to a waterfall and main road, out to Cramond Island at low tide, and east along the esplanade to Silverknowes. The ferry no longer rows across the Almond, so you have to divert upstream to join the coast trail west towards [[South Queensferry]]. Cramond has a pub and tearooms. The free parking lot is small and fills up on fine afternoons, or take Bus 41.
+* '''Cramond Island''' is reached by a rough, mile-long causeway passable for two hours either side of low tide. (Check [https://easytide.admiralty.co.uk/?PortID=0225 Easytide] for Leith online, and double-check with the times posted at the start of the causeway.) The island has grubby graffiti-covered World War II artillery positions, you come for the view across the Forth.
+* {{marker | name=Silverknowes | type=see | lat=55.9797 | long=-3.2795 }} a mile east along the esplanade has lots of free parking, so it can be a better starting point for visiting Cramond. The esplanade continues east for two miles but becomes industrial towards Granton Harbour.
+* {{marker | name=Balerno | type=see | lat=55.8849 | long=-3.3404 }}: see [[Edinburgh/South]] for this village at the head of the Water of Leith Walkway, Malleny Gardens, Currie rugby club, and access to the Pentland Hills.
+* '''Jupiter Artland''' is a modern sculpture park off A71 to the west, see [[Livingston (Scotland)]].
+
+== Do ==
+[[File:Nils Olav inspects the Kings Guard of Norway after being bestowed with a knighthood at Edinburgh Zoo in Scotland.jpg | thumb | 300px | Sir Nils Olav inspects the Norwegian King's Guard ]]
+* {{do
+| name=Murrayfield Stadium | alt= | url=https://scottishrugby.org/ | email=
+| address=Roseburn Street EH12 5PJ | lat=55.9422 | long=-3.2406 | directions=tram: Murrayfield Stadium
+| phone=+44 131 378-1600 | tollfree= | hours= | price= | wikipedia=Murrayfield Stadium | wikidata=Q1024926 | lastedit=2023-12-18
+| content=The main stadium has a capacity of 67,000 and hosts all Scottish rugby internationals. The premier tournament is the Six Nations held each February-March: in odd-numbered years, Scotland hosts Wales, Ireland and Italy, and in even-numbered years the visitors are England and France. These games almost always sell out, and the city is mobbed when they're on; you've more chance of tickets and accommodation for other internationals which take place each November, or, if it's a Rugby World Cup year, warm-up friendly games in the summer. Stadium tours are available on non-match days.
+}}
+* '''Edinburgh Rugby Stadium''' (aka Hive Stadium) on the west flank of Murrayfield is the venue for club fixtures. Completed in 2021, it has a capacity of 7800 and is the home ground for [https://edinburghrugby.org/ Edinburgh Rugby], playing in the URC professional league. Tickets shouldn't be a problem.
+* {{do
+| name=Murrayfield Ice Rink | alt= | url=https://www.murrayfieldicerinkltd.co.uk/ | email=info@murrayfieldicerinkltd.co.uk
+| address=13 Riversdale Crescent EH12 5XN | lat= | long= | directions=north flank of Murrayfield Stadium
+| phone=+44 131 337-6933 | tollfree=
+| hours=M 2-7PM, W Th 2-9PM, F Sa 10AM-9PM, Su 11:30AM-7PM | price=
+| lastedit=2023-12-19
+| content=Popular ice rink with leisure skating sessions, and ice-discos on Friday and Saturday nights. It's the home rink of the Edinburgh Capitals ice hockey team, who play Sept-March in the Scottish National League, the UK second tier. (Their rivals Murrayfield Racers folded in 2022.) The curling club also play here on a separate rink.
+}}
+* {{do
+| name=Cineworld | alt= | url=https://www.cineworld.co.uk/cinemas/edinburgh | email=
+| address=130 Dundee St EH11 1AF | lat=55.9413 | long=-3.2179 | directions=
+| phone=+44 330 333 4444 | tollfree= | hours= | price=
+| lastedit=2024-04-06
+| content=Mainly mainstream cinema with some art-house & foreign cinema. IMAX screen.
+}}
+* '''Cameo''' and '''Odeon''' cinemas are along Lothian Rd in [[Edinburgh/Old Town#Do | Tolcross]].
+* {{marker | name=Corstorphine Hill | url=https://www.corstorphinehill.org.uk/ | type=do | lat=55.9508 | long=-3.2726 }} rises above the zoo to 528 ft / 161 m. It's a wooded park with multiple access points, popular with walkers, joggers and winter tobogganists, and its south is serenaded by exotic bellows from the beasts in the zoo. The tower near the top is dedicated to Sir Walter Scott, as if his Gothic Rocket on Princes Street wasn't enough. 200 yards west of the tower by Clermiston Rd is a walled garden. Views are somewhat restricted by the woods but here and there are vistas of the castle and sea.
+[[File:Lauriston Castle entrance stairs.jpg | thumb | 300px | Entering Lauriston Castle ]]
+* '''[https://www.waterofleith.org.uk/walkway/ Water of Leith Walkway]''' traverses the city along the glen of this stream. It's paved, popular for cycling, and follows the track of a former railway. Its upper end is at Balerno on the edge of the Pentland Hills, and it descends northwest through Colinton (plunging through a long tunnel), Slateford (beneath the aqueduct of the Union Canal), Saughton, Murrayfield, and on down to Stockbridge and Leith.
+* '''Fishing''' on the Water of Leith is by permit. Obtained this from the [http://www.edinburgh.gov.uk City Council] offices at Waverley Market in [[Edinburgh/New Town|New Town]] or Cockburn Street in the [[Edinburgh/Old Town|Old Town]]. Most fishing tackle shops throughout the city can provide permits.
+* '''[http://johnmuirway.org/ John Muir Way]''', named for the famous naturalist and outdoorsman, is a long-distance hiking trail from [[Dunbar]] his birthplace to [[Helensburgh]] on the west coast, where he embarked for the USA. The section through the west city is frankly scrappy, zig-zagging about through suburban streets and parks, touching on Water of Leith and the canal without seeing their best. See [[South Queensferry]] for the next leg west, from Cramond Brig down to the shore then past Dalmeny House towards the Forth Bridge.
+
+* '''Golf''' courses include [https://www.kingsknowe.com/ Kingsknowe], [https://www.edinburghleisure.co.uk/venues/carrick-knowe-golf-course Carrick Knowe], [https://www.murrayfieldgolfclub.co.uk/ Murrayfield], [https://www.edinburghleisure.co.uk/venues/silverknowes-golf-course Silverknowes], the venerable [https://www.bruntsfieldlinks.co.uk/ Bruntsfield Links], [https://www.turnhousegolfclub.com/ Turnhouse] by the airport, [https://www.rathoparkgolfclub.co.uk/ Ratho Park] and upscale [https://www.dalmahoyhotelandcountryclub.co.uk/ Dalmahoy].
+* {{do
+| name=Royal Highland Showground | alt= | url=https://www.royalhighlandcentre.co.uk/ | email=
+| address=Ingliston EH28 8NB | lat=55.9411 | long=-3.369 | directions=near the airport
+| phone= | tollfree= | hours= | price=
+| wikipedia=Royal Highland Showground | wikidata=Q7374277
+| lastedit=2023-11-07
+| content=An exhibition ground with several halls and large grounds. The main event here is the Royal Highland Show for 4 days in late June. Other events are held throughout the year, some of these are public, others are trade only.
+}}
+* {{do
+| name=Edinburgh International Climbing Arena | alt=formerly Ratho Adventure Centre | url=https://www.edinburghleisure.co.uk/venues/edinburgh-international-climbing-arena | email=
+| address=South Platt Hill, Ratho EH28 8AA | lat=55.9235 | long=-3.3979 | directions=
+| phone=+44 131 458-2100 | tollfree= | hours= | price=
+| wikipedia=Edinburgh International Climbing Arena | wikidata=
+| lastedit=2023-12-20
+| content=Huge indoor and outdoor climbing centre in a disused quarry, developed from 1995 but taken over and completed by Edinburgh City Council in 2007.
+}}
+* '''Lost Shore''' is an inland surfing centre at Ratho, opening in Sept 2024.
+* '''Football: ''' {{do
+| name=Heart of Midlothian Football Club | alt=Hearts | url=https://www.heartsfc.co.uk | email=
+| address=Gorgie Road EH11 2NL | lat=55.939139 | long=-3.230944 | directions=20 min walk southwest from Haymarket station or south from Murrayfield Stadium tram stop
+| phone=+44 333 043 1874 | tollfree=
+| hours= | price=~£30 adult vs Celtic Hibernian and Rangers, slightly cheaper for other games
+| wikipedia=Tynecastle Stadium | image=Tynecastle Stadium 2007.jpg | wikidata=Q1326446
+| lastedit=5/6/25
+| content=Hearts aka "the Jambos" and "the Gorgie Boys" play football (soccer) in the Scottish Premiership, the game's top tier. Their home ground Tynecastle Park (capacity 20,000, all-seater) is a mile west of Haymarket station in the Gorgie area of the city; take any bus up Gorgie Road or a tram to Murrayfield.
+}}
+* '''Football: ''' {{do
+| name=The Spartans FC | alt=Spartans | url= | email=
+| address=94 Pilton Dr, Edinburgh EH5 2HF | lat=55.971528 | long=-3.233111 | directions=get off the 21 or 27 bus on Ferry Road or the 19, 22, X37 or 38 on Crewe Road North, both are a stone's throw from the ground
+| phone=+44 333 043 1874 | tollfree=
+| hours= | price=
+| wikipedia=The Spartans F.C.
+| lastedit=2025-06-05
+| content=The Spartans play football in Scottish League Two, the game's fourth tier. Their ground, Ainslie Park (Vanloq Community Stadium) holds 3,612, of which 534 are seated. The ground is located in the Pilton area, northwest of the city centre.
+}}
+* {{do
+| name=Edinburgh Filmhouse | alt=The Filmhouse | url=https://filmhouse.org.uk/ | email=info@filmhouse.org
+| address=88 Lothian Rd, Edinburgh EH3 9BZ | lat=55.946439 | long=-3.206139 | directions=Bus: 1, 10, 11, 15, 16, 24, 34, 36, 47/47B Tram: West End + 5 min walk southeast
+| phone=+44 131 380-5280 | tollfree=
+| hours=10AM-late | price=£12 adult, £10.50 concession, wheelchair users/access tickets £5, carers free
+| wikipedia=Edinburgh Filmhouse | image=Exterior of Filmhouse Cafe Bar, Lothian Road, Edinburgh (5474231345).jpg
+| lastedit=2025-08-09
+| content=A four-screen Edinburgh institution showing largely arthouse and some mainstream films. Additionally houses a 100-seat cafe-bar.
+}}
+
+== Buy ==
+[[File:Cramond Harbour.jpg | thumb | 300px | Cramond ]]
+* '''Coop Food''' is the closest top-up store to Haymarket, at 114 Dalry Rd, but Lidl another 200 yards out has better prices.
+* {{buy
+| name=Corstorphine Retail Park | alt= | url= | email=
+| address=1 Glasgow Rd EH12 8HW | lat=55.9419 | long=-3.2941 | directions=
+| phone= | tollfree=
+| hours= | price=
+| lastedit=2025-05-10
+| content=Small retail park with fast food, Lidl and a large Tesco, overshadowed nowadays by the Gyle Centre.
+}}
+* '''St John's Road''' in Corstorphine east of the retail park is a traditional High Street shopping parade, with all that's good and bad about that. You can't park on the busy main road, and the side-streets are clogged with commuter parking.
+* {{buy
+| name=Gyle Shopping Centre | alt= | url=https://www.gyleshopping.co.uk | email=
+| address=South Gyle Broadway, EH12 9JY | lat=55.9383 | long=-3.3144 | directions=
+| phone= | tollfree= | hours= | price=
+| wikipedia=The Gyle Shopping Centre | wikidata=Q7738570 | lastedit=2023-12-18
+| content=Indoor shopping centre with Marks and Spencer, Morrisons and some 50 other shops.
+}}
+* {{marker | name=Hermiston Gait | type=buy | lat=55.9246 | long=-3.3088 }} is a retail park at the junction of M8 and the city bypass. Stores here include Tesco and B&Q.
+
+==Eat==
+
+* {{eat
+| name=First Coast | alt= | url=https://www.first-coast.co.uk | email=info@first-coast.co.uk
+| address=97-101 Dalry Road EH11 2AB | lat=55.9435 | long=-3.2193 | directions=
+| phone=+44 131 313-4404 | tollfree=
+| hours=Tu-Th noon-2PM, 5-10PM, F Sa noon-10PM | price=
+| lastedit=2023-12-17
+| content=Long-standing bistro serving quality Scots cuisine.
+}}
+* {{eat
+| name=Masti | alt=formerly Guru Balti | url=https://masti.uk/ | email=
+| address=9 Dundee Terrace EH11 1DL | lat=55.9395 | long=-3.2208 | directions=
+| phone=+44 131 228-3338 | tollfree= | hours=Daily 3-10PM | price=
+| lastedit=2023-12-17
+| content=Classic North Indian Balti menu.
+}}
+* {{eat
+| name=Miller & Carter Cramond Brig | alt= | url=https://www.millerandcarter.co.uk/restaurants/scotland-and-northern-ireland/millerandcartercramondbrig | email=
+| address=Queensferry Road EH4 6DY | lat=55.9651 | long=-3.3172 | directions=
+| phone=+44 131 339-4350 | tollfree=
+| hours=Daily noon-11PM | price=
+| lastedit=2023-12-17
+| content=Popular chain steakhouse getting great reviews. The old Cramond Brig is now a footbridge over River Almond, follow the east bank for the village and island, and the west bank to hike to South Queensferry. Modern traffic thunders past on A90.
+}}
+* {{Eat|name=Holy Cow Lounge|url=https://holycow.cafe/|address=Castle Mills, 1 Dundee Street|hours=Tu-Su 10:00-18:00|lastedit=2024-04-06|content=Vegan cafe in Edinburgh Printmakers building.}}
+
+== Drink ==
+[[File:On the causeway to Cramond Island - geograph.org.uk - 4524360.jpg | thumb | 300px | Causeway to Cramond Island ]]
+* {{drink
+| name=The Murrayfield | alt= | url=https://themurrayfield.com/ | email=info@murrayfieldbar.com
+| address=57 Roseburn Terrace EH12 5NQ | lat=55.9456 | long=-3.2355 | directions=
+| phone=+44 131 202-7941 | tollfree=
+| hours=W-Su noon-10PM | price=
+| lastedit=2023-12-18
+| content=Friendly pub close to Murrayfield Stadium with screens for TV sport. Decent all-day pub grub.
+}}
+* '''[https://www.roseburnbar.co.uk/ Roseburn Bar]''' is a trad place 100 yards east of The Murrayfield, likewise popular with those going to the game; no food. It's open Su-Th 11AM-11PM, F Sa 11AM-midnight.
+* {{drink
+| name=Cramond Inn | alt= | url=https://www.facebook.com/people/The-Cramond-Inn/100091304524841/ | email=
+| address=30 Cramond Glebe Road EH4 6NP | lat= | long= | directions=
+| phone=+44 131 336-2035 | tollfree=
+| hours=Su–Th noon–10PM, F Sa noon–11PM | price=
+| lastedit=2023-12-17
+| content=Traditional village pub run by Samuel Smiths. Beer garden outside but food service is indoors-only. No dogs.
+}}
+* '''[https://thenorthbritish.co.uk/ North British Distillery]''' across the tracks from Murrayfield makes raw grain whisky, up to 70 million litres a year. No retail sales (and no tours) as all their output is blended, but if you drink any popular blended brand of scotch, you're quaffing their product.
+
+== Sleep ==
+
+=== Budget ===
+
+* {{sleep
+| name=Bainfield | alt= | url=https://www.napier.ac.uk/study-with-us/accommodation/bainfield | email=
+| address=6 Bainfield Drive EH11 1AR | lat=55.9402 | long=-3.2163 | directions=
+| phone=+44 131 455-3482 | tollfree=
+| checkin= | checkout= | price=
+| lastedit=2023-12-18
+| content=This is single-room student accommodation for Napier University but available to others during the summer break.
+}}
+* '''[https://all.accor.com/hotel/8710/index.en.shtml Ibis Budget Edinburgh Park]''' is at 6 Lochside View just south of Gogar Roundabout, for Glasgow Rd to the airport.
+
+=== Mid-range ===
+* '''[https://www.brooksedinburgh.com/ Brooks Hotel]''' is a stylish place on Grove Street near the canal terminus.
+* {{sleep
+| name=Holiday Inn Edinburgh | alt= | url=https://www.ihg.com/holidayinn/hotels/gb/en/edinburgh/edbcr/hoteldetail | email=
+| address=132 Corstorphine Rd EH12 6UA | lat= | long= | directions=next to Zoo, Bus 12, 26, 31 and Airlink 100
+| phone=+44 871 942 9026 | tollfree=
+| checkin= | checkout= | price=Double (room only) £100
+| lastedit=2023-12-15
+| content=Simple value hotel with restaurant. Those strange noises are from the zoo animals next door.
+}}
+* {{sleep
+| name=Holiday Inn Express Edinburgh City West | alt= | url=https://www.ihg.com/holidayinnexpress/hotels/gb/en/edinburgh/edbuk/hoteldetail | email=
+| address=107 Queensferry Road EH4 3HL | lat=55.9558 | long=-3.2429 | directions=Bus 41, 42, 43
+| phone=+44 371 902 1635 | tollfree=
+| checkin= | checkout= | price=B&B double £65
+| lastedit=2023-12-15
+| content=Acceptable rooms, variable welcome and service.
+}}
+* {{sleep
+| name=White Lady | alt= | url=https://hotels.jdwetherspoon.com/hotels/the-white-lady/ | email=
+| address=92 St John's Rd EH12 8AT | lat=55.9430 | long=-3.2825 | directions=
+| phone=+44 371 314 0680 | tollfree=
+| checkin= | checkout= | price=Double (room only) £60
+| lastedit=2023-12-18
+| content=Small hotel on the Glasgow Rd run by JD Wetherspoon. Frequent buses to city centre.
+}}
+* {{sleep
+| name=Leonardo | alt=formerly Jury's Inn | url=https://www.leonardohotels.co.uk/hotels/edinburgh/leonardo-murrayfield | email=
+| address=187 Clermiston Road EH12 6UG | lat=55.9557 | long=-3.2797 | directions=Bus 26
+| phone=+44 371 535 9988 | tollfree=
+| checkin= | checkout= | price=B&B double £80
+| lastedit=2023-12-18
+| content=Value-for-money hotel on Corstorphine Hill, calls itself "Murrayfield" which is two miles southeast.
+}}
+* '''[https://www.premierinn.com/gb/en/hotels/scotland/lothian/edinburgh/edinburgh-airport-m9-jct1.html Premier Inn Edinburgh Park]''' is next to Edinburgh Park Station, across the tracks from the Novotel.
+* {{sleep
+| name=Bridge Inn | alt= | url=https://www.bridgeinn.com/ | email=
+| address=27 Baird Rd, Ratho EH28 8RA | lat=55.9233 | long=-3.3789 | directions=
+| phone=+44 131 333-1320 | tollfree=
+| checkin= | checkout= | price=B&B double £140
+| lastedit=2023-12-15
+| content=On the canal, and most customers are just here for the excellent dining, but the snug rooms are well worth a stay. Closed for maintenance until March 2024.
+}}
+
+=== Airport ===
+[[File:Slateford aqueduct - geograph.org.uk - 2710825.jpg | thumb | 300px | The canal over Slateford aqueduct ]]
+: You might also stay at these for the Royal Highland Showground.
+* {{sleep
+| name=Hampton by Hilton Edinburgh Airport | alt= | url=https://www.hilton.com/en/hotels/edihxhx-hampton-edinburgh-airport/ | email=
+| address=5 Almond Av, Ingliston EH12 9GN | lat= | long= | directions=
+| phone=+44 131 370-9999 | tollfree= | checkin= | checkout= | price=B&B double £90
+| lastedit=2023-12-15
+| content=The closest to the terminal, a 300 yard walk, this is comfy and efficient.
+}}
+* {{sleep
+| name=Doubletree by Hilton Edinburgh Airport | alt= | url=https://www.hilton.com/en/hotels/ediapdi-doubletree-edinburgh-airport/ | email=
+| address=100 Eastfield Rd, Ingliston EH28 8LL | lat= | long= | directions=
+| phone=+44 131 519-4400 | tollfree= | checkin= | checkout= | price=B&B double £85
+| lastedit=2023-12-15
+| content=Comfy hotel a 10-minute walk from the terminal.
+}}
+* {{sleep
+| name=Moxy Edinburgh Airport | alt= | url=https://www.marriott.com/en-us/hotels/ediox-moxy-edinburgh-airport/overview/ | email=
+| address=1 Fairview Rd, Ingliston EH28 8AP | lat= | long= | directions=
+| phone=+44 131 608-1172 | tollfree= | checkin= | checkout= | price=B&B double £90
+| lastedit=2023-12-15
+| content=Modern hotel with small, comfortable rooms and friendly staff. It's a 10-minute walk from the terminal - head for the trams, then follow the signs pointing to the Doubletree Hotel.
+}}
+* {{sleep
+| name=Holiday Inn Express | alt= | url=https://www.ihg.com/holidayinnexpress/hotels/gb/en/edinburgh/ediap/hoteldetail | email=
+| address=101 Ingliston Rd, Ingliston EH28 8AU | lat= | long= | directions=
+| phone=+44 345 218 2072 | tollfree= | checkin= | checkout= | price=B&B double £75
+| lastedit=2023-12-15
+| content=A bit frayed but overall good value. It's by the Showground, a 20-minute walk from the terminal so take their shuttle bus.
+}}
+* {{sleep
+| name=Travelodge Edinburgh Airport | alt= | url=https://www.travelodge.co.uk/hotels/408/Edinburgh-Airport-Ratho-Station-hotel | email=
+| address=Ratho Park, off Station Rd, Ratho Station EH28 8PP | lat=55.9386 | long=-3.3932 | directions=
+| phone=+44 871 984 6340 | tollfree= | checkin= | checkout= | price=B&B double £80
+| lastedit=2023-12-15
+| content=Value hotel two miles west of airport with shuttle bus.
+}}
+* {{sleep
+| name=Premier Inn Edinburgh Airport | alt= | url=https://www.premierinn.com/gb/en/hotels/scotland/lothian/edinburgh/edinburgh-airport-m9-jct1.html | email=
+| address=5 Hallbarns Cres, Newbridge EH28 8TD | lat=55.9423 | long=-3.4055 | directions=
+| phone=+44 333 321 9224 | tollfree= | checkin= | checkout= | price=B&B double £110
+| lastedit=2023-12-15
+| content=Reliable chain hotel three miles west of airport with shuttle bus.
+}}
+
+=== Splurge ===
+
+* {{sleep
+| name=The Roseate | alt=formerly Dunstane House | url=https://www.roseatehotels.com/edinburgh/theroseate/ | email=
+| address=4 West Coates EH12 5JQ | lat=55.9454 | long=-3.2287 | directions=
+| phone=+44 131 337-6169 | tollfree=
+| checkin= | checkout= | price=B&B double £210
+| lastedit=2023-12-15
+| content=Mixed reviews - the main building is okay, but some rooms are in a basement across the road and not worth the money.
+}}
+* {{sleep
+| name=Novotel Edinburgh Park | alt= | url=https://all.accor.com/hotel/6515/index.en.shtml | email=
+| address=15 Lochside Avenue EH12 9DJ | lat=55.9267 | long=-3.3110 | directions=
+| phone=+44 131 619-2802 | tollfree=
+| checkin= | checkout= | price=B&B double £150
+| lastedit=2023-12-15
+| content=Unlovely area of light industry and retail, but the hotel is next to M8 / city bypass interchange and Edinburgh Park Station. It has a pool, gym, steam room and restaurant.
+}}
+[[File:Dalmahoy - geograph.org.uk - 42706.jpg | thumb | 300px | Dalmahoy hotel and golf resort ]]
+* {{sleep
+| name=Norton House Hotel | alt= | url=https://www.handpickedhotels.co.uk/nortonhouse | email=
+| address=Harvest Rd, Ingliston EH28 8LX | lat=55.9326 | long=-3.3843 | directions=
+| phone=+44 131 333-1275 | tollfree=
+| checkin= | checkout= | price=B&B double £180
+| lastedit=2023-12-15
+| content=Villa built in 1840 as country retreat, and now a hotel and spa in woodland close to the airport. Great welcome and service, smart modern interior. It's 10 mins walk to main bus routes on the road to Glasgow, but you really ought to be arriving by limo or helicopter. It hosts a lot of functions for people who wished they were.
+}}
+* {{sleep
+| name=Dalmahoy | alt= | url=https://www.dalmahoyhotelandcountryclub.co.uk/ | email=
+| address=Kirknewton EH27 8EB | lat=55.9036 | long=-3.3697 | directions=
+| phone=+44 131 333-1845 | tollfree=
+| checkin= | checkout= | price=B&B double £150 | wikipedia=Dalmahoy
+| lastedit=2023-12-17
+| content=Grand pile built in 1725 and much extended since, it's now an upscale hotel and golf resort.
+}}
+
+== Connect ==
+There are internet stations and printers at all public libraries, see [[Edinburgh#Connect]] for how to access these. Branches in the west of the city are Balgreen, Blackhall, Corstorphine, Drumbrae, Fountainbridge (the most central), Sighthill and Wester Hailes.
+
+== Go next ==
+* Buses and the tram eastwards bring you to Princes St in [[Edinburgh/New Town | New Town]]. The castle and Old Town are a short walk away.
+* The Pentland Hills rise to the south, described as part of [[Edinburgh/South]].
+* [[South Queensferry]] northwest is a pleasant old harbour town. High above, trains rumble over the Forth Bridge into [[Fife]].
+* [[Linlithgow]] west has a ruined medieval palace, abode of Mary Queen of Scots.
+
+
+{{routebox
+| image2=UK_road_A70.svg
+| imagesize2=40
+| directionl2=SW
+| majorl2=[[Lanark]]
+| minorl2=[[Edinburgh/South|South Edinburgh]]
+| directionr2=NE
+| minorr2=
+| majorr2=ENDS AT HAYMARKET
+| caption2=Lang Whang
+
+| image3=UK_road_A71.svg
+| imagesize3=40
+| directionl3=SW
+| majorl3=[[Kilmarnock]]
+| minorl3=[[Livingston (Scotland)|Livingston]]
+| directionr3=NE
+| minorr3=
+| majorr3=merges with [[Image:UK road A70.svg|30px]]
+}}
+
+{{Mapmask|55.9339,-3.4181|55.9336,-3.4181|55.9334,-3.4183|55.9324,-3.4200|55.9319,-3.4207|55.9316,-3.4213|55.9316,-3.4222|55.9319,-3.4232|55.9322,-3.4241|55.9325,-3.4254|55.9324,-3.4293|55.9322,-3.4302|55.9318,-3.4311|55.9316,-3.4312|55.9314,-3.4310|55.9306,-3.4294|55.9301,-3.4289|55.9288,-3.4291|55.9281,-3.4290|55.9267,-3.4283|55.9262,-3.4278|55.9257,-3.4279|55.9253,-3.4282|55.9244,-3.4297|55.9235,-3.4307|55.9233,-3.4310|55.9228,-3.4313|55.9223,-3.4317|55.9220,-3.4323|55.9216,-3.4333|55.9213,-3.4336|55.9198,-3.4342|55.9170,-3.4335|55.9166,-3.4340|55.9161,-3.4357|55.9159,-3.4360|55.9146,-3.4369|55.9135,-3.4368|55.9132,-3.4369|55.9130,-3.4373|55.9128,-3.4378|55.9129,-3.4394|55.9127,-3.4408|55.9127,-3.4418|55.9129,-3.4422|55.9100,-3.4416|55.9077,-3.4442|55.9064,-3.4426|55.9056,-3.4431|55.9047,-3.4422|55.9047,-3.4419|55.9052,-3.4405|55.9051,-3.4403|55.9051,-3.4400|55.9054,-3.4366|55.9055,-3.4359|55.9056,-3.4358|55.9058,-3.4351|55.9057,-3.4339|55.9054,-3.4333|55.9049,-3.4328|55.9046,-3.4322|55.9044,-3.4320|55.9044,-3.4312|55.9040,-3.4301|55.9034,-3.4274|55.9033,-3.4260|55.9023,-3.4234|55.9018,-3.4214|55.9019,-3.4189|55.9022,-3.4174|55.9024,-3.4144|55.9025,-3.4131|55.9027,-3.4128|55.9030,-3.4073|55.9027,-3.4054|55.9027,-3.4044|55.9027,-3.4026|55.9033,-3.3978|55.9030,-3.3959|55.9031,-3.3950|55.9029,-3.3932|55.9027,-3.3900|55.9027,-3.3888|55.9029,-3.3881|55.9029,-3.3877|55.9019,-3.3896|55.9013,-3.3904|55.9011,-3.3908|55.9008,-3.3911|55.9004,-3.3910|55.9004,-3.3909|55.9003,-3.3906|55.9001,-3.3905|55.8997,-3.3906|55.8999,-3.3907|55.8998,-3.3910|55.8997,-3.3909|55.8992,-3.3910|55.8989,-3.3905|55.8990,-3.3902|55.8989,-3.3893|55.8990,-3.3889|55.8990,-3.3881|55.8978,-3.3868|55.8974,-3.3869|55.8970,-3.3866|55.8965,-3.3873|55.8962,-3.3870|55.8957,-3.3873|55.8955,-3.3876|55.8950,-3.3887|55.8945,-3.3890|55.8940,-3.3889|55.8939,-3.3891|55.8934,-3.3893|55.8932,-3.3899|55.8929,-3.3901|55.8928,-3.3900|55.8927,-3.3902|55.8924,-3.3902|55.8919,-3.3906|55.8905,-3.3938|55.8904,-3.3943|55.8901,-3.3943|55.8901,-3.3945|55.8899,-3.3947|55.8899,-3.3948|55.8900,-3.3951|55.8898,-3.3955|55.8895,-3.3957|55.8894,-3.3959|55.8895,-3.3961|55.8891,-3.3968|55.8886,-3.3979|55.8884,-3.3982|55.8884,-3.3984|55.8883,-3.3984|55.8883,-3.3989|55.8882,-3.3993|55.8881,-3.4001|55.8879,-3.4003|55.8878,-3.4006|55.8878,-3.4025|55.8874,-3.4028|55.8874,-3.4033|55.8873,-3.4035|55.8872,-3.4033|55.8871,-3.4034|55.8869,-3.4034|55.8867,-3.4036|55.8865,-3.4037|55.8862,-3.4043|55.8858,-3.4040|55.8855,-3.4036|55.8854,-3.4036|55.8852,-3.4040|55.8851,-3.4036|55.8849,-3.4033|55.8848,-3.4030|55.8846,-3.4028|55.8845,-3.4024|55.8842,-3.4023|55.8843,-3.4020|55.8840,-3.4012|55.8840,-3.4010|55.8839,-3.4008|55.8835,-3.4009|55.8831,-3.4008|55.8827,-3.4014|55.8825,-3.4011|55.8824,-3.4013|55.8823,-3.4012|55.8820,-3.4015|55.8818,-3.4014|55.8818,-3.4016|55.8814,-3.4019|55.8813,-3.4020|55.8812,-3.4026|55.8811,-3.4037|55.8807,-3.4047|55.8805,-3.4050|55.8797,-3.4055|55.8791,-3.4117|55.8791,-3.4121|55.8790,-3.4125|55.8786,-3.4131|55.8784,-3.4138|55.8700,-3.4052|55.8702,-3.4032|55.8704,-3.4021|55.8705,-3.4016|55.8709,-3.4005|55.8750,-3.3913|55.8802,-3.3819|55.8814,-3.3778|55.8832,-3.3688|55.8843,-3.3639|55.8846,-3.3599|55.8854,-3.3566|55.8850,-3.3538|55.8854,-3.3524|55.8861,-3.3524|55.8865,-3.3526|55.8882,-3.3451|55.8888,-3.3395|55.8886,-3.3382|55.8891,-3.3358|55.8891,-3.3339|55.8907,-3.3280|55.8923,-3.3219|55.8931,-3.3199|55.8935,-3.3174|55.8962,-3.3103|55.8965,-3.3078|55.8969,-3.3057|55.8973,-3.3036|55.8986,-3.3006|55.8994,-3.2978|55.9008,-3.2935|55.9015,-3.2898|55.9068,-3.2763|55.9081,-3.2721|55.9085,-3.2706|55.9093,-3.2692|55.9106,-3.2679|55.9136,-3.2623|55.9158,-3.2604|55.9182,-3.2593|55.9194,-3.2574|55.9206,-3.2555|55.9236,-3.2471|55.9245,-3.2462|55.9244,-3.2454|55.9241,-3.2443|55.9240,-3.2428|55.9240,-3.2417|55.9241,-3.2408|55.9246,-3.2400|55.9249,-3.2393|55.9251,-3.2380|55.9255,-3.2367|55.9265,-3.2343|55.9273,-3.2320|55.9278,-3.2306|55.9286,-3.2295|55.9296,-3.2282|55.9303,-3.2275|55.9321,-3.2262|55.9331,-3.2252|55.9350,-3.2233|55.9358,-3.2230|55.9364,-3.2226|55.9372,-3.2217|55.9377,-3.2208|55.9401,-3.2146|55.9423,-3.2084|55.9423,-3.2077|55.9422,-3.2075|55.9423,-3.2064|55.9422,-3.2063|55.9425,-3.2049|55.9426,-3.2036|55.9432,-3.2037|55.9438,-3.2039|55.9449,-3.2052|55.9458,-3.2055|55.9457,-3.2083|55.9458,-3.2095|55.9460,-3.2106|55.9461,-3.2118|55.9461,-3.2172|55.9459,-3.2178|55.9459,-3.2234|55.9472,-3.2234|55.9486,-3.2238|55.9492,-3.2241|55.9491,-3.2255|55.9494,-3.2278|55.9498,-3.2277|55.9500,-3.2271|55.9504,-3.2283|55.9511,-3.2294|55.9512,-3.2291|55.9524,-3.2312|55.9529,-3.2275|55.9537,-3.2294|55.9546,-3.2306|55.9554,-3.2305|55.9558,-3.2231|55.9559,-3.2229|55.9571,-3.2244|55.9622,-3.2312|55.9650,-3.2335|55.9685,-3.2362|55.9707,-3.2142|55.9788,-3.2165|55.9803,-3.2164|55.9814,-3.2160|55.9815,-3.2168|55.9855,-3.2162|55.9878,-3.2193|55.9881,-3.2208|55.9872,-3.2299|55.9864,-3.2315|55.9850,-3.2329|55.9844,-3.2338|55.9843,-3.2354|55.9844,-3.2364|55.9848,-3.2371|55.9856,-3.2367|55.9848,-3.2379|55.9837,-3.2391|55.9835,-3.2395|55.9837,-3.2400|55.9840,-3.2401|55.9838,-3.2403|55.9841,-3.2404|55.9838,-3.2404|55.9838,-3.2407|55.9839,-3.2415|55.9841,-3.2417|55.9838,-3.2424|55.9837,-3.2437|55.9840,-3.2460|55.9843,-3.2464|55.9840,-3.2469|55.9842,-3.2490|55.9845,-3.2497|55.9845,-3.2503|55.9842,-3.2502|55.9840,-3.2504|55.9838,-3.2516|55.9828,-3.2541|55.9824,-3.2548|55.9826,-3.2550|55.9825,-3.2555|55.9830,-3.2557|55.9831,-3.2565|55.9835,-3.2570|55.9849,-3.2562|55.9850,-3.2569|55.9846,-3.2580|55.9841,-3.2586|55.9834,-3.2598|55.9831,-3.2597|55.9827,-3.2604|55.9825,-3.2604|55.9822,-3.2608|55.9813,-3.2630|55.9808,-3.2634|55.9808,-3.2638|55.9809,-3.2658|55.9810,-3.2658|55.9812,-3.2649|55.9819,-3.2658|55.9823,-3.2667|55.9824,-3.2686|55.9826,-3.2700|55.9832,-3.2708|55.9830,-3.2715|55.9826,-3.2715|55.9823,-3.2711|55.9823,-3.2713|55.9826,-3.2717|55.9832,-3.2717|55.9836,-3.2731|55.9845,-3.2752|55.9846,-3.2754|55.9847,-3.2751|55.9868,-3.2794|55.9874,-3.2798|55.9876,-3.2803|55.9878,-3.2802|55.9883,-3.2815|55.9882,-3.2818|55.9810,-3.3004|55.9786,-3.3022|55.9764,-3.3024|55.9749,-3.3049|55.9734,-3.3107|55.9714,-3.3122|55.9676,-3.3165|55.9661,-3.3171|55.9647,-3.3160|55.9634,-3.3175|55.9627,-3.3227|55.9628,-3.3298|55.9629,-3.3325|55.9621,-3.3341|55.9620,-3.3360|55.9625,-3.3376|55.9639,-3.3391|55.9642,-3.3403|55.9642,-3.3422|55.9650,-3.3432|55.9659,-3.3441|55.9651,-3.3478|55.9620,-3.3532|55.9598,-3.3540|55.9586,-3.3554|55.9572,-3.3605|55.9562,-3.3625|55.9555,-3.3655|55.9538,-3.3696|55.9529,-3.3707|55.9525,-3.3737|55.9518,-3.3751|55.9524,-3.3767|55.9528,-3.3782|55.9526,-3.3795|55.9515,-3.3798|55.9503,-3.3799|55.9499,-3.3809|55.9497,-3.3877|55.9503,-3.3912|55.9491,-3.3956|55.9498,-3.3980|55.9506,-3.3986|55.9523,-3.3965|55.9531,-3.3977|55.9530,-3.4032|55.9524,-3.4038|55.9502,-3.4042|55.9479,-3.4063|55.9461,-3.4122|55.9439,-3.4106|55.9425,-3.4107|55.9409,-3.4099|55.9397,-3.4118|55.9380,-3.4154|55.9376,-3.4183|55.9364,-3.4196|55.9352,-3.4195|55.9339,-3.4181}}
+
+{{geo|55.94199|-3.27032|zoom=14}}
+{{usabledistrict}}
+{{IsPartOf|Edinburgh}}

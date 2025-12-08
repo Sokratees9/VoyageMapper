@@ -60,3 +60,6 @@ Future Enhancements
 
 * Add an option to somehow load something useful when a user goes to an area with no articles within 20km (wikivoyage limit)
 * Fix entries like "** {{marker | name=Cloonacauneen | url=https://www.clooncastle.com/ | type=see | lat=53.323 | long=-8.988 }} is a restored 15th-century towerhouse that's now a restaurant, often booked for weddings." to use the trailing text
+* Put in appropriate messaging when there is no network or results
+* Better home screen for the app, more enticing
+* Include places from Atlas Obscura and wikipedia

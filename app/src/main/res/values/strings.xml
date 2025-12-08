@@ -27,8 +27,13 @@
     <string name="instructions">• Tap the Use Current Location button to find nearby Wikivoyage guides within a 20 km radius of where you are.\n• Search for a location to view it in a map with nearby guides.\n• Tap black pins to view the opening information from the Wikivoyage article on that place.\n• There are two buttons, one to open the actual Wikivoyage article in your browser, and one to view the sights from that place on the map\n• The green pins are for sights, click on one to see info about the sight.\n• If you move the map around, use the Refresh button to reload articles around the map center.</string>
     <string name="directions">Directions</string>
     <string name="google_maps">Open Google Maps</string>
-    <string name="loading_articles">Loading articles...</string>
-    <string name="loading_articles_near_you">Loading articles near you...</string>
-    <string name="refreshing_articles">Refreshing articles...</string>
+    <string name="loading_articles">Loading articles…</string>
+    <string name="loading_articles_near_you">Loading articles near you…</string>
+    <string name="refreshing_articles">Refreshing articles…</string>
     <string name="loaded_x_articles">Loaded %d articles</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="unable_to_reach_server">Unable to reach server</string>
+    <string name="connection_timed_out">Connection timed out</string>
+    <string name="network_error_occurred">Network error occurred</string>
+    <string name="an_error_occurred">An error occurred</string>
 </resources>

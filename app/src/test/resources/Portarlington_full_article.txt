@@ -1,0 +1,163 @@
+{{pagebanner|Portarlington abbner St Paul's Church.jpg}}
+{{otheruses}}
+'''Portarlington''' is a town in [[County Laois]], with a population of 9300 in 2022. Locally it's referred to as "Port", but so too is nearby Portlaoise, so that term isn't used here. The River Barrow flows through town and forms the county boundary, with most of Portarlington east in County Laois, but a section of it west in [[County Offaly]].
+
+==Understand ==
+"Port" in this context is "Fort", as it was land confiscated after the rebellion of 1641 and awarded to Baron Arlington. His plantation colony flopped, so it was re-settled by French Huguenots, and French was used in school lessons and church services as late as 1820.
+
+== Get in ==
+[[File:County Laois - The Spire - 20180611211926.jpg | thumb | 300px | The Spire on Carrick Hill]]
+Trains from Dublin Heuston, Galway, [[Ballina (County Mayo)]] and [[Westport (Ireland)]] in [[County Mayo]]  run hourly to Portarlington. Commuter trains take an hour, with stops at Dublin Park West & Cherry Orchard, Clondalkin, Adamstown, Hazelhatch & Celbridge, Sallins (for [[Naas]]), Newbridge, [[Kildare]] and Monasterevin, and they continue to [[Portlaoise]]. Inter-city trains take 45 min nonstop and continue to [[Tullamore]], [[Clara]] and [[Athlone]], where they branch either to [[Athenry]] and [[Galway]] or to [[Roscommon]], [[Castlebar]] and [[Westport (Ireland) |Westport]]. For trains to Limerick and Cork, change at Monasterevin. In 2021 a walk-up single from Dublin is €14: see [http://www.irishrail.ie/ Irish Rail] for timetables, fares and online tickets.
+
+Portarlington {{marker | type=go | name=railway station | lat=53.146247 | long=-7.181564}} is just south of town.
+
+[https://www.dublincoach.ie/ Dublin Coach] 816 runs hourly, daily from Kildare and Monasterevin to Portarlington. At Kildare it connects with their M7 Dublin city to Limerick route and their N7 Dublin Airport to Portlaoise route. Total journey time from Dublin is just over an hour.
+
+[http://www.slievebloomcoaches.ie/ Slieve Bloom Coach] 829 runs three times M-F from Portlaoise to Portarlington and Tullamore.
+
+By road from Dublin follow N7 / M7 to Monasterevin (junction 14) then R445 / R424 west.
+
+By boat the nearest you can get is Monasterevin on the Grand Canal / Barrow Navigation, as the spur canal to Portarlington and Mountmellick closed in 1960. The main canal and some of its branches have been restored for leisure boating but there are no plans to re-open this spur.
+
+== Get around ==
+{{mapframe | 53.150 | -7.180 | height=500 | width=500 | zoom=12 }}
+The town is compact, but you might need a car or transportation to see areas outside the town centre.
+
+== See ==
+* {{marker | type=see | name=Market Square | lat=53.162 | long=-7.190 }} is the town centre, with 18th- and 19th-century low-rise in the streets around. The Huguenot tradition really only lives on in the name French Church Street, referring to St Paul's (Church of Ireland). Services were held in French in its predecessor into the 1820s, but the present church was built over the site in 1851. St Michael's is the Roman Catholic church, west on Patrick St.
+* {{marker | type=see | name=Carrick Wood | lat=53.144 | long=-7.188 }} is on a small hill south side of town. Stroll up from the car park to "The Spire", an 18th-century folly probably made from the ruin of a windmill. The town waterworks are adjacent.
+* {{marker | type=see | name=Lea Castle | lat=53.156 | long=-7.147 }} is a ruin along R420 four km east of town. It was built in fits and starts over the 13th century, replacing a timber and earthwork structure, and in its pomp was a mighty four-towered ''donjon'' or keep with an inner and outer moat and bawn wall. But it was wrecked on multiple occasions, and was already in a sorry state when Cromwell's troops came by in 1650, and wrecked it some more just to keep their hands in. One last tenant lived here until 1737. The ruin is overgrown and unsafe, so it's closed to the public, and work is under way to try to stabilise what remains.
+* {{see
+| name=Emo Court | alt= | url=https://emocourt.ie/ | email=
+| address=Emo R32 C44V | lat=53.107 | long=-7.197 | directions=
+| phone=+353 57 862 6573 | tollfree= | fax=
+| hours=Grounds daily 8:30AM-4:30PM | price= | lastedit=2024-05-12
+| content=Grand neo-classical mansion, designed by Gandon in 1790 but construction took another 70 years. Then at last the Earls of Portarlington could enjoy it and entertain in glittering style, but these were the final halcyon days of the Protestant ascendancy. ''Arms Quarterly 1st & 4th, Barry nebuly of six Argent and Gules, over all a Bend engrailed Azure...'' (and so on, at some length) somehow didn't enthrall an independent Republic of Ireland. The family left, and the house lay empty until 1930, then was a Jesuit college until 1969. Not wishing to sully their pious gaze with Grecian nymphs, the Jesuits chucked the statues in the lake. The estate was bought by Major Cholmeley Harrison, who restored the house, fished out the statues and opened the gardens to the public. House and gardens are now curated by the Office of Public Works, but the house is closed for restoration until summer 2024.
+}}
+* {{marker | type=see | name=Derryounce Lake | lat=53.182 | long=-7.189 }} was a bog where peat was commercially extracted to burn at Portarlington power station. It caused pollution, and extraction ceased in 1980, and the cutaway bog flooded to create Lough Lurgan, now a wetland wildlife haven. Derryounce was created by digging through the peat to a layer of sand, which was heaped up to form an inland beach. There are trails and boardwalks.
+
+== Do ==
+* '''Leisure centres:''' [http://www.portarlingtonleisurecentre.ie/ Portarlington Leisure Centre]{{Dead link|date=December 2023 |bot=InternetArchiveBot }} has a pool, gym and fitness classes, and [https://www.powerhousegym.ie/ Powerhouse Gym] also has classes. They're both on Link Rd and you can pay as you go.
+* '''Golf:''' [https://www.portarlingtongolfclub.ie/ Portarlington Golf Club] is 2 km west of town on R423. Blue tees 5941 m, par 71.
+* The [https://www.laoistoday.ie/2023/07/10/vive-la-france-vive-le-solas-french-festival-this-weekend-in-portarlington/ French Festival], celebrating the town's Huguenot connections, is held annually for two days mid-July.
+
+== Buy ==
+* There's a Centra on Main St, SuperValu in the Arlington Centre, and Aldi and Lidl further south.
+
+== Eat ==
+[[File:County Laois - St Paul's Church - 20190924174207.jpg | thumb | 300px | St Paul's no longer has services in French]]
+* {{eat
+| name=Great India | alt= | url=https://www.greatindia.ie/ | email=
+| address=French Church St R32 VW02 | lat= | long= | directions=
+| phone=+353 57 864 3178 | tollfree=
+| hours=Daily 5-11PM | price=
+| lastedit=2021-05-24
+| content=Good Indian choice, tasty and not too heavy.
+}}
+* {{eat
+| name=The Goodyear | alt=Tina's | url=https://order.thegoodyear.ie/#!/order | email=
+| address=Main St R32 Y6AH | lat= | long= | directions=
+| phone=+353 57 862 3905 | tollfree=
+| hours=Su-Th 4:30PM-1AM, F Sa 4:30PM-2:30AM | price=
+| lastedit=2021-05-24
+| content=Original Chinese restaurant in town, busy when the pubs close.
+}}
+* {{eat
+| name=Anvil Inn | alt= | url=https://www.facebook.com/TheAnvilInnPortarlington | email=
+| address=Main St | lat= | long= | directions=
+| phone=+353 57 862 3131 | tollfree=
+| hours=M-Sa 10AM-11:30PM, Su noon-11:30PM | price=
+| lastedit=2021-05-24
+| content=Cosy friendly pub serving good food.
+}}
+* {{eat
+| name=French Quarter Cafe | alt= | url=https://www.facebook.com/Frenchquarter.port/ | email=
+| address=7 French Church Street R32 DP20 | lat= | long= | directions=
+| phone= | tollfree=
+| hours=Tu-Sa 9:30AM-4PM | price=
+| lastedit=2021-05-24
+| content=A friendly cafe serving good simple food.
+}}
+
+==Drink==
+
+* {{drink
+| name=Railway Bar | alt= | url= | email=
+| address=Station Rd | lat= | long= | directions=
+| phone=+353 57 864 3333 | tollfree=
+| hours=M-W 5-10PM, Th-Su noon-10PM | price=
+| lastedit=2021-05-24
+| content=Good friendly place, worth a visit even if you're not waiting on a train.
+}}
+* {{drink
+| name=O'Donoghue's | alt=Pint of Port | url= | email=
+| address=Main St R32 K2RA | lat= | long= | directions=
+| phone=+353 57 860 5320 | tollfree=
+| hours=Su-Th 2-11:30PM, F Sa noon-12:30AM | price=
+| lastedit=2021-05-24
+| content=Good trad pub with TV sport.
+}}
+* {{drink
+| name=O'Dea's | alt=The Coach House | url=http://www.odeasbarandbistro.ie/ | email=
+| address=Upper Main St | lat= | long= | directions=
+| phone=+353 57 862 3281 | tollfree= | fax=
+| hours=W Th 5-10:45PM, Sa 3-10:45PM, Su 12:30-9:45PM | price=
+| lastedit=2021-05-24
+| content=Pub and bistro with live music Saturdays.
+}}
+* {{drink
+| name=Dublin Bar | alt=Tom's | url= | email=
+| address=Main St | lat= | long= | directions=
+| phone= | tollfree=
+| hours= | price=
+| lastedit=2021-05-24
+| content=Trad pub good for a laugh.
+}}
+* {{drink
+| name=Finlays | alt= | url= | email=
+| address=11 Bracklone St | lat= | long= | directions=
+| phone=+353 57 862 3173 | tollfree=
+| hours=Daily 4PM-midnight | price=
+| lastedit=2021-05-24
+| content=Trad pub with decent enough Guinness.
+}}
+* {{drink
+| name=Burbages | alt= | url= | email=
+| address= | lat= | long= | directions=
+| phone= | tollfree= | fax=
+| hours= | price=
+| content=Another all lads pub.
+}}
+* {{drink
+| name=After Dark | alt= | url= | email=
+| address=8 Main St | lat= | long= | directions=
+| phone=+353 57 862 3101 | tollfree=
+| hours= | price=
+| lastedit=2021-05-24
+| content=Lively pub has TV sport, pub grub and live music.
+}}
+
+== Sleep ==
+[[File:Emo court.jpg|thumb|300px|Emo Court]]
+* {{sleep
+| name=The Heritage | alt= | url=https://www.theheritage.com/ | email=
+| address=Killenard, Portarlington R32 PW10 | lat=53.133 | long=-7.152 | directions=
+| phone=+353 57 864 5500 | tollfree=
+| checkin= | checkout= | price=B&B double €160
+| lastedit=2021-05-24
+| content=Plush modern hotel with spa and golf, gets great reviews for comfort and service.
+}}
+
+==Connect==
+As of May 2021, Portarlington has 4G with Eir, and 5G with Three and Vodafone.
+
+== Go next ==
+* [[Tullamore]] has two famous distilleries and is on the Grand Canal.
+* [[Kildare]] is in horse-rearing country, near Curragh racecourse.
+* [[Athy]] is on the navigable River Barrow.
+* [[Slieve Bloom Mountains]] rise west of [[Portlaoise]].
+
+
+{{geo|53.161111111111|-7.1902777777778}}
+{{IsPartOf|County Laois}}
+{{usablecity}}

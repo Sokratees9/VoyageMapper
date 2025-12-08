@@ -1,4 +1,4 @@
-package org.okane.voyagemapper;
+package org.okane.voyagemapper.ui;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.okane.voyagemapper.R;
+import org.okane.voyagemapper.model.PlaceResult;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +42,7 @@ public class PlaceResultAdapter extends RecyclerView.Adapter<PlaceResultAdapter.
 
     @Override public void onBindViewHolder(@NonNull PlaceResultViewHolder h, int position) {
         PlaceResult item = data.get(position);
-        h.title.setText(item.title);
+        h.title.setText(item.title());
         h.itemView.setOnClickListener(v -> onItemClick.onClick(item));
     }
 
@@ -46,7 +50,7 @@ public class PlaceResultAdapter extends RecyclerView.Adapter<PlaceResultAdapter.
         return data.size();
     }
 
-    static class PlaceResultViewHolder extends RecyclerView.ViewHolder {
+    public static class PlaceResultViewHolder extends RecyclerView.ViewHolder {
         final TextView title;
         PlaceResultViewHolder(@NonNull View itemView) {
             super(itemView);

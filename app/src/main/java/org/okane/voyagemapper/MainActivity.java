@@ -1,12 +1,9 @@
 package org.okane.voyagemapper;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -24,14 +20,19 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
-import java.io.IOException;
+import org.okane.voyagemapper.model.PlaceResult;
+import org.okane.voyagemapper.service.NetworkErrorHandler;
+import org.okane.voyagemapper.ui.OnboardingBottomSheetDialogFragment;
+import org.okane.voyagemapper.ui.PlaceResultAdapter;
+import org.okane.voyagemapper.util.NetworkUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         boolean seen = p.getBoolean("onboarding_seen", false);
 
         if (!seen) {
-            new org.okane.voyagemapper.OnboardingBottomSheetDialogFragment()
+            new OnboardingBottomSheetDialogFragment()
                     .show(getSupportFragmentManager(), "onboarding");
         }
 
@@ -83,11 +84,17 @@ public class MainActivity extends AppCompatActivity {
         resultsRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         infoButton.setOnClickListener(v ->
-                new org.okane.voyagemapper.OnboardingBottomSheetDialogFragment()
+                new OnboardingBottomSheetDialogFragment()
                         .show(getSupportFragmentManager(), "onboarding"));
 
         adapter = new PlaceResultAdapter(item -> {
-            if (item.placeId == null) {
+            if (item.placeId() == null) {
+                Log.w("MainActivity", "No placeId for " + item);
+                return;
+            }
+
+            if (!NetworkUtils.isNetworkAvailable(this)) {
+                Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -101,11 +108,13 @@ public class MainActivity extends AppCompatActivity {
             );
 
             com.google.android.libraries.places.api.net.FetchPlaceRequest req =
-                    com.google.android.libraries.places.api.net.FetchPlaceRequest.newInstance(item.placeId, fields);
+                    com.google.android.libraries.places.api.net.FetchPlaceRequest.newInstance(item.placeId(), fields);
 
             placesClient.fetchPlace(req).addOnSuccessListener(response -> {
                 com.google.android.libraries.places.api.model.Place place = response.getPlace();
-                if (place.getLatLng() == null) return;
+                if (place.getLatLng() == null) {
+                    return;
+                }
 
                 double lat = place.getLatLng().latitude;
                 double lon = place.getLatLng().longitude;
@@ -118,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
 //                i.putExtra("title", place.getName());
                 startActivity(i);
             }).addOnFailureListener(err -> {
-                // Show a toast or log
+                Log.e("MainActivity", "Places fetch failed", err);
+                NetworkErrorHandler.handle(findViewById(android.R.id.content), err);
             });
         });
         resultsRecycler.setAdapter(adapter);
@@ -152,6 +162,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void searchPlaces(String query) {
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+            Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
+            return;
+        }
+
         // One token per “search session” helps billing & quality
         com.google.android.libraries.places.api.model.AutocompleteSessionToken token =
                 com.google.android.libraries.places.api.model.AutocompleteSessionToken.newInstance();
@@ -160,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest.builder()
                         .setQuery(query)
                         // Optional: bias to a region or to cities
-                        // .setTypeFilter(com.google.android.libraries.places.api.model.TypeFilter.CITIES)
+                         .setTypeFilter(com.google.android.libraries.places.api.model.TypeFilter.CITIES)
                         // .setCountries(Arrays.asList("GB","AU")) // if you want to limit
                         .setSessionToken(token)
                         .build();
@@ -168,7 +183,13 @@ public class MainActivity extends AppCompatActivity {
         placesClient.findAutocompletePredictions(req)
                 .addOnSuccessListener(resp -> {
                     List<PlaceResult> results = new ArrayList<>();
-                    for (com.google.android.libraries.places.api.model.AutocompletePrediction p : resp.getAutocompletePredictions()) {
+
+                    if (resp.getAutocompletePredictions().isEmpty()) {
+                        showResults(Collections.emptyList(), false);
+                        Toast.makeText(this, "No results found for " + query, Toast.LENGTH_SHORT).show();
+                    }
+
+                    for (AutocompletePrediction p : resp.getAutocompletePredictions()) {
                         // Show primary + secondary text in the list
                         String label = p.getPrimaryText(null) + (p.getSecondaryText(null).length() > 0
                                 ? " — " + p.getSecondaryText(null) : "");
@@ -179,8 +200,9 @@ public class MainActivity extends AppCompatActivity {
                     showResults(results, true);
                 })
                 .addOnFailureListener(e -> {
-                    // Fallback: optionally call your old Geocoder here
+                    Log.w("MainActivity", "Places search failed", e);
                     showResults(Collections.emptyList(), false);
+                    NetworkErrorHandler.handle(findViewById(android.R.id.content), e);
                 });
     }
 
@@ -200,42 +222,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Simple background geocoding using the platform Geocoder
-    private void geocodePlaces(Context ctx, String query, GeocodeCallback cb) {
-        new Thread(() -> {
-            List<PlaceResult> out = new ArrayList<>();
-            try {
-                Geocoder geocoder = new Geocoder(ctx, Locale.getDefault());
-                List<Address> list = geocoder.getFromLocationName(query, 10);
-                if (list != null) {
-                    for (Address a : list) {
-                        if (a.hasLatitude() && a.hasLongitude()) {
-                            String label = getLabel(a);
-                            out.add(new PlaceResult(label, ""));
-                        }
-                    }
-                }
-            } catch (IOException ignored) { }
-            runOnUiThread(() -> cb.onDone(out));
-        }).start();
-    }
+//    private void geocodePlaces(Context ctx, String query, GeocodeCallback cb) {
+//        new Thread(() -> {
+//            List<PlaceResult> out = new ArrayList<>();
+//            try {
+//                Geocoder geocoder = new Geocoder(ctx, Locale.getDefault());
+//                List<Address> list = geocoder.getFromLocationName(query, 10);
+//                if (list != null) {
+//                    for (Address a : list) {
+//                        if (a.hasLatitude() && a.hasLongitude()) {
+//                            String label = getLabel(a);
+//                            out.add(new PlaceResult(label, ""));
+//                        }
+//                    }
+//                }
+//            } catch (IOException ignored) { }
+//            runOnUiThread(() -> cb.onDone(out));
+//        }).start();
+//    }
 
-    @NonNull
-    private String getLabel(Address a) {
-        String label = a.getFeatureName();
-        if (label == null || label.isEmpty()) {
-            label = a.getLocality();
-        }
-        if (label == null || label.isEmpty()) {
-            label = a.getAdminArea();
-        }
-        if (label == null || label.isEmpty()) {
-            label = a.getCountryName();
-        }
-        if (label == null) {
-            label = "Unknown";
-        }
-        return label;
-    }
+//    @NonNull
+//    private String getLabel(Address a) {
+//        String label = a.getFeatureName();
+//        if (label == null || label.isEmpty()) {
+//            label = a.getLocality();
+//        }
+//        if (label == null || label.isEmpty()) {
+//            label = a.getAdminArea();
+//        }
+//        if (label == null || label.isEmpty()) {
+//            label = a.getCountryName();
+//        }
+//        if (label == null) {
+//            label = "Unknown";
+//        }
+//        return label;
+//    }
 
-    interface GeocodeCallback { void onDone(List<PlaceResult> results); }
+//    interface GeocodeCallback { void onDone(List<PlaceResult> results); }
 }

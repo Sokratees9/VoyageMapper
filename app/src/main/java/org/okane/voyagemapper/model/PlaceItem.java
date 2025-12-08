@@ -1,4 +1,4 @@
-package org.okane.voyagemapper;
+package org.okane.voyagemapper.model;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

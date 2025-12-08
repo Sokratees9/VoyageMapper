@@ -1,4 +1,6 @@
-package org.okane.voyagemapper;
+package org.okane.voyagemapper.util;
+
+import org.okane.voyagemapper.model.SeeListing;
 
 import java.util.*;
 import java.util.regex.*;
@@ -9,7 +11,6 @@ public class WikitextSeeParser {
     // G1 = template name, G2 = body, G3 = same-line tail
     private static final Pattern BULLET_LISTING_MULTI =
             Pattern.compile("(?m)^\\s*[*#-]\\s*\\{\\{\\s*(?i:(see|do|marker))\\s*\\|([\\s\\S]*?)\\}\\}[ \\t]*(.*)$");
-
 
     // Fallback anywhere: multi-line body; G1 = template name, G2 = body (no tail)
     private static final Pattern ANY_SEE =
@@ -48,7 +49,9 @@ public class WikitextSeeParser {
             String tpl = m2.group(1);
             String body = m2.group(2);
             Map<String, String> params = parseParams(body);
-            if (!isSeeOrDo(tpl, params)) continue;
+            if (!isSeeOrDo(tpl, params)){
+                continue;
+            }
 
             addListingFrom(params, /*tail*/ "", out);
         }

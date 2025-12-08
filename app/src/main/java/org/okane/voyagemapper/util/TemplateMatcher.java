@@ -1,4 +1,6 @@
-package org.okane.voyagemapper;
+package org.okane.voyagemapper.util;
+
+import org.okane.voyagemapper.model.SeeListing;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -112,7 +114,7 @@ public class TemplateMatcher {
             if (name == null || name.isEmpty()) name = "Sight";
 
             String phone   = firstNonEmpty(params, "phone", "tel");
-            String url     = firstNonEmpty(params, "url", "website", "wikidata");
+            String url     = firstNonEmpty(params, "url", "website");
             String address = firstNonEmpty(params, "address");
             String hours   = firstNonEmpty(params, "hours");
             String price   = firstNonEmpty(params, "price");

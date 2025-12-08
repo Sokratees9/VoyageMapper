@@ -1,0 +1,95 @@
+==See==
+[[File:Spain Sagrada Familia.jpg|thumb|250px|right|Sagrada Família]]
+[[File:Sagrada familia Barcelona 2.jpg|thumb|250px|Interior of the Sagrada Familia]]
+=== Sagrada Família ===
+{{see
+| name=Sagrada Família | alt=Basílica i Temple Expiatori de la Sagrada Família | url=https://sagradafamilia.org/en/home | email=informacio@sagradafamilia.org
+| address=Carrer de Mallorca, 401 | lat=41.403608 | long=2.174442 | directions=Sardenya and Mallorca; {{rint|barcelona|metro}}{{station|Sagrada Familia|l2|l5}}
+| phone=+34 932 080 414 | tollfree=
+| hours=Daily: Nov-Mar 09:00-18:00; Oct Mar 09:00-19:00; Apr-Sep 09:00-20:00 | price=€26 for adult, with audio guide, €30 if tour included. €10 extra to visit the towers
+| wikipedia=Sagrada Família | image=Sagradafamilia-overview.jpg | wikidata=Q48435
+| lastedit=2025-03-01
+| content=Barcelona's most popular and famous attraction, the Sagrada Família is a testament to Antonio Gaudi's modernist style and unlike any other church in the world. The texture and detail on the façades are intricate and incorporate forms seen in nature as much of Gaudi's work does. The inside is huge — it's estimated that it can hold 13,000 people — with vaulted ceilings and columns designed to be reminiscent of trees. The church is still under construction, but the central nave, apse and crypt are open. Seeing the Sagrada Família at night with lights on is impressive — this is the time when you understand why people say that it is built of bones.
+}}
+
+An audioguide is recommended. You will get a much better appreciation of the Sagrada Família, but it does last for over 90 minutes.
+
+A trip to the towers costs extra but provides a different perspective to the church. There are two façades to choose from: ''Façana del Naixement'' (Nativity façade) and ''Façana de la Passió'' (Passion façade). The first one was constructed between 1894 and 1930, and reflects Gaudi's style to the most. The Nativity façade is lower and faces to the east of Barcelona, but you could visit two towers there and then climb down by the famous stairs. The lift to the towers at the Passion façade goes up 85 m and offers you a panoramic view towards the centre of the city.Then you descend by foot, which takes 10-20 minutes. The entries to the lifts are on the left of the doors of the respective façade (looking from inside). There are some lockers there where the visitors are asked to leave their oversized items. Children under 6, unaccompanied children under 16 and elderly people with reduced mobility cannot go up into the towers.
+
+==== Tickets ====
+* ''Church'': Walking around the fenced outside of the church is free, but getting inside requires patience and money. '''As of 2025, you can no longer buy a ticket at the church with online tickets now being mandatory''' and sold [http://www.sagradafamilia.org/en/tiquets/ here]. Once a ticket is bought it needs to be presented to an attendant either printed or as a code at a smart-phone. '''Tickets are limited and do sell out days in advance''', especially during summer, but same-day tickets are sometimes released in the morning during the low season.
+* ''Towers'': Tickets for the tower lifts must be purchased at the same time you buy your entry ticket because they have time slots. Make sure you know which lift you are going to take since there are two of them. When buying a ticket "offline", at a ticket booth, and you go later than 10:00, expect to wait at least an hour (two hours is possible on busy days). You must choose your entrance time to the church to be before the time of a visit to the towers, but after you descend from the towers you are free to continue your visit to the church, the museum and other sights.
+
+=== Further UNESCO World Heritage Listings ===
+
+* {{see | name=Casa Batlló | alt= | url=https://www.casabatllo.es/en/ | email=info@casabatllo.cat
+| address=Passeig de Gracia 43 | lat=41.3916384 | long=2.16476979 | directions=corner of Carrer de Arago; {{rint|barcelona|metro}}{{station|Passeig de Gracia|l2|l3|l4}}
+| phone=+34 932 16 03 06 | tollfree=
+| hours=09:00-22:00 Last entry 20:45 | price=Adult €29-€45 (online) discounts for residents, children, students & seniors. demand led pricing.Tickets at counter are €4 more expensive.
+| wikipedia=Casa Batlló | image=CasaBatllo 0055.JPG | wikidata=Q461371
+| lastedit=2024-03-17
+| content=Another Gaudi masterpiece along the same avenue as La Pedrera. Open to the public. No straight line or right angles appear anywhere in the house. Often overlooked for La Pedrera, (also by Gaudi), La Casa Batlló is equally as stunning with its unique architecture and infamous two ornamental pillars in the entrance to the terrace. Open for visitors from ground floor to the roof, and down by an old-time elevator.
+}}
+* {{see
+| name=La Pedrera | alt=Casa Milà | url=https://www.lapedrera.com/en | email=reserves@lapedrera.com
+| address=Passeig de Gràcia 92 | lat=41.395278 | long=2.161667 | directions={{rint|barcelona|metro}}{{station|Diagonal|l3|l4}}
+| phone=+34 932 142 576 | tollfree=
+| hours=09:00-20:30 | price=from €29, children 0-6 free, discounts for older children, students & 65+. €2 additional charge if buying from ticket office
+| wikipedia=Casa Milà | image=Casa Milà - Barcelona, Spain - Jan 2007.jpg | wikidata=Q207870
+| lastedit=2025-01-20
+| content=One of Gaudi's masterpieces, there is not one straight edge on the exterior and the structure is one of Gaudi’s most eccentric and enticing architectural creations. Tours of the interior and the incredible roof structures are available. Great views of the tall buildings (especially La Sagrada Familia) from the roof. Hosts a large exposition of Gaudi works, covering ''Sagrada Familia'' and ''Casa Batlio'', not only ''La Pedrera'' itself. The exposition is a good place to start your exploration of Gaudi; it reveals many hidden details for the art novice.
+}}
+
+=== Other sights ===
+[[File:CatalanStudiesCourtyardBCN.jpg|thumb|250px|Courtyard in Catalon studies]]
+
+* {{see
+| name=Casa Amatller | alt=Fundació Institut Amatller d'Art Hispànic | url=http://amatller.org/en/ | email=
+| address=Passeig de Gràcia 41 | lat=41.391667 | long=2.165 | directions={{rint|barcelona|metro}}{{station|Passeig de Gràcia|l2|l3|l4}}
+| phone=+34 934 617 460 | tollfree= | fax=
+| hours=Daily 10:00-19:00 only every 1/2 hr (in English at 11:00); no high heels allowed | price=Audio-guided tour €17 reduced €15: Guided tour €20 reduced €17 (online prices)
+| wikipedia=Casa Amatller | image=Casa Amatller - Barcelona 2014.jpg | wikidata=Q506814
+| lastedit=2024-03-19
+| content=Designed by Puig i Cadafalch, the building is a fine work of Modernism. Check the detailed photos and explanation of facade sculptures. It also has a shop that sells fine chocolate (the Amatller family made its money out of cocoa).
+}}
+* {{see
+| name=Casa Lleó-Morera | alt= | url=http://www.casalleomorera.com/ | email=info@casalleomorera.com
+| address=Passeig de Gràcia 35 | lat=41.391244 | long=2.165528 | directions=
+| phone=+34 936 762 733 | tollfree= | fax=
+| hours=Tu-Su 10:00-13:30, 15:00-19:00 (only guided tours roughly every 1/2 hr, full tour in English at 11:00) | price=Adult €15 (sold online or at [http://ajuntament.barcelona.cat/lavirreina/en/ Palau de la Virreina] (La Rambla, 99)
+| wikipedia=Casa Lleó Morera | image=CasaLleoMorera-Full.jpg | wikidata=Q2330791
+| lastedit=2015-10-18
+| content=By [[w:Casa Lleó Morera|Lluís Domènech i Montaner]].
+}}
+* {{see
+| name=Fundació Antoni Tàpies | alt= | url=https://fundaciotapies.org/en/ | email=
+| address=C/d'Aragó, 255 | lat=41.39167 | long=2.16361 | directions={{rint|barcelona|metro}}{{station|Passeig de Gràcia|l2|l3|l4}}
+| phone= | tollfree= | fax=
+| hours= | price=
+| wikipedia=Fundació Antoni Tàpies | image=Domènech.i.Montaner.Editorial.Montaner.i.Simón.1.Barcelona.JPG | wikidata=Q2447148
+|lastedit=2024-03-19| content=Created in 1984 by the artist Antoni Tàpies to promote the study and knowledge of modern and contemporary art.
+}}
+* {{see
+| name=Hotel Majestic | alt= | url=http://www.hotelmajestic.es/ | email=
+| address= | lat=41.393406 | long=2.163947 | directions=
+| phone=+34 934 881 717 | tollfree= | fax=
+| hours= | price=
+| wikipedia=Hotel Majestic (Barcelona) | image=Hotel Majestic Barcelona.JPG | wikidata=Q615575
+| content=Passeig de Gràcia 68. Enjoy city views from the rooftop. Just enter the elevator right from the lobby, and head up to the top floor.
+}}
+* {{see
+| name=Plaça de Catalunya | alt= | url= | email=
+| address=at the end of Passeig de Gràcia and the top of La Rambla | lat=41.386667 | long=2.17 | directions={{rint|barcelona|metro}}{{station|Catalunya|l1|l3|l6|l7}} {{rint|catalonia|rdc}}{{rint|catalonia|r1|r3|r4|r11}}{{rint|catalonia|r3}}{{rint|catalonia|r4}}{{rint|catalonia|r11}}
+| phone= | tollfree= | fax=
+| hours= | price=
+| wikipedia=Plaça de Catalunya | image=050529 Barcelona 109.jpg | wikidata=Q822881
+|lastedit=2024-03-22| content=Connecting many of the major streets in the city, the Plaça is a central location and a hub of activity. It is a favourite meeting spot for locals and a transit hub for the tourist buses. There are many fountains, statues and gardens around the plaza, and a number of benches to just sit and take it all in.
+}}
+* {{see
+| name=Universitat | alt=University of Barcelona | url=http://www.ub.cat | email=
+| address= | lat=41.386667 | long=2.163889 | directions={{rint|barcelona|metro}}{{station|Universitat|l1|l2}}
+| phone= | tollfree=
+| hours= | price=
+| wikipedia=University of Barcelona | image=PlacaUniversitat.jpg | wikidata=Q219615
+| content=The university has many interesting buildings, libraries and courtyards.
+}}

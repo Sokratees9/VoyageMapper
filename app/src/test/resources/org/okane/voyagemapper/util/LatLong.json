@@ -1,0 +1,18 @@
+{
+    "entities": {
+        "Q123": {
+            "claims": {
+                "P625": [ {
+                    "mainsnak": {
+                        "datavalue": {
+                            "value": {
+                                "latitude": 50.5,
+                                "longitude": -1.3
+                            }
+                        }
+                    }
+                } ]
+            }
+        }
+    }
+}

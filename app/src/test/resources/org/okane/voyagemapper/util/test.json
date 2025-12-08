@@ -1,0 +1,388 @@
+{
+  "continue": {
+    "cocontinue": "30011|39405400",
+    "continue": "||pageimages|extracts|pageprops"
+  },
+  "query": {
+    "pages": {
+      "12013": {
+        "pageid": 12013,
+        "ns": 0,
+        "title": "Frascati",
+        "index": -1,
+        "coordinates": [
+          {
+            "lat": 41.8167,
+            "lon": 12.6833,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Villa_Aldobrandini.jpg/500px-Villa_Aldobrandini.jpg",
+          "width": 400,
+          "height": 300
+        },
+        "extract": "Frascati is one of the Castelli Romani, historic hill towns southeast of Rome. It is a small relaxed town perfect for a getaway from the metropolis, world famous for its white wine which has won an array of awards. Frascati has a slower pace of life, cleaner air, and a far more casual feel than the nearby capital.",
+        "pageprops": {
+          "geocrumb-is-in": "6202",
+          "kartographer_links": "1",
+          "page_image_free": "Villa_Aldobrandini.jpg",
+          "wikibase_item": "Q190963"
+        }
+      },
+      "19267": {
+        "pageid": 19267,
+        "ns": 0,
+        "title": "Lazio",
+        "index": 0,
+        "coordinates": [
+          {
+            "lat": 41.9,
+            "lon": 12.7167,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Viterbo_Papi.jpg/500px-Viterbo_Papi.jpg",
+          "width": 400,
+          "height": 267
+        },
+        "extract": "Lazio (Latium) is a central region of Italy. Rome is more or less in the middle of the region but Lazio has numerous other attractions and would well repay a visit even if Rome did not exist. The region has many fascinating cities, several lakes, some beautiful scenery, good opportunities for country and hill walks and a coastline that is almost entirely beach, which is enhanced by hundreds of excellent fish restaurants. Communications are good, particularly going north-south.",
+        "pageprops": {
+          "geocrumb-is-in": "6506",
+          "kartographer_frames": "1",
+          "kartographer_links": "32",
+          "page_image_free": "Viterbo_Papi.jpg",
+          "wikibase_item": "Q1282"
+        }
+      },
+      "29990": {
+        "pageid": 29990,
+        "ns": 0,
+        "title": "Rome",
+        "index": 1,
+        "coordinates": [
+          {
+            "lat": 41.9,
+            "lon": 12.4833333,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/500px-Colosseo_2020.jpg",
+          "width": 400,
+          "height": 280
+        },
+        "extract": "Rome (Italian and Latin: Roma), the 'Eternal City', is the capital and largest city of Italy and of the Lazio region. It's the famed city of the Roman Empire, the Seven Hills, La Dolce Vita, the Vatican City and Three Coins in the Fountain. Rome, as a millennia-long centre of power, culture and religion, was the centre of one of the greatest civilisations ever, and has exerted a huge influence over the world in its circa 2500 years of existence.\n\nThe historic centre of the city is a UNESCO World Heritage Site. With wonderful palaces, thousand-year-old churches and basilicas, grand romantic ruins, opulent monuments, ornate statues and graceful fountains, Rome has an immensely rich historical heritage and cosmopolitan atmosphere, making it one of Europe's and the world's most visited, famous, influential and beautiful capitals. Today, Rome has a growing nightlife scene and is also seen as a shopping heaven, being regarded as one of the fashion capitals of the world; some of Italy's oldest jewellery and clothing establishments were founded in the city. With so many sights and things to do, Rome can truly be classified a \"global city\".",
+        "pageprops": {
+          "geocrumb-is-in": "29993",
+          "kartographer_frames": "2",
+          "kartographer_links": "27",
+          "page_image_free": "Colosseo_2020.jpg",
+          "wikibase-badge-Q17559452": "",
+          "wikibase_item": "Q220"
+        }
+      },
+      "29993": {
+        "pageid": 29993,
+        "ns": 0,
+        "title": "Metropolitan Rome",
+        "index": 2,
+        "coordinates": [
+          {
+            "lat": 41.893056,
+            "lon": 12.482778,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "extract": "The Metropolitan City of Rome Capital (Italian: Città metropolitana di Roma Capitale) is an administrative region in the Lazio Region of Italy. The region outside of the city provides lots of opportunities for day trips, and can be worth deeper exploration for its archaeological sites, beach towns, and charming villages. \nWith 4.4 million inhabitants, nearly 3 million of these in the city of Rome, it is Italy's largest urban region.",
+        "pageprops": {
+          "geocrumb-is-in": "19267",
+          "kartographer_frames": "1",
+          "kartographer_links": "28",
+          "wikibase_item": "Q18288160"
+        }
+      },
+      "29995": {
+        "pageid": 29995,
+        "ns": 0,
+        "title": "Rome/Aventino-Testaccio",
+        "index": 3,
+        "coordinates": [
+          {
+            "lat": 41.8768,
+            "lon": 12.4776,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Et%C3%A0_imperiale%2C_chiusino_a_forma_di_mascherone_di_divinit%C3%A0_fluviale%2C_detta_bocca_della_verit%C3%A0%2C_collocata_qui_nel_1632.jpg/500px-Et%C3%A0_imperiale%2C_chiusino_a_forma_di_mascherone_di_divinit%C3%A0_fluviale%2C_detta_bocca_della_verit%C3%A0%2C_collocata_qui_nel_1632.jpg",
+          "width": 400,
+          "height": 532
+        },
+        "extract": "Aventino and Testaccio are neighbourhoods of Rome.\nAventino is named for the hill which rises up near the Tiber river and is one of the legendary seven hills of Rome. Diagonally opposite at the end of Circus Maximus is the Celian Hill, another of the seven hills.\nTestaccio is an area to the southwest of Aventino along the bank of the Tiber and is named for the eighth hill of Rome, a man made hill that was built from discarded pot amphorae (testae) in Roman times.  In Testaccio you can find great traditional Roman restaurants,  and at night the zone is filled with discos.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "34",
+          "page_image_free": "Età_imperiale,_chiusino_a_forma_di_mascherone_di_divinità_fluviale,_detta_bocca_della_verità,_collocata_qui_nel_1632.jpg",
+          "wikibase-badge-Q17559452": "",
+          "wikibase_item": "Q1751443"
+        }
+      },
+      "30001": {
+        "pageid": 30001,
+        "ns": 0,
+        "title": "Rome/Colosseo",
+        "index": 4,
+        "coordinates": [
+          {
+            "lat": 41.890169,
+            "lon": 12.492269,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Colosseum_2005.jpg/500px-Colosseum_2005.jpg",
+          "width": 400,
+          "height": 207
+        },
+        "extract": "The Colosseo district is the heart of ancient Rome and the Roman Empire. It has the Colosseum, the Forum, and the Capitoline Museum.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "67",
+          "page_image_free": "Colosseum_2005.jpg",
+          "wikibase_item": "Q112708581"
+        }
+      },
+      "30003": {
+        "pageid": 30003,
+        "ns": 0,
+        "title": "Rome/Esquilino-San Giovanni",
+        "index": 5,
+        "coordinates": [
+          {
+            "lat": 41.895556,
+            "lon": 12.496667,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Facade_San_Giovanni_in_Laterano_2006-09-07.jpg/500px-Facade_San_Giovanni_in_Laterano_2006-09-07.jpg",
+          "width": 400,
+          "height": 300
+        },
+        "extract": "Esquilino and San Giovanni are adjacent neighborhoods in Rome.\nEsquilino is named for the Esquiline hill on which it stands. It lies south of the Termini station and is centred more or less on the Piazza Vittorio Emmanuele II. It is now partly a Chinese immigrant neighbourhood, and specialty groceries and shoe stores abound. San Giovanni is named after the Basilica, which is the Roman Catholic cathedral of Rome. The area is south-east of the Esquiline.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "19",
+          "page_image_free": "Facade_San_Giovanni_in_Laterano_2006-09-07.jpg",
+          "wikibase-badge-Q17559452": "",
+          "wikibase_item": "Q14925212"
+        }
+      },
+      "30006": {
+        "pageid": 30006,
+        "ns": 0,
+        "title": "Rome/Modern Centre",
+        "index": 6,
+        "coordinates": [
+          {
+            "lat": 41.9033,
+            "lon": 12.4903,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Piazza_della_Repubblica_%28Roma%29.jpg/500px-Piazza_della_Repubblica_%28Roma%29.jpg",
+          "width": 400,
+          "height": 266
+        },
+        "extract": "The Modern Centre of Rome, home to the Via Veneto, Quirinale, Castro Pretorio, Repubblica, and Trevi neighbourhoods, is the city's hub of activity, especially shopping and nightlife. It's also home to a huge assortment of hotels, and it's likely that you'll be staying here, despite the fact that most of Rome's historic attractions are elsewhere.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "41",
+          "page_image_free": "Piazza_della_Repubblica_(Roma).jpg",
+          "wikibase-badge-Q17559452": "",
+          "wikibase_item": "Q14231293"
+        }
+      },
+      "30009": {
+        "pageid": 30009,
+        "ns": 0,
+        "title": "Rome/Nomentano",
+        "index": 7,
+        "coordinates": [
+          {
+            "lat": 41.9112,
+            "lon": 12.5194,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Santa_costanza1.jpg/500px-Santa_costanza1.jpg",
+          "width": 400,
+          "height": 300
+        },
+        "extract": "Nomentano is a district of Rome.\nThe San Lorenzo neighborhood is a student area south-east of Rome's main train station (Termini). It has a small street market (food, clothing), unpretentious caffès and is a major centre of Rome's night life.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "9",
+          "page_image_free": "Santa_costanza1.jpg",
+          "wikibase_item": "Q3343213"
+        }
+      },
+      "30010": {
+        "pageid": 30010,
+        "ns": 0,
+        "title": "Rome/North",
+        "index": 8,
+        "coordinates": [
+          {
+            "lat": 41.9251,
+            "lon": 12.4549,
+            "primary": "",
+            "globe": "earth"
+          }
+        ],
+        "extract": "The North of Rome is comprised of Municipi III, XI-XV.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "18",
+          "wikibase_item": "Q14210403"
+        }
+      },
+      "30011": {
+        "pageid": 30011,
+        "ns": 0,
+        "title": "Rome/North Centre",
+        "index": 9,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/RomeSpanish.jpg/500px-RomeSpanish.jpg",
+          "width": 400,
+          "height": 216
+        },
+        "extract": "North Central Rome is a district that covers the areas around Piazza di Spagna, Piazza del Popolo and Parioli, as well as the magnificent Villa Borghese and its gardens. Further out the area is bordered by Via Nomentana and the River Tiber and includes the area of Salario.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "53",
+          "page_image_free": "RomeSpanish.jpg",
+          "wikibase-badge-Q17437798": "",
+          "wikibase_item": "Q14231296"
+        }
+      },
+      "30012": {
+        "pageid": 30012,
+        "ns": 0,
+        "title": "Rome/Old Rome",
+        "index": 10,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Neptune_fountain.jpg/500px-Neptune_fountain.jpg",
+          "width": 400,
+          "height": 300
+        },
+        "extract": "Old Rome is the historic medieval and renaissance center of Rome. While the oldest section of Rome is at the Forum, and the Modern Center has shifted to the Via Veneto, Old Rome remains the city's most charming district, with lovely piazzas (squares) and streets to wander and find small cafes and restaurants. Old Rome includes the neighborhoods of Navona, Campo de' Fiori, Pantheon, and the Ghetto.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "73",
+          "page_image_free": "Neptune_fountain.jpg",
+          "wikibase-badge-Q17437798": "",
+          "wikibase_item": "Q523026"
+        }
+      },
+      "30022": {
+        "pageid": 30022,
+        "ns": 0,
+        "title": "Rome/South",
+        "index": 11,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Square_colosseum.jpg/500px-Square_colosseum.jpg",
+          "width": 400,
+          "height": 454
+        },
+        "extract": "The South of Rome includes the historic Appian Way and nearby catacombs, as well as important tourist attractions in EUR, and San Paolo.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "36",
+          "page_image_free": "Square_colosseum.jpg",
+          "wikibase-badge-Q17559452": "",
+          "wikibase_item": "Q14231300"
+        }
+      },
+      "30025": {
+        "pageid": 30025,
+        "ns": 0,
+        "title": "Rome/Trastevere",
+        "index": 12,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Ponte_Sisto%2C_Rome_-_2235.jpg/500px-Ponte_Sisto%2C_Rome_-_2235.jpg",
+          "width": 400,
+          "height": 267
+        },
+        "extract": "Trastevere is a district in Rome. The district's name derives from the Latin words \"Trans Tiberem\": beyond the Tiber river. Today Trastevere is one of the centers of Roman night life; rich in pubs, restaurants, clubs. Trastevere has a high population of expatriates and American college students as there are two American universities in the area.",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "34",
+          "page_image_free": "Ponte_Sisto,_Rome_-_2235.jpg",
+          "wikibase-badge-Q17559452": "",
+          "wikibase_item": "Q914255"
+        }
+      },
+      "30027": {
+        "pageid": 30027,
+        "ns": 0,
+        "title": "Rome/Vatican",
+        "index": 13,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/San_pietro_in_vaticano_%28con_numeri%29.svg/400px-San_pietro_in_vaticano_%28con_numeri%29.svg.png",
+          "width": 400,
+          "height": 578
+        },
+        "extract": "Vatican City (Italian: Stato della Città del Vaticano; Latin: Status Civitatis Vaticanae) is the world's smallest country both by area and by population, and is the centre of Catholicism. This tiny country completely within Rome is packed with more history and artwork than most cities in the world, and indeed many countries. St. Peter's Basilica, the Vatican Museums and the Sistine Chapel are all in Vatican City.\nThis article also covers the nearby Roman neighbourhoods of Borgo and Prati, which measure 49 and 127 hectares respectively (compared to the Vatican's 49 hectares).",
+        "pageprops": {
+          "geocrumb-is-in": "29990",
+          "kartographer_frames": "1",
+          "kartographer_links": "40",
+          "page_image_free": "San_pietro_in_vaticano_(con_numeri).svg",
+          "wikibase-badge-Q17437798": "",
+          "wikibase_item": "Q237"
+        }
+      },
+      "151525": {
+        "pageid": 151525,
+        "ns": 0,
+        "title": "Canterano",
+        "index": 14,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Canterano.jpg/500px-Canterano.jpg",
+          "width": 400,
+          "height": 533
+        },
+        "extract": "Canterano is in Lazio. This is a picturesque town right in the heart of Italy on the Appennines. What most characterizes this place is its unspoiled nature and traditions which are visible still today. Its history is characterized by a mixture of legends and actual facts. That is why it is not surprising that its coat of arms is represented by a small boat, even though the seaside is at least 80 km away.",
+        "pageprops": {
+          "geocrumb-is-in": "29993",
+          "page_image_free": "Canterano.jpg",
+          "wikibase_item": "Q241931"
+        }
+      }
+    }
+  }
+}

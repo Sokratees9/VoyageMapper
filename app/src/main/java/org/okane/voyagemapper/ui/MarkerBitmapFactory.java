@@ -1,4 +1,4 @@
-package org.okane.voyagemapper;
+package org.okane.voyagemapper.ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
+
+import org.okane.voyagemapper.R;
 
 public class MarkerBitmapFactory {
     private final Context ctx;

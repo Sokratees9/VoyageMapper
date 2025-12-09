@@ -28,6 +28,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,6 +46,7 @@ import org.okane.voyagemapper.service.WikiResponse;
 import org.okane.voyagemapper.ui.PlaceClusterRenderer;
 import org.okane.voyagemapper.util.NetworkUtils;
 import org.okane.voyagemapper.util.TemplateMatcher;
+import org.okane.voyagemapper.util.WikidataCoordsFetcher;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -222,7 +224,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             title.setText(item.getTitle());
             setThumbOrHide(thumb, item.getThumbUrl(), item.getTitle());
-            snippet.setText(empty(item.getSnippet()) ? getString(R.string.preview) : item.getSnippet());
+            snippet.setText(empty(item.getSnippet()) ? getString(R.string.no_actual_information) : item.getSnippet());
 
             openBtn.setOnClickListener(b -> {
                 String url = "https://en.wikivoyage.org/?curid=" + item.getPageId();
@@ -256,7 +258,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             });
 
             title.setText(item.getTitle());
-            content.setText(empty(item.getSnippet()) ? getString(R.string.preview) : item.getSnippet());
+            content.setText(empty(item.getSnippet()) ? getString(R.string.no_actual_information) : item.getSnippet());
             setThumbOrHide(thumb, buildCommonsThumbUrl(item.getThumbUrl(), 600), item.getTitle());
 
             bindRow(v, R.id.phone, item.getPhone(), val ->
@@ -377,7 +379,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     updateMapMarkers(new ArrayList<>(pagesWithCoords));
                 }
                 hideLoading();
-                Toast.makeText(MapActivity.this, String.format(getString(R.string.loaded_x_articles), pageCount), Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                        MapActivity.this,
+                        String.format(getResources().getQuantityString(R.plurals.loaded_x_articles, pageCount), pageCount),
+                        Toast.LENGTH_SHORT).show();
             }
 
             @Override public void onFailure(@NonNull Call<WikiResponse> call, @NonNull Throwable t) {
@@ -393,60 +398,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // Clear existing markers/clusters
         clusterManager.clearItems();
 
+        List<PlaceItem> places = new ArrayList<>();
         for (WikiResponse.Page p : pages) {
             if (p.coordinates != null && !p.coordinates.isEmpty()) {
                 WikiResponse.Coordinate c = p.coordinates.get(0);
                 String snippet = p.extract != null ? p.extract : "";
                 String thumb = p.thumbnail != null ? p.thumbnail.source : null;
-                PlaceItem item = new PlaceItem(
-                        c.lat, c.lon, p.title, snippet, thumb, p.pageid, PlaceItem.Kind.ARTICLE);
-
-                clusterManager.addItem(item);
+                places.add(new PlaceItem(
+                        c.lat, c.lon, p.title, snippet, thumb, p.pageid, PlaceItem.Kind.ARTICLE));
             }
         }
+        clusterManager.addItems(places);
         clusterManager.cluster();
+        zoomToBounds(places);
     }
-
-//    private void fillMissingCoords(List<WikiResponse.Page> pages, Runnable onAllDone) {
-//        WikidataHelper helper = new WikidataHelper();
-//        AtomicInteger remaining = new AtomicInteger(pages.size());
-//
-//        for (WikiResponse.Page p : pages) {
-//            Log.d("fillMissingCoords","Page: " + p.title);
-//            if (p.coordinates != null && !p.coordinates.isEmpty()) {
-//                Log.d("fillMissingCoords","Coords found: " + p.coordinates);
-//                // Already has coords — just count down
-//                if (remaining.decrementAndGet() == 0) {
-//                    onAllDone.run();
-//                }
-//                continue;
-//            }
-//            Log.d("fillMissingCoords","Coordinates not found");
-//
-//            String wikiBaseId = p.pageprops != null ? p.pageprops.wikibaseItem : null;
-//            if (wikiBaseId == null) {
-//                if (remaining.decrementAndGet() == 0) onAllDone.run();
-//                continue;
-//            }
-//
-//            helper.fetchCoordinates(wikiBaseId, latLng -> {
-//                if (latLng != null) {
-//                    // attach new coordinates
-//                    WikiResponse.Coordinate c = new WikiResponse.Coordinate();
-//                    c.lat = latLng.latitude;
-//                    c.lon = latLng.longitude;
-//                    p.coordinates = Collections.singletonList(c);
-//                    Log.d("fillMissingCoords","Coordinates looked up for: " + p.title
-//                            + ", found: " + latLng);
-//                }
-//
-//                // When all async calls have finished, trigger the callback
-//                if (remaining.decrementAndGet() == 0) {
-//                    new Handler(Looper.getMainLooper()).post(onAllDone);
-//                }
-//            });
-//        }
-//    }
 
     private void setLocationEnabled() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -476,14 +441,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
-    private void mapSightsForPage(PlaceItem item) {
+    private void mapSightsForPage(PlaceItem currentItem) {
 
         if (!NetworkUtils.isNetworkAvailable(this)) {
             Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
             return;
         }
 
-        repo.fetchPageWikitext(item.getPageId(), new Callback<>() {
+        repo.fetchPageWikitext(currentItem.getPageId(), new Callback<>() {
             @Override public void onResponse(@NonNull retrofit2.Call<PageContentResponse> call,
                     @NonNull retrofit2.Response<PageContentResponse> res) {
                 if (!res.isSuccessful() || res.body() == null || res.body().query == null
@@ -494,7 +459,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
                 String wikitext = res.body().query.pages.get(0).revisions.get(0).slots.main.content;
 
-//                List<SeeListing> listings = WikitextSeeParser.parse(wikitext);
                 List<SeeListing> listings = TemplateMatcher.parse(wikitext);
                 if (listings.isEmpty()) {
                     Toast.makeText(
@@ -504,33 +468,55 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     return;
                 }
 
-                // Add markers (reuse your PlaceItem so they render with labeled pins)
-                List<PlaceItem> pins = new ArrayList<>();
+                WikidataCoordsFetcher wikidataFetcher = new WikidataCoordsFetcher();
+
+                List<PlaceItem> initialPins = new ArrayList<>();
+                List<SeeListing> missing = new ArrayList<>();
+
                 for (SeeListing s : listings) {
-                    pins.add(new PlaceItem(s.phone(), s.url(), s.address(), s.hours(), s.price(), s.wikipediaUrl(),
-                            s.lat(), s.lon(), s.name(), s.content(), s.thumbUrl(), item.getPageId(),
-                            PlaceItem.Kind.SIGHT));
+                    Double lat = s.lat();
+                    Double lon = s.lon();
+
+                    if (lat != null && lon != null && !Double.isNaN(lat) && !Double.isNaN(lon)) {
+                        initialPins.add(toPlaceItem(s, lat, lon, currentItem.getPageId()));
+                    } else if (s.wikidata() != null && !s.wikidata().isEmpty()) {
+                        missing.add(s);
+                    }
                 }
 
-                // Drop them on the map (+ keep existing items)
-                clusterManager.addItems(pins);
+                // Add the ones we already have
+                clusterManager.addItems(initialPins);
                 clusterManager.cluster();
 
-                // Zoom to bounds of the new sights (optional, but nice), including the item position
-                com.google.android.gms.maps.model.LatLngBounds.Builder b =
-                        new com.google.android.gms.maps.model.LatLngBounds.Builder();
-                b.include(item.getPosition());
-                for (PlaceItem p : pins) {
-                    b.include(p.getPosition());
+                // Now fetch missing ones
+                if (!missing.isEmpty()) {
+
+                    for (SeeListing s : missing) {
+                        wikidataFetcher.fetchCoords(s.wikidata(), coords -> {
+                            if (coords == null) return;
+
+                            runOnUiThread(() -> {
+                                PlaceItem p = toPlaceItem(
+                                        s,
+                                        coords.latitude,
+                                        coords.longitude,
+                                        currentItem.getPageId()
+                                );
+                                clusterManager.addItem(p);
+                                clusterManager.cluster();
+                            });
+                        });
+                    }
                 }
-                try {
-                    map.animateCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngBounds(b.build(), 80));
-                } catch (Exception ignored) { /* if only one point, bounds fail; it's fine */ }
+
+                // adding current place to pins to make sure we get the correct bounded zoom
+                initialPins.add(currentItem);
+                zoomToBounds(initialPins);
             }
 
             @Override public void onFailure(@NonNull retrofit2.Call<PageContentResponse> call, @NonNull Throwable t) {
                 Log.w("mapSightsForPage", "failed to load sights for "
-                        + item.getTitle() + ": "
+                        + currentItem.getTitle() + ": "
                         + t.getLocalizedMessage());
                 View root = findViewById(android.R.id.content);
                 NetworkErrorHandler.handle(root, (Exception) t);
@@ -544,5 +530,38 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (r == REQ_LOC && g.length > 0 && g[0] == PackageManager.PERMISSION_GRANTED) {
             enableMyLocationAndCenterAndLoad();
         }
+    }
+
+    // Zoom to bounds of the new sights (optional, but nice), including the item position
+    private void zoomToBounds(List<PlaceItem> places) {
+        try {
+            if (places.size() == 1) {
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(places.get(0).getPosition(), 12.0f));
+            } else {
+                LatLngBounds.Builder latLongBounds = new LatLngBounds.Builder();
+                for (PlaceItem place : places) {
+                    latLongBounds.include(place.getPosition());
+                }
+                map.animateCamera(CameraUpdateFactory.newLatLngBounds(latLongBounds.build(), 80));
+            }
+        } catch (Exception ignored) { /* if only one point, bounds fail; it's fine */ }
+    }
+
+    private PlaceItem toPlaceItem(SeeListing s, double lat, double lon, long pageId) {
+        return new PlaceItem(
+                s.phone(),
+                s.url(),
+                s.address(),
+                s.hours(),
+                s.price(),
+                s.wikipediaUrl(),
+                lat,
+                lon,
+                s.name(),
+                s.content(),
+                s.thumbUrl(),
+                pageId,
+                PlaceItem.Kind.SIGHT
+        );
     }
 }

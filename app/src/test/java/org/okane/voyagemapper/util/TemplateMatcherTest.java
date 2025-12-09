@@ -30,6 +30,30 @@ class TemplateMatcherTest {
     }
 
     @Test
+    public void parsesSingleLineListingSee() {
+        String wikitext =
+                """
+                        * {{listing | type=see
+                        | name=Octagon House | alt=Loren Andrus Octagon House | url=http://www.octagonhouse.org/ | email=
+                        | address=57500 Van Dyke | lat=42.718333 | long=-83.035 | directions=
+                        | phone=+1 586 781-0084 | tollfree=
+                        | hours= | price=
+                        | wikidata=Q6680344
+                        | content=An icon of early history, capturing attention with its unusual symmetry and serving as a metaphor for a community that bridges yesterday and tomorrow. It was used as a safehouse on the [[Underground Railroad]].
+                        }}
+                """;
+
+        List<SeeListing> out = TemplateMatcher.parse(wikitext); // whatever your class is called
+        assertEquals(1, out.size());
+
+        SeeListing s = out.get(0);
+        assertEquals("Octagon House", s.name());
+        assertEquals(42.718333, s.lat(), 1e-6);
+        assertEquals(-83.035, s.lon(), 1e-6);
+        assertTrue(s.content().contains("of early history, capturing attention with its unusual"));
+    }
+
+    @Test
     public void parsesMultilineSee_LauristonCastle() {
         String wikitext =
                 """
@@ -40,7 +64,7 @@ class TemplateMatcherTest {
                         | wikipedia=Lauriston Castle | wikidata=Q2969689 | lastedit=2023-12-17\s
                         | content=This 1590s tower house was extended in the 1820s and housed a series of prosperous families.
                         }}
-                        """;
+                """;
 
         List<SeeListing> out = TemplateMatcher.parse(wikitext);
         assertEquals(1, out.size());
@@ -67,16 +91,16 @@ class TemplateMatcherTest {
 
         SeeListing marketSquare = new SeeListing("Market Square", 53.162, -7.190, null, null,
                 "is the town centre, with 18th- and 19th-century low-rise in the streets around. The Huguenot tradition really only lives on in the name French Church Street, referring to St Paul's (Church of Ireland). Services were held in French in its predecessor into the 1820s, but the present church was built over the site in 1851. St Michael's is the Roman Catholic church, west on Patrick St.",
-                null, null, null, null, null);
+                null, null, null, null, null, null);
         SeeListing carrickWood = new SeeListing("Carrick Wood", 53.144, -7.188, null, null,
                 "is on a small hill south side of town. Stroll up from the car park to \"The Spire\", an 18th-century folly probably made from the ruin of a windmill. The town waterworks are adjacent.",
-                null, null, null, null, null);
+                null, null, null, null, null, null);
         SeeListing leaCastle = new SeeListing("Lea Castle", 53.156, -7.147, null, null,
                 "is a ruin along R420 four km east of town. It was built in fits and starts over the 13th century, replacing a timber and earthwork structure, and in its pomp was a mighty four-towered donjon or keep with an inner and outer moat and bawn wall. But it was wrecked on multiple occasions, and was already in a sorry state when Cromwell's troops came by in 1650, and wrecked it some more just to keep their hands in. One last tenant lived here until 1737. The ruin is overgrown and unsafe, so it's closed to the public, and work is under way to try to stabilise what remains.",
-                null, null, null, null, null);
+                null, null, null, null, null, null);
         SeeListing emoCourt = new SeeListing("Emo Court", 53.107, -7.197, "+353 57 862 6573", "https://emocourt.ie/",
                 "Grand neo-classical mansion, designed by Gandon in 1790 but construction took another 70 years. Then at last the Earls of Portarlington could enjoy it and entertain in glittering style, but these were the final halcyon days of the Protestant ascendancy. Arms Quarterly 1st & 4th, Barry nebuly of six Argent and Gules, over all a Bend engrailed Azure... (and so on, at some length) somehow didn't enthrall an independent Republic of Ireland. The family left, and the house lay empty until 1930, then was a Jesuit college until 1969. Not wishing to sully their pious gaze with Grecian nymphs, the Jesuits chucked the statues in the lake. The estate was bought by Major Cholmeley Harrison, who restored the house, fished out the statues and opened the gardens to the public. House and gardens are now curated by the Office of Public Works, but the house is closed for restoration until summer 2024.",
-                "Emo R32 C44V", "Grounds daily 8:30AM-4:30PM", null, null, null);
+                "Emo R32 C44V", "Grounds daily 8:30AM-4:30PM", null, null, null, null);
 
         List<SeeListing> things = TemplateMatcher.parse(portarlington);
         assertEquals(5, things.size());
@@ -101,6 +125,7 @@ class TemplateMatcherTest {
                 "Daily: Nov-Mar 09:00-18:00; Oct Mar 09:00-19:00; Apr-Sep 09:00-20:00",
                 "€26 for adult, with audio guide, €30 if tour included. €10 extra to visit the towers",
                 "Sagrada Família",
+                "Q48435",
                 "Sagradafamilia-overview.jpg"
         );
         SeeListing casaBatllo = new SeeListing(
@@ -114,6 +139,7 @@ class TemplateMatcherTest {
                 "09:00-22:00 Last entry 20:45",
                 "Adult €29-€45 (online) discounts for residents, children, students & seniors. demand led pricing.Tickets at counter are €4 more expensive.",
                 "Casa Batlló",
+                "Q461371",
                 "CasaBatllo 0055.JPG"
         );
         SeeListing laPedrera = new SeeListing(
@@ -127,6 +153,7 @@ class TemplateMatcherTest {
                 "09:00-20:30",
                 "from €29, children 0-6 free, discounts for older children, students & 65+. €2 additional charge if buying from ticket office",
                 "Casa Milà",
+                "Q207870",
                 "Casa Milà - Barcelona, Spain - Jan 2007.jpg"
         );
         SeeListing casaAmatller = new SeeListing(
@@ -140,6 +167,7 @@ class TemplateMatcherTest {
                 "Daily 10:00-19:00 only every 1/2 hr (in English at 11:00); no high heels allowed",
                 "Audio-guided tour €17 reduced €15: Guided tour €20 reduced €17 (online prices)",
                 "Casa Amatller",
+                "Q506814",
                 "Casa Amatller - Barcelona 2014.jpg"
         );
         SeeListing casaLleoMorera = new SeeListing(
@@ -153,6 +181,7 @@ class TemplateMatcherTest {
                 "Tu-Su 10:00-13:30, 15:00-19:00 (only guided tours roughly every 1/2 hr, full tour in English at 11:00)",
                 "Adult €15 (sold online or at [http://ajuntament.barcelona.cat/lavirreina/en/ Palau de la Virreina] (La Rambla, 99)",
                 "Casa Lleó Morera",
+                "Q2330791",
                 "CasaLleoMorera-Full.jpg"
         );
         SeeListing fundacioAntoniTapies = new SeeListing(
@@ -166,6 +195,7 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "Fundació Antoni Tàpies",
+                "Q2447148",
                 "Domènech.i.Montaner.Editorial.Montaner.i.Simón.1.Barcelona.JPG"
         );
         SeeListing hotelMajestic = new SeeListing(
@@ -179,6 +209,7 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "Hotel Majestic (Barcelona)",
+                "Q615575",
                 "Hotel Majestic Barcelona.JPG"
         );
         SeeListing placaDeCatalunya = new SeeListing(
@@ -192,6 +223,7 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "Plaça de Catalunya",
+                "Q822881",
                 "050529 Barcelona 109.jpg"
         );
         SeeListing universitat = new SeeListing(
@@ -205,6 +237,7 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "University of Barcelona",
+                "Q219615",
                 "PlacaUniversitat.jpg"
         );
 
@@ -227,46 +260,48 @@ class TemplateMatcherTest {
     @Test
     public void testMunichCentreSee(
             @GivenTextResource("Munich_centre_see.txt") String munich) {
-        // commented out those with no lat/long (Double.NaN) until I add code to look those up
-//        SeeListing altesRathaus = new SeeListing(
-//                "Altes Rathaus & Spielzeugmuseum",
-//                Double.NaN,
-//                Double.NaN,
-//                "+49 89 294001",
-//                "https://www.spielzeugmuseummuenchen.de/",
-//                "This was built in 1474 to replace an even older town hall, and was the city chambers until Neues Rathaus was built in the late 19th century. It was bombed during World War II but rebuilt. It's now mostly a ceremonial hall and events venue, but the tower contains a toy museum.",
-//                "Marienplatz 15",
-//                "Daily 10:00-17:30",
-//                "Museum adult €6, child €2",
-//                "Old Town Hall, Munich",
-//                "Altes Rathaus in München Ostseite.jpg"
-//        );
-//        SeeListing neuesRathaus = new SeeListing(
-//                "Neues Rathaus",
-//                Double.NaN,
-//                Double.NaN,
-//                null,
-//                null,
-//                "This was built in phases from 1867 to 1909. It's still a busy city chambers, with access only on business, but you can ride the lift to the observation deck of the tower. For most visitors the ornate neo-Gothic exterior is experience enough. At 11:00, 12:00 and 17:00 the Glockenspiel cranks into life: medieval minstrels parade, knights joust (the knight in Bavarian blue always wins) and Morris dancers pirouette to the sound of the bells. They all freeze en tableaux to the tune of \"I don't have a wooden heart\" (Elvis Presley, 1960) which alas they do.",
-//                "Marienplatz 8",
-//                "Daily 10:00-18:00",
-//                "Tower €6",
-//                "New Town Hall (Munich)",
-//                "Rathaus and Marienplatz from Peterskirche - August 2006.jpg"
-//        );
-//        SeeListing peterskirche = new SeeListing(
-//                "Peterskirche",
-//                Double.NaN,
-//                Double.NaN,
-//                null,
-//                "https://alterpeter.de/pfarrkirche-st-peter/",
-//                "Munich's first parish church was started in the 12th century, but burned down in the great city fire of 1327. It was rebuilt by 1368 in Gothic style. The 92 m main tower (called Alter Peter) stands between the stumps of two original towers. The interior is basilica plan, with an elaborate gilded high altar, richly decorated side chapels and artwork. Roman Catholic mass is held Tu-Su at 10:00, 17:15 & 18:00. You can climb the 306 steps of the tower for city views.",
-//                "Rindermarkt 1",
-//                "Daily 07:30-19:00",
-//                "Tower adult €5, conc €3, child €2",
-//                "St Peter's Church (Munich)",
-//                "Alter Peter und Rindermarkt.jpg"
-//        );
+        SeeListing altesRathaus = new SeeListing(
+                "Altes Rathaus & Spielzeugmuseum",
+                null,
+                null,
+                "+49 89 294001",
+                "https://www.spielzeugmuseummuenchen.de/",
+                "This was built in 1474 to replace an even older town hall, and was the city chambers until Neues Rathaus was built in the late 19th century. It was bombed during World War II but rebuilt. It's now mostly a ceremonial hall and events venue, but the tower contains a toy museum.",
+                "Marienplatz 15",
+                "Daily 10:00-17:30",
+                "Museum adult €6, child €2",
+                "Old Town Hall, Munich",
+                "Q439458",
+                "Altes Rathaus in München Ostseite.jpg"
+        );
+        SeeListing neuesRathaus = new SeeListing(
+                "Neues Rathaus",
+                null,
+                null,
+                null,
+                null,
+                "This was built in phases from 1867 to 1909. It's still a busy city chambers, with access only on business, but you can ride the lift to the observation deck of the tower. For most visitors the ornate neo-Gothic exterior is experience enough. At 11:00, 12:00 and 17:00 the Glockenspiel cranks into life: medieval minstrels parade, knights joust (the knight in Bavarian blue always wins) and Morris dancers pirouette to the sound of the bells. They all freeze en tableaux to the tune of \"I don't have a wooden heart\" (Elvis Presley, 1960) which alas they do.",
+                "Marienplatz 8",
+                "Daily 10:00-18:00",
+                "Tower €6",
+                "New Town Hall (Munich)",
+                "Q152979",
+                "Rathaus and Marienplatz from Peterskirche - August 2006.jpg"
+        );
+        SeeListing peterskirche = new SeeListing(
+                "Peterskirche",
+                null,
+                null,
+                null,
+                "https://alterpeter.de/pfarrkirche-st-peter/",
+                "Munich's first parish church was started in the 12th century, but burned down in the great city fire of 1327. It was rebuilt by 1368 in Gothic style. The 92 m main tower (called Alter Peter) stands between the stumps of two original towers. The interior is basilica plan, with an elaborate gilded high altar, richly decorated side chapels and artwork. Roman Catholic mass is held Tu-Su at 10:00, 17:15 & 18:00. You can climb the 306 steps of the tower for city views.",
+                "Rindermarkt 1",
+                "Daily 07:30-19:00",
+                "Tower adult €5, conc €3, child €2",
+                "St Peter's Church (Munich)",
+                "Q707645",
+                "Alter Peter und Rindermarkt.jpg"
+        );
         SeeListing frauenkirche = new SeeListing(
                 "Frauenkirche",
                 48.1386,
@@ -278,6 +313,7 @@ class TemplateMatcherTest {
                 "Daily 07:30-20:30, tower ascent 10:00-17:00",
                 "Free; tower ascent adult €7.50, child €5.50",
                 "Munich Frauenkirche",
+                "Q167193",
                 "Frauenkirche Munich - View from Peterskirche Tower.jpg"
         );
         SeeListing viktualienmarkt = new SeeListing(
@@ -291,21 +327,23 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
-//        SeeListing theatinerkirche = new SeeListing(
-//                "Theatinerkirche",
-//                Double.NaN,
-//                Double.NaN,
-//                null,
-//                "http://www.theatinerkirche.de/",
-//                "Roman Catholic church in eye-catching Italianate High Baroque, looking like it belongs in Syracuse. The Theatins were an austere monastic order founded by the 15th century Saint Cajetan, and they built several similar churches. This one was built from 1662 as thanksgiving for the birth of Maximilian II Emanuel, which secured the royal succession. The church was damaged in wartime but restored, and is now in the care of the Dominican Order.",
-//                "Odeonsplatz",
-//                "Daily 07:00-20:00",
-//                "Free",
-//                "Theatine Church, Munich",
-//                "Exterior of Theatinerkirche, Munich.jpg"
-//        );
+        SeeListing theatinerkirche = new SeeListing(
+                "Theatinerkirche",
+                null,
+                null,
+                null,
+                "http://www.theatinerkirche.de/",
+                "Roman Catholic church in eye-catching Italianate High Baroque, looking like it belongs in Syracuse. The Theatins were an austere monastic order founded by the 15th century Saint Cajetan, and they built several similar churches. This one was built from 1662 as thanksgiving for the birth of Maximilian II Emanuel, which secured the royal succession. The church was damaged in wartime but restored, and is now in the care of the Dominican Order.",
+                "Odeonsplatz",
+                "Daily 07:00-20:00",
+                "Free",
+                "Theatine Church, Munich",
+                "Q259799",
+                "Exterior of Theatinerkirche, Munich.jpg"
+        );
         SeeListing kunsthalle = new SeeListing(
                 "Kunsthalle München der Hypo Kulturstiftung",
                 48.1399,
@@ -317,6 +355,7 @@ class TemplateMatcherTest {
                 "Daily 10:00-20:00",
                 "Adult €15",
                 "de:Kunsthalle der Hypo-Kulturstiftung",
+                "Q1367890",
                 "Kunsthalle der Hypo-Kulturstiftung.jpg"
         );
         SeeListing residenz = new SeeListing(
@@ -330,6 +369,7 @@ class TemplateMatcherTest {
                 "Daily Apr-15 Oct 09:00-18:00, 16 Oct-Mar 10:00-16:00",
                 "Combi adult €14, conc €12",
                 "Munich Residenz",
+                "Q686548",
                 "Münchner Residenz 2014-08-02 Pano.jpg"
         );
         SeeListing hofgartenMarker = new SeeListing(
@@ -343,21 +383,23 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
-//        SeeListing deutschesTheatermuseum = new SeeListing(
-//                "Deutsches Theatermuseum",
-//                Double.NaN,
-//                Double.NaN,
-//                "+49 89 210 6910",
-//                "http://www.deutschestheatermuseum.de",
-//                "This museum about German Theatre remains closed in 2022. Some exhibits are on temporary display elsewhere in the city.",
-//                "Galeriestraße 4a",
-//                "Closed",
-//                null,
-//                "Deutsches Theatermuseum",
-//                "München Theatermuseum (Schild).JPG"
-//        );
+        SeeListing deutschesTheatermuseum = new SeeListing(
+                "Deutsches Theatermuseum",
+                null,
+                null,
+                "+49 89 210 6910",
+                "http://www.deutschestheatermuseum.de",
+                "This museum about German Theatre remains closed in 2022. Some exhibits are on temporary display elsewhere in the city.",
+                "Galeriestraße 4a",
+                "Closed",
+                null,
+                "Deutsches Theatermuseum",
+                "Q1206066",
+                "München Theatermuseum (Schild).JPG"
+        );
         SeeListing stateChancellery = new SeeListing(
                 "State Chancellery",
                 48.1424,
@@ -369,6 +411,7 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "Bayerische Staatskanzlei",
+                "Q812286",
                 "Bayerische Staatskanzlei, München, Deutschland04.jpg"
         );
         SeeListing hausDerKunst = new SeeListing(
@@ -382,6 +425,7 @@ class TemplateMatcherTest {
                 "W-M 10:00-20:00",
                 null,
                 "Haus der Kunst",
+                "Q697782",
                 "Haus der Kunst - Munich - 2013.jpg"
         );
         SeeListing monopteros = new SeeListing(
@@ -391,6 +435,7 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "is the focal point of this section, a prominent neo-classical rotunda. 200 m further north is the Chinese Tower, with a beer garden, and site of a Christmas Market. The section is bounded by a busy highway, Isarring. The northern section is more easily accessed from U-bahn U6 Nordfriedhof.",
+                null,
                 null,
                 null,
                 null,
@@ -408,6 +453,7 @@ class TemplateMatcherTest {
                 "Tu W F-Su 10:00-17:00, Th 10:00-20:00",
                 "Adult €7, conc €6; Sunday €1; child free",
                 "Bavarian National Museum",
+                "Q631056",
                 "Bayerisches Nationalmuseum - Muenchen - 2013.jpg"
         );
         SeeListing schackGallery = new SeeListing(
@@ -421,6 +467,7 @@ class TemplateMatcherTest {
                 "W-Su 10:00-18:00",
                 "Adult €4, conc or child €3",
                 "Schackgalerie",
+                "Q523652",
                 "München Schack-Galerie.JPG"
         );
         SeeListing museumFuenfKontinente = new SeeListing(
@@ -433,6 +480,7 @@ class TemplateMatcherTest {
                 "Maximilianstraße 42",
                 "Tu-Su 09:30-17:30",
                 "Adult €4, conc or child €3, Sunday €1",
+                null,
                 null,
                 null
         );
@@ -447,6 +495,7 @@ class TemplateMatcherTest {
                 "Daily 09:30-19:00",
                 "Free",
                 null,
+                null,
                 null
         );
         SeeListing praterIsland = new SeeListing(
@@ -456,6 +505,7 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "is one of two large river islands in the Isar. Originally these were small, shifting sandbanks, then in the 19th century they were consolidated and developed. A tavern opened, with a funfair inspired by Prater in Vienna, and so the island (a fusion of three) got its name. But Orson Welles never got to ride its carousel, and the funfair went bust through disruption of building Maximilianstraße, which now bisects it and connects to the eastern district of Haidhausen. One fellow wanted to experiment with fireworks was ordered to live away at the south tip, thus dubbed Feuerwerkinsel. This tip is linked by footbridge to Mariannenplatz in Lehel, to Haidhausen, and upriver to Museum Island, described as part of Ludwigsvordstadt",
+                null,
                 null,
                 null,
                 null,
@@ -473,6 +523,7 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
         SeeListing maximiliansplatzMarker = new SeeListing(
@@ -482,6 +533,7 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "is a long plaza laid out at the beginning of the 19th century over the former city walls. Those circled west to Karlsplatz and east to Odeonsplatz, bounding the northwest segment of Altstadt. Within the plaza are the Wittelsbacherbrunnen fountain, the New Stock Exchange (Neue Börse) of 1901 and the House of Artists (Künstlerhaus). It's a lively place at night. U-Bahn Karlsplatz (Stachus) is closest for the west end, Odeonsplatz for the east end, and Tram 19 (stop Lenbachplatz) runs through it.",
+                null,
                 null,
                 null,
                 null,
@@ -499,49 +551,51 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
-//        SeeListing alpineMuseum = new SeeListing(
-//                "Alpine Museum",
-//                Double.NaN,
-//                Double.NaN,
-//                "+49 89 211 2240",
-//                "https://www.alpenverein.de/Kultur/",
-//                "A small museum displaying the history of alpine exploration in the Bavarian Alps. It remains closed in 2022.",
-//                "Praterinsel 5",
-//                "Closed",
-//                null,
-//                "de:Alpines Museum (München)",
-//                "Alpines Museum in München, 2013.jpg"
-//        );
-
-//        SeeListing beerAndOktoberfestMuseum = new SeeListing(
-//                "Beer and Oktoberfest Museum",
-//                Double.NaN,
-//                Double.NaN,
-//                "+49 89 242 31607",
-//                "https://www.bier-und-oktoberfestmuseum.de/",
-//                "History of the festival, in a townhouse of 1340. The \"Himmelsleiter\" is its characteristic early staircase, a straight flight with no corners.",
-//                "Sterneckerstraße 2",
-//                "Tu-Sa 13:00-18:00",
-//                null,
-//                null,
-//                null
-//        );
-
-//        SeeListing valentinKarlstadt = new SeeListing(
-//                "Valentin-Karlstadt Musäum",
-//                Double.NaN,
-//                Double.NaN,
-//                "+49 89 223 266",
-//                "https://www.valentin-musaeum.de/",
-//                "Karl Valentin (Valentin Ludwig Fey, 1882-1948) was the Charlie Chaplin of Weimar Germany, appearing alongside a padded-up Liesl Karlstadt (Elisabeth Wellano, 1892-1960). Their typical guise was a pair of factory hands raging against their boss, and this quirky museum celebrates their style, which influenced many such as Brecht. The humour is mostly non-verbal but it will help if your German is good.",
-//                "Tal 50",
-//                "Th-Tu 11:00-18:00",
-//                null,
-//                null,
-//                null
-//        );
+        SeeListing alpineMuseum = new SeeListing(
+                "Alpine Museum",
+                null,
+                null,
+                "+49 89 211 2240",
+                "https://www.alpenverein.de/Kultur/",
+                "A small museum displaying the history of alpine exploration in the Bavarian Alps. It remains closed in 2022.",
+                "Praterinsel 5",
+                "Closed",
+                null,
+                "de:Alpines Museum (München)",
+                "Q520455",
+                "Alpines Museum in München, 2013.jpg"
+        );
+        SeeListing beerAndOktoberfestMuseum = new SeeListing(
+                "Beer and Oktoberfest Museum",
+                null,
+                null,
+                "+49 89 242 31607",
+                "https://www.bier-und-oktoberfestmuseum.de/",
+                "History of the festival, in a townhouse of 1340. The \"Himmelsleiter\" is its characteristic early staircase, a straight flight with no corners.",
+                "Sterneckerstraße 2",
+                "Tu-Sa 13:00-18:00",
+                null,
+                null,
+                null,
+                null
+        );
+        SeeListing valentinKarlstadt = new SeeListing(
+                "Valentin-Karlstadt Musäum",
+                null,
+                null,
+                "+49 89 223 266",
+                "https://www.valentin-musaeum.de/",
+                "Karl Valentin (Valentin Ludwig Fey, 1882-1948) was the Charlie Chaplin of Weimar Germany, appearing alongside a padded-up Liesl Karlstadt (Elisabeth Wellano, 1892-1960). Their typical guise was a pair of factory hands raging against their boss, and this quirky museum celebrates their style, which influenced many such as Brecht. The humour is mostly non-verbal but it will help if your German is good.",
+                "Tal 50",
+                "Th-Tu 11:00-18:00",
+                null,
+                null,
+                null,
+                null
+        );
 
         SeeListing michaelskirche = new SeeListing(
                 "Michaelskirche",
@@ -554,6 +608,7 @@ class TemplateMatcherTest {
                 "M-Sa 08:00-19:00, Su 07:00-22:00",
                 "Free",
                 "St Michael's Church (Neuhauser Straße, Munich)",
+                "Q265745",
                 "Michaelskirche Muenchen-full.jpg"
         );
 
@@ -568,23 +623,23 @@ class TemplateMatcherTest {
                 "Tu-Su 10:00-18:00",
                 "Adult €7, conc €3.50, under 18s free",
                 "Munich Stadtmuseum",
+                "Q452685",
                 "Muenchener Stadtmuseum-1.jpg"
         );
-
-//        SeeListing jewishMuseum = new SeeListing(
-//                "Jewish Museum",
-//                Double.NaN,
-//                Double.NaN,
-//                "+49 89 233 96096",
-//                "http://www.juedisches-museum-muenchen.de",
-//                "Small museum of Jewish life in the city - and death. It adjoins the Ohel Jakov synagogue and the Jewish community centre.",
-//                "St Jakobs Platz 16",
-//                "Tu-Su 10:00-18:00",
-//                "Adult €6, conc €3, under 18 free",
-//                "Jewish Museum Munich",
-//                "München Jüdisches Zentrum und Jüdisches Museum.jpg"
-//        );
-
+        SeeListing jewishMuseum = new SeeListing(
+                "Jewish Museum",
+                null,
+                null,
+                "+49 89 233 96096",
+                "http://www.juedisches-museum-muenchen.de",
+                "Small museum of Jewish life in the city - and death. It adjoins the Ohel Jakov synagogue and the Jewish community centre.",
+                "St Jakobs Platz 16",
+                "Tu-Su 10:00-18:00",
+                "Adult €6, conc €3, under 18 free",
+                "Jewish Museum Munich",
+                "Q320903",
+                "München Jüdisches Zentrum und Jüdisches Museum.jpg"
+        );
         SeeListing muca = new SeeListing(
                 "Museum of Urban and Contemporary Art",
                 48.1366,
@@ -596,9 +651,9 @@ class TemplateMatcherTest {
                 "W-Su 10:00-18:00",
                 "Adult €9, under 12 free",
                 "Museum of Urban and Contemporary Art",
+                null,
                 null
         );
-
         SeeListing asamkirche = new SeeListing(
                 "Asamkirche",
                 48.1350,
@@ -610,15 +665,21 @@ class TemplateMatcherTest {
                 "Su-Th 09:00-18:00, F 13:00-18:00",
                 null,
                 "Asam Church, Munich",
+                "Q152973",
                 "Asam-kirche 1.jpg"
         );
 
         List<SeeListing> expected = Arrays.asList(
+                altesRathaus,
+                neuesRathaus,
+                peterskirche,
                 frauenkirche,
                 viktualienmarkt,
+                theatinerkirche,
                 kunsthalle,
                 residenz,
                 hofgartenMarker,
+                deutschesTheatermuseum,
                 stateChancellery,
                 hausDerKunst,
                 monopteros,
@@ -627,11 +688,15 @@ class TemplateMatcherTest {
                 museumFuenfKontinente,
                 kunstfoyerVkb,
                 praterIsland,
+                alpineMuseum,
+                beerAndOktoberfestMuseum,
                 isartor,
+                valentinKarlstadt,
                 maximiliansplatzMarker,
                 briennerStrasse,
                 michaelskirche,
                 stadtmuseum,
+                jewishMuseum,
                 muca,
                 asamkirche
         );
@@ -643,8 +708,6 @@ class TemplateMatcherTest {
     @Test
     public void testEdinburghWestAll(
             @GivenTextResource("Edinburgh_west_all.txt") String edinburghWest) {
-        // SEE / MARKER(type=see)
-
         SeeListing lochrinBasin = new SeeListing(
                 "Lochrin Basin",
                 55.9427,
@@ -656,9 +719,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
-
         SeeListing edinburghPrintmakers = new SeeListing(
                 "Edinburgh Printmakers",
                 55.9422474,
@@ -670,9 +733,9 @@ class TemplateMatcherTest {
                 "Su & M closed; Tu 10:00-17:30; W & Th 10:00-21:00; F & Sa 10:17:30",
                 "Free for galleries",
                 null,
+                "Q105320053",
                 null
         );
-
         SeeListing edinburghZoo = new SeeListing(
                 "Edinburgh Zoo",
                 55.9424,
@@ -684,9 +747,9 @@ class TemplateMatcherTest {
                 "Daily Apr-Sep 9AM-6PM, Oct & Mar 9AM-5PM, Nov-Feb 9AM-4PM",
                 "Adult £26.70, child £16.80, conc £24.25, parking £3",
                 "Edinburgh Zoo",
+                "Q1284778",
                 null
         );
-
         SeeListing corstorphineOldParish = new SeeListing(
                 "Corstorphine Old Parish Church",
                 55.9414,
@@ -698,9 +761,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "Corstorphine Old Parish Church",
+                "Q17570258",
                 null
         );
-
         SeeListing lauristonCastle = new SeeListing(
                 "Lauriston Castle",
                 55.9712,
@@ -712,9 +775,9 @@ class TemplateMatcherTest {
                 "Sa Su 11AM-3PM",
                 "Tour adult £8, conc £6",
                 "Lauriston Castle",
+                "Q2969689",
                 null
         );
-
         SeeListing cramond = new SeeListing(
                 "Cramond",
                 55.9803,
@@ -726,9 +789,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
-
         SeeListing silverknowes = new SeeListing(
                 "Silverknowes",
                 55.9797,
@@ -740,9 +803,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
-
         SeeListing balerno = new SeeListing(
                 "Balerno",
                 55.8849,
@@ -754,9 +817,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
-
         SeeListing murrayfieldStadium = new SeeListing(
                 "Murrayfield Stadium",
                 55.9422,
@@ -768,23 +831,23 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "Murrayfield Stadium",
+                "Q1024926",
                 null
         );
-
-//        SeeListing murrayfieldIceRink = new SeeListing(
-//                "Murrayfield Ice Rink",
-//                Double.NaN,
-//                Double.NaN,
-//                "+44 131 337-6933",
-//                "https://www.murrayfieldicerinkltd.co.uk/",
-//                "Popular ice rink with leisure skating sessions, and ice-discos on Friday and Saturday nights. It's the home rink of the Edinburgh Capitals ice hockey team, who play Sept-March in the Scottish National League, the UK second tier. (Their rivals Murrayfield Racers folded in 2022.) The curling club also play here on a separate rink.",
-//                "13 Riversdale Crescent EH12 5XN",
-//                "M 2-7PM, W Th 2-9PM, F Sa 10AM-9PM, Su 11:30AM-7PM",
-//                null,
-//                null,
-//                null
-//        );
-
+        SeeListing murrayfieldIceRink = new SeeListing(
+                "Murrayfield Ice Rink",
+                null,
+                null,
+                "+44 131 337-6933",
+                "https://www.murrayfieldicerinkltd.co.uk/",
+                "Popular ice rink with leisure skating sessions, and ice-discos on Friday and Saturday nights. It's the home rink of the Edinburgh Capitals ice hockey team, who play Sept-March in the Scottish National League, the UK second tier. (Their rivals Murrayfield Racers folded in 2022.) The curling club also play here on a separate rink.",
+                "13 Riversdale Crescent EH12 5XN",
+                "M 2-7PM, W Th 2-9PM, F Sa 10AM-9PM, Su 11:30AM-7PM",
+                null,
+                null,
+                null,
+                null
+        );
         SeeListing cineworld = new SeeListing(
                 "Cineworld",
                 55.9413,
@@ -796,9 +859,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
-
         SeeListing corstorphineHill = new SeeListing(
                 "Corstorphine Hill",
                 55.9508,
@@ -810,9 +873,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
-
         SeeListing royalHighlandShowground = new SeeListing(
                 "Royal Highland Showground",
                 55.9411,
@@ -824,9 +887,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "Royal Highland Showground",
+                "Q7374277",
                 null
         );
-
         SeeListing edinburghClimbingArena = new SeeListing(
                 "Edinburgh International Climbing Arena",
                 55.9235,
@@ -838,9 +901,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "Edinburgh International Climbing Arena",
+                null,
                 null
         );
-
         SeeListing hearts = new SeeListing(
                 "Heart of Midlothian Football Club",
                 55.939139,
@@ -852,9 +915,9 @@ class TemplateMatcherTest {
                 null,
                 "~£30 adult vs Celtic Hibernian and Rangers, slightly cheaper for other games",
                 "Tynecastle Stadium",
+                "Q1326446",
                 "Tynecastle Stadium 2007.jpg"
         );
-
         SeeListing spartans = new SeeListing(
                 "The Spartans FC",
                 55.971528,
@@ -866,9 +929,9 @@ class TemplateMatcherTest {
                 null,
                 null,
                 "The Spartans F.C.",
+                null,
                 null
         );
-
         SeeListing edinburghFilmhouse = new SeeListing(
                 "Edinburgh Filmhouse",
                 55.946439,
@@ -880,6 +943,7 @@ class TemplateMatcherTest {
                 "10AM-late",
                 "£12 adult, £10.50 concession, wheelchair users/access tickets £5, carers free",
                 "Edinburgh Filmhouse",
+                null,
                 "Exterior of Filmhouse Cafe Bar, Lothian Road, Edinburgh (5474231345).jpg"
         );
         
@@ -893,6 +957,7 @@ class TemplateMatcherTest {
                 silverknowes,
                 balerno,
                 murrayfieldStadium,
+                murrayfieldIceRink,
                 cineworld,
                 corstorphineHill,
                 royalHighlandShowground,

@@ -1,6 +1,5 @@
 package org.okane.voyagemapper.service;
 
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -41,17 +40,7 @@ public interface WikiService {
     );
 
     static WikiService create() {
-        String userAgent = "VoyageMapper/1.0 (http://noflyzone.o-kane.org; sokratees99@gmail.com)";
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(chain -> {
-                    Request req = chain.request().newBuilder()
-                            .header("User-Agent", userAgent)
-                            .header("Api-User-Agent", userAgent)          // optional but recommended
-                            .header("Accept", "application/json")   // nice-to-have
-                            .build();
-                    return chain.proceed(req);
-                })
-                .build();
+        OkHttpClient client = ApiClient.getHttpClient();
 
         return new Retrofit.Builder()
                 .baseUrl("https://en.wikivoyage.org/")

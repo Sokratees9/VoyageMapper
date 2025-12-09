@@ -1,5 +1,6 @@
 package org.okane.voyagemapper;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -133,15 +135,21 @@ public class MainActivity extends AppCompatActivity {
         });
         resultsRecycler.setAdapter(adapter);
 
-        findViewById(R.id.searchButton).setOnClickListener(v -> doSearch());
+        findViewById(R.id.searchButton).setOnClickListener(v -> searchAndHideKeyboard());
         // Also handle keyboard search action
         searchEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                doSearch();
+                searchAndHideKeyboard();
                 return true;
             }
             return false;
         });
+    }
+
+    private void searchAndHideKeyboard() {
+        doSearch();
+        hideKeyboard();
+        searchEditText.clearFocus();
     }
 
     private String readMapsKeyFromManifest() {
@@ -175,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                 com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest.builder()
                         .setQuery(query)
                         // Optional: bias to a region or to cities
-                         .setTypeFilter(com.google.android.libraries.places.api.model.TypeFilter.CITIES)
+                        .setTypeFilter(com.google.android.libraries.places.api.model.TypeFilter.CITIES)
                         // .setCountries(Arrays.asList("GB","AU")) // if you want to limit
                         .setSessionToken(token)
                         .build();
@@ -221,43 +229,14 @@ public class MainActivity extends AppCompatActivity {
         adapter.submit(results);
     }
 
-    // Simple background geocoding using the platform Geocoder
-//    private void geocodePlaces(Context ctx, String query, GeocodeCallback cb) {
-//        new Thread(() -> {
-//            List<PlaceResult> out = new ArrayList<>();
-//            try {
-//                Geocoder geocoder = new Geocoder(ctx, Locale.getDefault());
-//                List<Address> list = geocoder.getFromLocationName(query, 10);
-//                if (list != null) {
-//                    for (Address a : list) {
-//                        if (a.hasLatitude() && a.hasLongitude()) {
-//                            String label = getLabel(a);
-//                            out.add(new PlaceResult(label, ""));
-//                        }
-//                    }
-//                }
-//            } catch (IOException ignored) { }
-//            runOnUiThread(() -> cb.onDone(out));
-//        }).start();
-//    }
-
-//    @NonNull
-//    private String getLabel(Address a) {
-//        String label = a.getFeatureName();
-//        if (label == null || label.isEmpty()) {
-//            label = a.getLocality();
-//        }
-//        if (label == null || label.isEmpty()) {
-//            label = a.getAdminArea();
-//        }
-//        if (label == null || label.isEmpty()) {
-//            label = a.getCountryName();
-//        }
-//        if (label == null) {
-//            label = "Unknown";
-//        }
-//        return label;
-//    }
-
-//    interface GeocodeCallback { void onDone(List<PlaceResult> results); }
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view == null) {
+            view = new View(this);
+        }
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 }

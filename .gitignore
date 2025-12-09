@@ -21,3 +21,5 @@ app/release/
 app/debug/
 *.jks
 *.keystore
+app/google-services.json
+

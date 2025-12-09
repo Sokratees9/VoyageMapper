@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Voyage Map</string>
-    <string name="preview">Preview…</string>
+    <string name="no_actual_information">No further information exists for this place</string>
     <string name="external_open">Go to Wikivoyage</string>
     <string name="map_sights">View Sights</string>
     <string name="welcome">Welcome to Voyage Map</string>
     <string name="description">Use your current location to find articles within 20km from where you are, or search for a place to find Wikivoyage articles</string>
     <string name="search">Search</string>
     <string name="location">Use Current Location</string>
-    <string name="search_box">Search for a place</string>
+    <string name="search_box">Or search for a place</string>
     <string name="title">TitleWhereIsThis???</string>
     <string name="select">Select a place from the list below to view on the map:</string>
     <string name="open_map">Open Map</string>
@@ -30,7 +30,10 @@
     <string name="loading_articles">Loading articles…</string>
     <string name="loading_articles_near_you">Loading articles near you…</string>
     <string name="refreshing_articles">Refreshing articles…</string>
-    <string name="loaded_x_articles">Loaded %d articles</string>
+    <plurals name="loaded_x_articles">
+        <item quantity="one">Loaded %d article</item>
+        <item quantity="other">Loaded %d articles</item>
+    </plurals>
     <string name="no_internet_connection">No internet connection</string>
     <string name="unable_to_reach_server">Unable to reach server</string>
     <string name="connection_timed_out">Connection timed out</string>

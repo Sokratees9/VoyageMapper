@@ -1,5 +1,7 @@
 package org.okane.voyagemapper.util;
 
+import androidx.annotation.NonNull;
+
 import org.okane.voyagemapper.model.SeeListing;
 
 import java.util.ArrayList;
@@ -8,26 +10,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Got AI to generate this code.  It may replace WikitextSeeParser some day
- * if I think regex is getting to complex/fragile.  Currently not used
- */
-
 public class TemplateMatcher {
-    public static class TemplateMatch {
-        public final String name;   // see, do, marker, etc.
-        public final String body;   // the part after the first |
-        public final int start;     // index of first '{'
-        public final int end;       // index just AFTER final "}}"
-        public final String sameLineTail; // text after }} on the same line
-
-        public TemplateMatch(String name, String body, int start, int end, String sameLineTail) {
-            this.name = name;
-            this.body = body;
-            this.start = start;
-            this.end = end;
-            this.sameLineTail = sameLineTail;
-        }
+    /**
+     * @param name         see, do, marker, listing
+     * @param body         the part after the first |
+     * @param start        index of first '{'
+     * @param end          index just AFTER final "}}"
+     * @param sameLineTail text after }} on the same line
+     */
+    public record TemplateMatch(String name, String body, int start, int end, String sameLineTail) {
     }
 
     public static List<TemplateMatch> extractTemplates(String text) {
@@ -102,24 +93,28 @@ public class TemplateMatcher {
         for (TemplateMatch tm : templates) {
             String tplName = tm.name.toLowerCase(Locale.ROOT);
 
-            // Only see, do, or marker type=see/do
+            // Only see, do, or marker/listing type=see/do
             Map<String, String> params = parseParams(tm.body);
-            if (!isSeeOrDo(tplName, params)) continue;
+            if (!isSeeOrDo(tplName, params)) {
+                continue;
+            }
 
             Double lat = parseDouble(firstNonEmpty(params, "lat", "latitude"));
             Double lon = parseDouble(firstNonEmpty(params, "long", "lon", "longitude"));
-            if (lat == null || lon == null) continue;
 
             String name = firstNonEmpty(params, "name", "alt");
-            if (name == null || name.isEmpty()) name = "Sight";
+            if (name == null || name.isEmpty()) {
+                name = "Sight";
+            }
 
-            String phone   = firstNonEmpty(params, "phone", "tel");
-            String url     = firstNonEmpty(params, "url", "website");
+            String phone = firstNonEmpty(params, "phone", "tel");
+            String url = firstNonEmpty(params, "url", "website");
             String address = firstNonEmpty(params, "address");
-            String hours   = firstNonEmpty(params, "hours");
-            String price   = firstNonEmpty(params, "price");
-            String wiki    = firstNonEmpty(params, "wikipedia");
-            String image   = firstNonEmpty(params, "image");
+            String hours = firstNonEmpty(params, "hours");
+            String price = firstNonEmpty(params, "price");
+            String wiki = firstNonEmpty(params, "wikipedia");
+            String image = firstNonEmpty(params, "image");
+            String wikidata = firstNonEmpty(params, "wikidata");
 
             String content = firstNonEmpty(params, "content");
             if (content == null || content.trim().isEmpty()) {
@@ -129,7 +124,7 @@ public class TemplateMatcher {
             }
 
             out.add(new SeeListing(
-                    name, lat, lon, phone, url, content, address, hours, price, wiki, image
+                    name, lat, lon, phone, url, content, address, hours, price, wiki, wikidata, image
             ));
         }
 
@@ -138,9 +133,11 @@ public class TemplateMatcher {
 
     private static boolean isSeeOrDo(String tplName, Map<String,String> params) {
         String t = tplName.toLowerCase(Locale.ROOT);
-        if (t.equals("see") || t.equals("do")) return true;
+        if (t.equals("see") || t.equals("do")) {
+            return true;
+        }
 
-        if (t.equals("marker")) {
+        if (t.equals("marker") || t.equals("listing")) {
             String type = firstNonEmpty(params, "type");
             if (type != null) {
                 String tt = type.trim().toLowerCase(Locale.ROOT);
@@ -196,6 +193,40 @@ public class TemplateMatcher {
             s = s.substring(1);
         }
 
+        List<String> parts = getStrings(s);
+
+        // Now interpret each part as either "key=value" or positional
+        for (String raw : parts) {
+            String part = raw.trim();
+            if (part.isEmpty()) continue;
+
+            int eq = part.indexOf('=');
+            if (eq >= 0) {
+                String key = part.substring(0, eq).trim().toLowerCase(Locale.ROOT);
+                String val = part.substring(eq + 1).trim();
+                if (!key.isEmpty()) {
+                    map.put(key, val);
+                }
+            } else {
+                // Positional param (rare in Wikivoyage see/marker usage) –
+                // use as name if name not already present.
+                if (!map.containsKey("name")) {
+                    String name = part
+                            .replaceAll("''+", "")        // strip italics/bold
+                            .replace("[[", "")
+                            .replace("]]", "")
+                            .trim();
+                    if (!name.isEmpty()) {
+                        map.put("name", name);
+                    }
+                }
+            }
+        }
+        return map;
+    }
+
+    @NonNull
+    private static List<String> getStrings(String s) {
         List<String> parts = new ArrayList<>();
         StringBuilder current = new StringBuilder();
 
@@ -232,34 +263,6 @@ public class TemplateMatcher {
         if (current.length() > 0) {
             parts.add(current.toString());
         }
-
-        // Now interpret each part as either "key=value" or positional
-        for (String raw : parts) {
-            String part = raw.trim();
-            if (part.isEmpty()) continue;
-
-            int eq = part.indexOf('=');
-            if (eq >= 0) {
-                String key = part.substring(0, eq).trim().toLowerCase(Locale.ROOT);
-                String val = part.substring(eq + 1).trim();
-                if (!key.isEmpty()) {
-                    map.put(key, val);
-                }
-            } else {
-                // Positional param (rare in Wikivoyage see/marker usage) –
-                // use as name if name not already present.
-                if (!map.containsKey("name")) {
-                    String name = part
-                            .replaceAll("''+", "")        // strip italics/bold
-                            .replace("[[", "")
-                            .replace("]]", "")
-                            .trim();
-                    if (!name.isEmpty()) {
-                        map.put("name", name);
-                    }
-                }
-            }
-        }
-        return map;
+        return parts;
     }
 }

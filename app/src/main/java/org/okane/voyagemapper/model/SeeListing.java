@@ -12,4 +12,5 @@ public record SeeListing (
         String hours,
         String price,
         String wikipediaUrl,
+        String wikidata,
         String thumbUrl) { }

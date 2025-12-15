@@ -34,6 +34,7 @@
         <item quantity="one">Loaded %d article</item>
         <item quantity="other">Loaded %d articles</item>
     </plurals>
+    <string name="no_articles">No WikiVoyage articles found near here, try moving the map or zooming in</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="unable_to_reach_server">Unable to reach server</string>
     <string name="connection_timed_out">Connection timed out</string>

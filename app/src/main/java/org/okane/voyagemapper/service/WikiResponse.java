@@ -7,6 +7,9 @@ import java.util.Map;
 
 public class WikiResponse {
     public Query query;
+
+    @SerializedName("continue")
+    public ContinueInfo cont;
     public static class Query { public Map<String, Page> pages; }
     public static class Page {
         public long pageid;
@@ -23,6 +26,22 @@ public class WikiResponse {
             public String wikibaseItem;
         }
     }
-    public static class Thumbnail { public String source; public int width; public int height; }
-    public static class Coordinate { public double lat; public double lon; }
+    public static class Thumbnail {
+        public String source;
+        public int width;
+        public int height;
+    }
+    public static class Coordinate {
+        public double lat;
+        public double lon;
+    }
+
+    // NEW
+    public static class ContinueInfo {
+        @SerializedName("continue")
+        public String cont;       // the "||coordinates|pageprops" bit
+
+        public Integer excontinue;
+        public Long picontinue;
+    }
 }

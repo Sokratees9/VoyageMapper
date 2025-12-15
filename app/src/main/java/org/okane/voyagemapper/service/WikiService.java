@@ -16,15 +16,19 @@ public interface WikiService {
             "&prop=coordinates|pageimages|extracts|pageprops" +
             "&coprimary=all" +
             "&piprop=thumbnail" +
+            "&ggsradius=20000" +
+            "&ggslimit=100" +
+            "&colimit=100" +
             "&exintro=1" +
             "&explaintext=1" +
             "&origin=*")
     Call<WikiResponse> nearby(
             @Query("ggscoord") String ggscoord,      // "lat|lon"
-            @Query("ggsradius") int radiusMeters,    // 20000
-            @Query("ggslimit") int limit,            // 100
-            @Query("colimit") int colimit,           // 100
-            @Query("pithumbsize") int thumbSize      // 400
+            @Query("pithumbsize") int thumbSize,     // 400
+            @Query("exlimit") String exlimit,        // NEW ("max")
+            @Query("continue") String cont,          // NEW (API generic continue)
+            @Query("excontinue") Integer excontinue, // NEW
+            @Query("picontinue") Long picontinue     // NEW
     );
 
     // Page content / wikitext

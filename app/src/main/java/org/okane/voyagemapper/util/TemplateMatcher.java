@@ -23,7 +23,9 @@ public class TemplateMatcher {
 
     public static List<TemplateMatch> extractTemplates(String text) {
         List<TemplateMatch> out = new ArrayList<>();
-        if (text == null || text.isEmpty()) return out;
+        if (text == null || text.isEmpty()) {
+            return out;
+        }
 
         char[] cs = text.toCharArray();
         int n = cs.length;
@@ -86,7 +88,9 @@ public class TemplateMatcher {
 
     public static List<SeeListing> parse(String wikitext) {
         List<SeeListing> out = new ArrayList<>();
-        if (wikitext == null || wikitext.isEmpty()) return out;
+        if (wikitext == null || wikitext.isEmpty()) {
+            return out;
+        }
 
         List<TemplateMatch> templates = extractTemplates(wikitext);
 
@@ -151,13 +155,17 @@ public class TemplateMatcher {
     private static String firstNonEmpty(Map<String, String> map, String... keys) {
         for (String k : keys) {
             String v = map.get(k);
-            if (v != null && !v.isEmpty()) return v;
+            if (v != null && !v.isEmpty()) {
+                return v;
+            }
         }
         return null;
     }
 
     private static String cleanWikiText(String s) {
-        if (s == null) return null;
+        if (s == null) {
+            return null;
+        }
         String t = s;
 
         // [[Title|label]] → label ; [[Title]] → Title
@@ -176,21 +184,30 @@ public class TemplateMatcher {
     }
 
     private static Double parseDouble(String s) {
-        if (s == null) return null;
-        try { return Double.parseDouble(s); } catch (Exception e) { return null; }
+        if (s == null) {
+            return null;
+        }
+        try {
+            return Double.parseDouble(s);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    private static Map<String, String> parseParams(String body) {
+    static Map<String, String> parseParams(String body) {
         Map<String, String> map = new LinkedHashMap<>();
-        if (body == null) return map;
+        if (body == null) {
+            return map;
+        }
 
-        // Normalize line endings
         String s = body.replace("\r", "").trim();
-        if (s.isEmpty()) return map;
+        if (s.isEmpty()) {
+            return map;
+        }
 
-        // Strip a leading '|' if present (very common in multiline styles)
-        if (s.charAt(0) == '|') {
-            s = s.substring(1);
+        // Strip leading '|' (common in multiline templates)
+        while (!s.isEmpty() && s.charAt(0) == '|') {
+            s = s.substring(1).trim();
         }
 
         List<String> parts = getStrings(s);
@@ -211,11 +228,7 @@ public class TemplateMatcher {
                 // Positional param (rare in Wikivoyage see/marker usage) –
                 // use as name if name not already present.
                 if (!map.containsKey("name")) {
-                    String name = part
-                            .replaceAll("''+", "")        // strip italics/bold
-                            .replace("[[", "")
-                            .replace("]]", "")
-                            .trim();
+                    String name = part.replaceAll("''+", "").trim();
                     if (!name.isEmpty()) {
                         map.put("name", name);
                     }
@@ -231,10 +244,26 @@ public class TemplateMatcher {
         StringBuilder current = new StringBuilder();
 
         int n = s.length();
-        int linkDepth = 0; // depth inside [[ ... ]]
+        int linkDepth = 0;     // inside [[ ... ]]
+        int templateDepth = 0; // inside {{ ... }}
 
         for (int i = 0; i < n; i++) {
             char c = s.charAt(i);
+
+            // Track {{ ... }} so we don't split on '|' inside templates
+            if (c == '{' && i + 1 < n && s.charAt(i + 1) == '{') {
+                templateDepth++;
+                current.append(c);
+                i++; // skip second '{'
+                current.append(s.charAt(i));
+                continue;
+            } else if (c == '}' && i + 1 < n && s.charAt(i + 1) == '}') {
+                if (templateDepth > 0) templateDepth--;
+                current.append(c);
+                i++; // skip second '}'
+                current.append(s.charAt(i));
+                continue;
+            }
 
             // Track [[ ... ]] so we don't split on '|' inside wiki links
             if (c == '[' && i + 1 < n && s.charAt(i + 1) == '[') {
@@ -252,17 +281,15 @@ public class TemplateMatcher {
             }
 
             // Top-level '|' → new parameter
-            if (c == '|' && linkDepth == 0) {
+            if (c == '|' && linkDepth == 0 && templateDepth == 0) {
                 parts.add(current.toString());
                 current.setLength(0);
             } else {
                 current.append(c);
             }
         }
-        // Last chunk
-        if (current.length() > 0) {
-            parts.add(current.toString());
-        }
+
+        parts.add(current.toString());
         return parts;
     }
 }

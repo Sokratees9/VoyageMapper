@@ -50,7 +50,7 @@ Future Enhancements
 
 🏞️ Add support for more listing types ({{do}}, {{eat}}, etc.)
 
-🗂️ Offline caching of fetched Wikivoyage articles
+🗂️ Offline caching of fetched Wikivoyage articles (and a recently views list)
 
 🔖 Bookmark favorite places and sights
 
@@ -63,3 +63,6 @@ Future Enhancements
 * Put in appropriate messaging when there is no network or results
 * Better home screen for the app, more enticing
 * Include places from Atlas Obscura and wikipedia
+* Replace Londonderry with Derry
+* Miles vs km
+* 

@@ -29,6 +29,7 @@ public class WikidataCoordsFetcher {
 
     private final WikidataService service;
 
+    private static final LatLng NO_COORDS = new LatLng(999, 999); // impossible value
     // Simple thread-safe in-memory cache: Q-id -> LatLng (or null meaning “no coords”)
     private final Map<String, LatLng> cache = new ConcurrentHashMap<>();
 
@@ -43,8 +44,9 @@ public class WikidataCoordsFetcher {
         }
 
         // Cache hit?
-        if (cache.containsKey(wikidataId)) {
-            callback.onResult(cache.get(wikidataId));
+        LatLng cached = cache.get(wikidataId);
+        if (cached != null) {
+            callback.onResult(cached == NO_COORDS ? null : cached);
             return;
         }
 
@@ -53,7 +55,7 @@ public class WikidataCoordsFetcher {
             public void onResponse(@NonNull Call<ResponseBody> call,
                     @NonNull Response<ResponseBody> response) {
                 if (!response.isSuccessful() || response.body() == null) {
-                    cache.put(wikidataId, null);  // remember failure
+                    cache.put(wikidataId, NO_COORDS);  // remember failure
                     callback.onResult(null);
                     return;
                 }
@@ -61,11 +63,17 @@ public class WikidataCoordsFetcher {
                 try {
                     String json = response.body().string();
                     LatLng coords = parseP625(json, wikidataId);
-                    cache.put(wikidataId, coords);  // may be null if no P625
-                    callback.onResult(coords);
+
+                    if (coords == null) {
+                        cache.put(wikidataId, NO_COORDS);
+                        callback.onResult(null);
+                    } else {
+                        cache.put(wikidataId, coords);
+                        callback.onResult(coords);
+                    }
                 } catch (Exception e) {
                     Log.w(TAG, "Failed to parse Wikidata for " + wikidataId, e);
-                    cache.put(wikidataId, null);
+                    cache.put(wikidataId, NO_COORDS);
                     callback.onResult(null);
                 }
             }
@@ -73,7 +81,7 @@ public class WikidataCoordsFetcher {
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Log.w(TAG, "Failed to fetch " + wikidataId, t);
-                cache.put(wikidataId, null);
+                cache.put(wikidataId, NO_COORDS);
                 callback.onResult(null);
             }
         });
@@ -87,6 +95,7 @@ public class WikidataCoordsFetcher {
         JSONObject claims = entity.getJSONObject("claims");
         JSONArray p625 = claims.optJSONArray("P625");
         if (p625 == null || p625.length() == 0) {
+            Log.d(TAG, "No P625 for " + wikidataId);
             return null;
         }
 

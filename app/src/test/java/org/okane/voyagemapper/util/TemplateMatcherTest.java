@@ -7,6 +7,7 @@ import org.okane.voyagemapper.model.SeeListing;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import io.hosuaby.inject.resources.junit.jupiter.GivenTextResource;
 import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
@@ -970,5 +971,46 @@ class TemplateMatcherTest {
 
         assertEquals(expected.size(), parse.size());
         assertEquals(expected, parse);
+    }
+
+    @Test
+    void parsesDirectionsContainingNestedStationTemplates() {
+        String body = """
+                name=Marina Beach | alt= | url= | email=
+                | address=Water Land Drive Rd, Valmiki Nagar, Netaji Nagar | lat=13.05418 | long=80.28368 | directions={{station|Chepauk|mrts}}, {{station|Tiruvallikeni|mrts}}
+                | phone= | tollfree=
+                | hours= | price=
+                | wikidata=Q673659
+                | lastedit=2023-06-12
+                | content=This is {{km|12}} long and offers excellent opportunities for walks and has a very wide sandy foreshore. Its width is up to {{m|300}}. Marina Beach is the second-longest beach in the world after [[Cox's Bazar]] in Bangladesh.
+                """;
+
+        Map<String, String> m = TemplateMatcher.parseParams(body);
+
+        assertEquals("Marina Beach", m.get("name"));
+        assertEquals("Water Land Drive Rd, Valmiki Nagar, Netaji Nagar", m.get("address"));
+        assertEquals("13.05418", m.get("lat"));
+        assertEquals("80.28368", m.get("long"));
+
+        String directions = m.get("directions");
+        assertNotNull(directions);
+        assertTrue(directions.contains("{{station|Chepauk|mrts}}"), "directions should keep station template intact");
+        assertTrue(directions.contains("{{station|Tiruvallikeni|mrts}}"), "directions should keep station template intact");
+
+        String content = m.get("content");
+        assertNotNull(content);
+        assertTrue(content.contains("{{km|12}}"), "content should keep km template intact");
+        assertTrue(content.contains("{{m|300}}"), "content should keep m template intact");
+    }
+
+    @Test
+    void doesNotSplitOnPipeInsideWikiLinks() {
+        String body =
+                "name=Example | content=Go to [[Target|Nice label]] and then eat.\n";
+
+        Map<String, String> m = TemplateMatcher.parseParams(body);
+
+        assertEquals("Example", m.get("name"));
+        assertEquals("Go to [[Target|Nice label]] and then eat.", m.get("content"));
     }
 }

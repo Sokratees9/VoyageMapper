@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,24 +42,22 @@ import com.google.maps.android.clustering.ClusterManager;
 
 import org.okane.voyagemapper.model.PlaceItem;
 import org.okane.voyagemapper.model.SeeListing;
+import org.okane.voyagemapper.service.NearbyCallback;
 import org.okane.voyagemapper.service.NetworkErrorHandler;
 import org.okane.voyagemapper.service.PageContentResponse;
 import org.okane.voyagemapper.service.WikiRepository;
 import org.okane.voyagemapper.service.WikiResponse;
 import org.okane.voyagemapper.ui.PlaceClusterRenderer;
+import org.okane.voyagemapper.util.MediaWikiUtils;
 import org.okane.voyagemapper.util.NetworkUtils;
 import org.okane.voyagemapper.util.TemplateMatcher;
 import org.okane.voyagemapper.util.WikidataCoordsFetcher;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -193,6 +194,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void showPlaceSheet(PlaceItem item) {
         BottomSheetDialog dialog = new BottomSheetDialog(this);
 
@@ -259,6 +261,55 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             title.setText(item.getTitle());
             content.setText(empty(item.getSnippet()) ? getString(R.string.no_actual_information) : item.getSnippet());
+            content.setMovementMethod(new ScrollingMovementMethod());
+
+            BottomSheetBehavior<?> behavior = dialog.getBehavior();
+            behavior.setDraggable(true); // default
+            content.setMovementMethod(new ScrollingMovementMethod());
+            content.setOnTouchListener(new View.OnTouchListener() {
+                float startY;
+
+                @Override
+                public boolean onTouch(View tv, MotionEvent e) {
+                    switch (e.getActionMasked()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            startY = e.getY();
+                            // Start by prioritizing text scrolling
+                            behavior.setDraggable(false);
+                            tv.getParent().requestDisallowInterceptTouchEvent(true);
+                            break;
+                        }
+
+                        case MotionEvent.ACTION_MOVE: {
+                            float dy = e.getY() - startY;
+                            boolean fingerMovingDown = dy > 0;
+
+                            boolean atTop = !tv.canScrollVertically(-1);     // can't scroll up any further
+
+                            // If user is pulling down while already at top, let the sheet drag/dismiss.
+                            boolean letSheetDrag = atTop && fingerMovingDown;
+
+                            behavior.setDraggable(letSheetDrag);
+                            tv.getParent().requestDisallowInterceptTouchEvent(!letSheetDrag);
+                            break;
+                        }
+
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL: {
+                            // Restore default
+                            behavior.setDraggable(true);
+                            tv.getParent().requestDisallowInterceptTouchEvent(false);
+                            break;
+                        }
+                    }
+
+                    // IMPORTANT: consume the touch stream (prevents "ACTION_DOWN not received" issues)
+                    // and still let the TextView do its internal scrolling.
+                    tv.onTouchEvent(e);
+                    return true;
+                }
+            });
+
             setThumbOrHide(thumb, buildCommonsThumbUrl(item.getThumbUrl(), 600), item.getTitle());
 
             bindRow(v, R.id.phone, item.getPhone(), val ->
@@ -345,47 +396,43 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             return;
         }
 
-        repo.loadNearby20km(lat, lon, new Callback<>() {
-            @Override public void onResponse(@NonNull Call<WikiResponse> call, @NonNull Response<WikiResponse> res) {
-                int pageCount = 0;
-                if (res.isSuccessful() && res.body() != null && res.body().query != null) {
-                    Map<String, WikiResponse.Page> pages = res.body().query.pages;
-                    pageCount = pages.size();
+        repo.loadNearby(lat, lon, new NearbyCallback() {
+            @Override
+            public void onSuccess(List<WikiResponse.Page> pages) {
+                int pageCount = pages.size();
 
-                    // pages is a Map<String, Page>
-                    Collection<WikiResponse.Page> allPages = pages.values();
-                    Log.d("loadNearbyFor", pageCount + " pages found near" + lat + "," + lon);
+                Log.d("loadNearbyFor", pageCount + " pages found near" + lat + "," + lon);
 
-                    // Pages that DO have coordinates
-                    List<WikiResponse.Page> pagesWithCoords = allPages.stream()
-                            .filter(page -> page.coordinates != null)
-                            .collect(Collectors.toList());
+                // Pages that DO have coordinates
+                List<WikiResponse.Page> pagesWithCoords = pages.stream()
+                        .filter(page -> page.coordinates != null)
+                        .collect(Collectors.toList());
 
-                    // Pages that are missing coordinates (should be rare with colimit, but we log just in case)
-                    allPages.stream()
-                            .filter(page -> page.coordinates == null)
-                            .forEach(p -> {
-                                String message = "Page missing coords: " + p.title;
-                                Log.w("loadNearbyFor", message);
-                                FirebaseCrashlytics.getInstance().log(message);
-                                FirebaseCrashlytics.getInstance().recordException(new Exception(message));
-                            });
+                // Pages that are missing coordinates (should be rare with colimit, but we log just in case)
+                pages.stream()
+                        .filter(page -> page.coordinates == null)
+                        .forEach(p -> {
+                            String message = "Page missing coords: " + p.title;
+                            Log.w("loadNearbyFor", message);
+                            FirebaseCrashlytics.getInstance().log(message);
+                            FirebaseCrashlytics.getInstance().recordException(new Exception(message));
+                        });
 
-//                    fillMissingCoords(new ArrayList<>(pages.values()), () -> {
-//                        // Now every page either has coords or none could be found.
-//                        // You can safely update your markers on the map here.
-//                        updateMapMarkers(new ArrayList<>(pages.values()));
-//                    });
-                    updateMapMarkers(new ArrayList<>(pagesWithCoords));
-                }
+                updateMapMarkers(new ArrayList<>(pagesWithCoords));
                 hideLoading();
-                Toast.makeText(
-                        MapActivity.this,
-                        String.format(getResources().getQuantityString(R.plurals.loaded_x_articles, pageCount), pageCount),
-                        Toast.LENGTH_SHORT).show();
+                if (pages.isEmpty()) {
+                    Toast.makeText(
+                            MapActivity.this,R.string.no_articles, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(
+                            MapActivity.this,
+                            String.format(getResources().getQuantityString(R.plurals.loaded_x_articles, pageCount), pageCount),
+                            Toast.LENGTH_LONG).show();
+                }
             }
 
-            @Override public void onFailure(@NonNull Call<WikiResponse> call, @NonNull Throwable t) {
+            @Override
+            public void onError(@NonNull Throwable t) {
                 hideLoading();
                 View root = findViewById(android.R.id.content);
                 NetworkErrorHandler.handle(root, (Exception) t);
@@ -402,7 +449,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         for (WikiResponse.Page p : pages) {
             if (p.coordinates != null && !p.coordinates.isEmpty()) {
                 WikiResponse.Coordinate c = p.coordinates.get(0);
-                String snippet = p.extract != null ? p.extract : "";
+                String snippet = p.extract != null ? MediaWikiUtils.expandSimpleUnits(p.extract) : "";
                 String thumb = p.thumbnail != null ? p.thumbnail.source : null;
                 places.add(new PlaceItem(
                         c.lat, c.lon, p.title, snippet, thumb, p.pageid, PlaceItem.Kind.ARTICLE));
@@ -558,7 +605,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 lat,
                 lon,
                 s.name(),
-                s.content(),
+                MediaWikiUtils.expandSimpleUnits(s.content()),
                 s.thumbUrl(),
                 pageId,
                 PlaceItem.Kind.SIGHT

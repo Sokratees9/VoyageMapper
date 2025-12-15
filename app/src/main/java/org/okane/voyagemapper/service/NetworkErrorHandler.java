@@ -1,6 +1,7 @@
 package org.okane.voyagemapper.service;
 
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -30,5 +31,6 @@ public class NetworkErrorHandler {
             message = resources.getString(R.string.network_error_occurred);
         }
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+        Log.e("NetworkErrorHandler", message, e);
     }
 }

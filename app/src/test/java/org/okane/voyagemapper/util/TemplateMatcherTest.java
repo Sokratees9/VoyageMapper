@@ -1,11 +1,21 @@
 package org.okane.voyagemapper.util;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.okane.voyagemapper.log.AppLogger;
+import org.okane.voyagemapper.log.NoOpLogger;
 import org.okane.voyagemapper.model.SeeListing;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +24,52 @@ import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
 
 @TestWithResources
 class TemplateMatcherTest {
+    AppLogger logger = mock(AppLogger.class);
+
+    @BeforeEach
+    void setUp() {
+        TemplateMatcher.setLoggerForTests(logger);
+    }
+
+    @AfterEach
+    void tearDown() {
+        TemplateMatcher.setLoggerForTests(new NoOpLogger()); // or restore AndroidLogger if you prefer
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    public void testNullOrEmptyParseParams(String input) {
+        assertEquals(new LinkedHashMap<>(), TemplateMatcher.parseParams(input));
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    public void testNullOrEmptyParse(String input) {
+        assertEquals(new ArrayList<>(), TemplateMatcher.parse(input));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "* {{marker | name= | type=do | lat=55.9427 | long=-3.2081 }} is the east terminus.",
+            "* {{marker | type=see | lat=55.9427 | long=-3.2081 }} is the east terminus."
+    })
+    public void testParseWithNoNameOrNameTag(String input) {
+        List<SeeListing> out = TemplateMatcher.parse(input); // whatever your class is called
+        assertEquals(1, out.size());
+        assertEquals("Sight Name Unknown", out.get(0).name());
+
+        verify(logger).w(eq("TemplateMatcher.parse"), contains("No Name for"));
+    }
+
+    @Test
+    public void testParseWithNameNoTag() {
+        List<SeeListing> out = TemplateMatcher.parse(
+                "* {{marker | name=Test | lat=55.9427 | long=-3.2081 }} is the east terminus."
+        ); // whatever your class is called
+        assertEquals(0, out.size());
+
+        verifyNoInteractions(logger);
+    }
 
     @Test
     public void parsesSingleLineMarkerSee() {
@@ -28,6 +84,15 @@ class TemplateMatcherTest {
         assertEquals(-3.2081, s.lon(), 1e-6);
         // tail content comes from the prose after }}
         assertTrue(s.content().contains("east terminus"));
+    }
+
+    @Test
+    public void skipsMarkerWithoutSeeOrDoType() {
+        String wikitext =
+                "* {{marker | name=Random Hotel | type=sleep | lat=55.0 | long=-3.0 }} somewhere.\n";
+
+        List<SeeListing> out = TemplateMatcher.parse(wikitext);
+        assertTrue(out.isEmpty());
     }
 
     @Test
@@ -78,12 +143,44 @@ class TemplateMatcherTest {
     }
 
     @Test
-    public void skipsMarkerWithoutSeeOrDoType() {
-        String wikitext =
-                "* {{marker | name=Random Hotel | type=sleep | lat=55.0 | long=-3.0 }} somewhere.\n";
+    void parsesDirectionsContainingNestedStationTemplates() {
+        String body = """
+                name=Marina Beach | alt= | url= | email=
+                | address=Water Land Drive Rd, Valmiki Nagar, Netaji Nagar | lat=13.05418 | long=80.28368 | directions={{station|Chepauk|mrts}}, {{station|Tiruvallikeni|mrts}}
+                | phone= | tollfree=
+                | hours= | price=
+                | wikidata=Q673659
+                | lastedit=2023-06-12
+                | content=This is {{km|12}} long and offers excellent opportunities for walks and has a very wide sandy foreshore. Its width is up to {{m|300}}. Marina Beach is the second-longest beach in the world after [[Cox's Bazar]] in Bangladesh.
+                """;
 
-        List<SeeListing> out = TemplateMatcher.parse(wikitext);
-        assertTrue(out.isEmpty());
+        Map<String, String> m = TemplateMatcher.parseParams(body);
+
+        assertEquals("Marina Beach", m.get("name"));
+        assertEquals("Water Land Drive Rd, Valmiki Nagar, Netaji Nagar", m.get("address"));
+        assertEquals("13.05418", m.get("lat"));
+        assertEquals("80.28368", m.get("long"));
+
+        String directions = m.get("directions");
+        assertNotNull(directions);
+        assertTrue(directions.contains("{{station|Chepauk|mrts}}"), "directions should keep station template intact");
+        assertTrue(directions.contains("{{station|Tiruvallikeni|mrts}}"), "directions should keep station template intact");
+
+        String content = m.get("content");
+        assertNotNull(content);
+        assertTrue(content.contains("{{km|12}}"), "content should keep km template intact");
+        assertTrue(content.contains("{{m|300}}"), "content should keep m template intact");
+    }
+
+    @Test
+    void doesNotSplitOnPipeInsideWikiLinks() {
+        String body =
+                "name=Example | content=Go to [[Target|Nice label]] and then eat.\n";
+
+        Map<String, String> m = TemplateMatcher.parseParams(body);
+
+        assertEquals("Example", m.get("name"));
+        assertEquals("Go to [[Target|Nice label]] and then eat.", m.get("content"));
     }
 
     @Test
@@ -971,46 +1068,5 @@ class TemplateMatcherTest {
 
         assertEquals(expected.size(), parse.size());
         assertEquals(expected, parse);
-    }
-
-    @Test
-    void parsesDirectionsContainingNestedStationTemplates() {
-        String body = """
-                name=Marina Beach | alt= | url= | email=
-                | address=Water Land Drive Rd, Valmiki Nagar, Netaji Nagar | lat=13.05418 | long=80.28368 | directions={{station|Chepauk|mrts}}, {{station|Tiruvallikeni|mrts}}
-                | phone= | tollfree=
-                | hours= | price=
-                | wikidata=Q673659
-                | lastedit=2023-06-12
-                | content=This is {{km|12}} long and offers excellent opportunities for walks and has a very wide sandy foreshore. Its width is up to {{m|300}}. Marina Beach is the second-longest beach in the world after [[Cox's Bazar]] in Bangladesh.
-                """;
-
-        Map<String, String> m = TemplateMatcher.parseParams(body);
-
-        assertEquals("Marina Beach", m.get("name"));
-        assertEquals("Water Land Drive Rd, Valmiki Nagar, Netaji Nagar", m.get("address"));
-        assertEquals("13.05418", m.get("lat"));
-        assertEquals("80.28368", m.get("long"));
-
-        String directions = m.get("directions");
-        assertNotNull(directions);
-        assertTrue(directions.contains("{{station|Chepauk|mrts}}"), "directions should keep station template intact");
-        assertTrue(directions.contains("{{station|Tiruvallikeni|mrts}}"), "directions should keep station template intact");
-
-        String content = m.get("content");
-        assertNotNull(content);
-        assertTrue(content.contains("{{km|12}}"), "content should keep km template intact");
-        assertTrue(content.contains("{{m|300}}"), "content should keep m template intact");
-    }
-
-    @Test
-    void doesNotSplitOnPipeInsideWikiLinks() {
-        String body =
-                "name=Example | content=Go to [[Target|Nice label]] and then eat.\n";
-
-        Map<String, String> m = TemplateMatcher.parseParams(body);
-
-        assertEquals("Example", m.get("name"));
-        assertEquals("Go to [[Target|Nice label]] and then eat.", m.get("content"));
     }
 }

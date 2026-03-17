@@ -64,5 +64,5 @@ Future Enhancements
 * Better home screen for the app, more enticing
 * Include places from Atlas Obscura and wikipedia
 * Replace Londonderry with Derry
-* Miles vs km
+* Miles and km - known as true conversion in media wiki language
 * 

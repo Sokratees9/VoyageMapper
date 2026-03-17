@@ -2,6 +2,9 @@ package org.okane.voyagemapper.util;
 
 import androidx.annotation.NonNull;
 
+import org.okane.voyagemapper.log.AndroidLogger;
+import org.okane.voyagemapper.log.AppLogger;
+import org.okane.voyagemapper.log.NoOpLogger;
 import org.okane.voyagemapper.model.SeeListing;
 
 import java.util.ArrayList;
@@ -11,6 +14,14 @@ import java.util.Locale;
 import java.util.Map;
 
 public class TemplateMatcher {
+
+    static AppLogger LOGGER = new AndroidLogger(); // default for Android runtime
+
+    // Visible for tests (package-private is fine)
+    static void setLoggerForTests(AppLogger logger) {
+        LOGGER = (logger != null) ? logger : new NoOpLogger();
+    }
+
     /**
      * @param name         see, do, marker, listing
      * @param body         the part after the first |
@@ -58,8 +69,7 @@ public class TemplateMatcher {
                 String inner = text.substring(start + 2, end - 2); // inside {{ ... }}
 
                 // Split name | body
-                String name;
-                String body;
+                String name, body;
                 int pipe = inner.indexOf('|');
                 if (pipe == -1) {
                     name = inner.trim();
@@ -108,7 +118,8 @@ public class TemplateMatcher {
 
             String name = firstNonEmpty(params, "name", "alt");
             if (name == null || name.isEmpty()) {
-                name = "Sight";
+                LOGGER.w("TemplateMatcher.parse", "No Name for " + tm.body);
+                name = "Sight Name Unknown";
             }
 
             String phone = firstNonEmpty(params, "phone", "tel");
@@ -215,7 +226,9 @@ public class TemplateMatcher {
         // Now interpret each part as either "key=value" or positional
         for (String raw : parts) {
             String part = raw.trim();
-            if (part.isEmpty()) continue;
+            if (part.isEmpty()) {
+                continue;
+            }
 
             int eq = part.indexOf('=');
             if (eq >= 0) {
@@ -258,7 +271,9 @@ public class TemplateMatcher {
                 current.append(s.charAt(i));
                 continue;
             } else if (c == '}' && i + 1 < n && s.charAt(i + 1) == '}') {
-                if (templateDepth > 0) templateDepth--;
+                if (templateDepth > 0) {
+                    templateDepth--;
+                }
                 current.append(c);
                 i++; // skip second '}'
                 current.append(s.charAt(i));

@@ -9,7 +9,6 @@
     <string name="search">Search</string>
     <string name="location">Use Current Location</string>
     <string name="search_box">Or search for a place</string>
-    <string name="title">TitleWhereIsThis???</string>
     <string name="select">Select a place from the list below to view on the map:</string>
     <string name="open_map">Open Map</string>
     <string name="refresh">Refresh</string>
@@ -17,6 +16,7 @@
     <string name="learn_more">Learn more</string>
     <string name="got_it">Got it</string>
     <string name="info">Info</string>
+    <string name="menu">Menu</string>
     <string name="how_to_use">How to use Voyage Map</string>
     <string name="phone">Phone</string>
     <string name="website">Website</string>
@@ -40,4 +40,10 @@
     <string name="connection_timed_out">Connection timed out</string>
     <string name="network_error_occurred">Network error occurred</string>
     <string name="an_error_occurred">An error occurred</string>
+    <string name="save_article">Save article</string>
+    <string name="saved_article">Article saved</string>
+    <string name="saved_articles">Saved Articles</string>
+    <string name="sights_saved">" sights saved"</string>
+    <string name="image_of">"Image of "</string>
+    <string name="no_saved_articles_yet">No saved articles yet</string>
 </resources>

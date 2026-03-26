@@ -1,4 +1,4 @@
-package org.okane.voyagemapper.model;
+package org.okane.voyagemapper.ui.model;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,6 +6,9 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
+/**
+ * The object the represents what is shown on the map
+ */
 public class PlaceItem implements ClusterItem {
     private final String phone;
     private final String url;

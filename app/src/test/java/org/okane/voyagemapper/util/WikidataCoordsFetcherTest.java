@@ -1,7 +1,6 @@
 package org.okane.voyagemapper.util;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -20,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 class WikidataCoordsFetcherTest {
-    AppLogger logger = mock(AppLogger.class);
+    final AppLogger logger = mock(AppLogger.class);
     @BeforeEach
     void setUp() {
         WikidataCoordsFetcher.setLoggerForTests(logger);

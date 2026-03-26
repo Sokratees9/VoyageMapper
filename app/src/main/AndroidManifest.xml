@@ -20,10 +20,11 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}"/>
-        <activity android:name=".MapActivity"/>
-
+        <activity android:name=".MapActivity"
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="sensorPortrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.SavedArticlesActivity"
+            android:screenOrientation="sensorPortrait" />
     </application>
 
 </manifest>

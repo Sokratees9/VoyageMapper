@@ -1,28 +1,27 @@
 package org.okane.voyagemapper;
 
+import static org.okane.voyagemapper.util.MediaWikiUtils.expandSimpleUnits;
+import static org.okane.voyagemapper.util.MediaWikiUtils.fixDerry;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,16 +30,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.maps.android.clustering.ClusterManager;
 
-import org.okane.voyagemapper.model.PlaceItem;
+import org.okane.voyagemapper.data.ArticleRepository;
+import org.okane.voyagemapper.data.ListingRepository;
+import org.okane.voyagemapper.data.local.AppDatabase;
+import org.okane.voyagemapper.data.local.dao.CachedArticleDao;
+import org.okane.voyagemapper.data.local.model.CachedArticleEntity;
+import org.okane.voyagemapper.service.NetworkChecker;
+import org.okane.voyagemapper.ui.model.PlaceItem;
 import org.okane.voyagemapper.model.SeeListing;
 import org.okane.voyagemapper.service.NearbyCallback;
 import org.okane.voyagemapper.service.NetworkErrorHandler;
@@ -48,25 +50,39 @@ import org.okane.voyagemapper.service.PageContentResponse;
 import org.okane.voyagemapper.service.WikiRepository;
 import org.okane.voyagemapper.service.WikiResponse;
 import org.okane.voyagemapper.ui.PlaceClusterRenderer;
-import org.okane.voyagemapper.util.MediaWikiUtils;
+import org.okane.voyagemapper.ui.sheet.PlaceSheetController;
 import org.okane.voyagemapper.util.NetworkUtils;
-import org.okane.voyagemapper.util.TemplateMatcher;
 import org.okane.voyagemapper.util.WikidataCoordsFetcher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-import retrofit2.Callback;
-
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, NetworkChecker {
 
     private GoogleMap map;
     private View loadingOverlay;
     private TextView loadingText;
     private ClusterManager<PlaceItem> clusterManager;
     private final WikiRepository repo = new WikiRepository();
+    private PlaceItem pendingSavedArticle;
+    private Marker pendingSavedMarker;
+    private ListingRepository listingRepository;
+    private ArticleRepository articleRepository;
+    private PlaceSheetController placeSheetController;
+    private CachedArticleDao articleDao;
+    private final ExecutorService diskIo = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private static final int REQ_LOC = 42;
+    public static final String EXTRA_OPEN_SAVED_ARTICLE = "open_saved_article";
+    public static final String EXTRA_PAGE_ID = "page_id";
+    public static final String EXTRA_LAT = "lat";
+    public static final String EXTRA_LON = "lon";
+    public static final String EXTRA_TITLE = "title";
+    public static final String EXTRA_SNIPPET = "snippet";
+    public static final String EXTRA_THUMB_URL = "thumb_url";
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +92,65 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        AppDatabase db = AppDatabase.getInstance(this);
+        articleDao = db.cachedArticleDao();
+        articleRepository = new ArticleRepository(db.cachedArticleDao(), diskIo);
+        listingRepository = new ListingRepository(db.cachedSeeListingDao(), diskIo, repo, this);
+
+        placeSheetController = new PlaceSheetController(this, new PlaceSheetController.Callbacks() {
+            @Override
+            public void onArticleViewed(@NonNull PlaceItem item) {
+                articleRepository.markArticleViewed(item);
+            }
+
+            @Override
+            public void onToggleSavedArticle(@NonNull PlaceItem item, @NonNull ImageButton button) {
+                toggleSavedArticle(item, button);
+            }
+
+            @Override
+            public void onUpdateSavedArticleIcon(long pageId, @NonNull ImageButton button) {
+                updateSaveArticleIcon(pageId, button);
+            }
+
+            @Override
+            public void onMapSightsRequested(@NonNull PlaceItem item) {
+                mapSightsForPage(item);
+            }
+
+            @Override
+            public void onPrefetchListingsRequested(@NonNull PlaceItem item) {
+                listingRepository.prefetchListingsForArticle(item);
+            }
+        });
+
+        Intent intent = getIntent();
+        if (intent != null && intent.getBooleanExtra(EXTRA_OPEN_SAVED_ARTICLE, false)) {
+            long pageId = intent.getLongExtra(EXTRA_PAGE_ID, 0L);
+            double lat = intent.getDoubleExtra(EXTRA_LAT, 0d);
+            double lon = intent.getDoubleExtra(EXTRA_LON, 0d);
+            String title = intent.getStringExtra(EXTRA_TITLE);
+            String snippet = intent.getStringExtra(EXTRA_SNIPPET);
+            String thumbUrl = intent.getStringExtra(EXTRA_THUMB_URL);
+
+            pendingSavedArticle = new PlaceItem(
+                    lat,
+                    lon,
+                    title != null ? title : "",
+                    snippet != null ? snippet : "",
+                    thumbUrl,
+                    pageId,
+                    PlaceItem.Kind.ARTICLE
+            );
+        }
+        articleRepository.pruneOldCache();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        diskIo.shutdown();
     }
 
     @Override public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -99,15 +174,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(fallback, 11f));
         }
 
-        String mode = getIntent().getStringExtra("mode");
+        Intent intent = getIntent();
+        String mode = intent.getStringExtra("mode");
         if ("CENTER_AT".equals(mode)) {
             showLoading(getString(R.string.loading_articles));
-            double lat = getIntent().getDoubleExtra("lat", fallback.latitude);
-            double lon = getIntent().getDoubleExtra("lon", fallback.longitude);
+            double lat = intent.getDoubleExtra("lat", fallback.latitude);
+            double lon = intent.getDoubleExtra("lon", fallback.longitude);
             LatLng target = new LatLng(lat, lon);
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(target, 11f));
             setLocationEnabled();
-//            String title = getIntent().getStringExtra("title");
+//            String title = intent.getStringExtra("title");
 //            if (title != null) {
 //                map.addMarker(new com.google.android.gms.maps.model.MarkerOptions()
 //                        .position(target).title(title));
@@ -120,6 +196,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             // 👉 Center on the user, then load articles within 20 km
             enableMyLocationAndCenterAndLoad();
 
+        } else if (pendingSavedArticle != null) {
+            showLoading(getString(R.string.loading_articles));
+            PlaceItem savedArticle = pendingSavedArticle;
+            openPendingSavedArticle();
+            loadNearbyFor(
+                    savedArticle.getPosition().latitude,
+                    savedArticle.getPosition().longitude
+            );
         } else {
             showLoading(getString(R.string.loading_articles));
             // No mode: still load nearby to fallback (optional)
@@ -135,6 +219,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 loadNearbyFor(center.latitude, center.longitude);
             }
         });
+    }
+
+    private void openPendingSavedArticle() {
+        if (map == null || pendingSavedArticle == null) {
+            return;
+        }
+
+        LatLng latLng = new LatLng(
+                pendingSavedArticle.getPosition().latitude,
+                pendingSavedArticle.getPosition().longitude
+        );
+
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
+
+        if (pendingSavedMarker != null) {
+            pendingSavedMarker.remove();
+        }
+
+        pendingSavedMarker = map.addMarker(
+                new MarkerOptions()
+                        .position(latLng)
+                        .title(pendingSavedArticle.getTitle())
+        );
+
+        placeSheetController.showPlaceSheet(pendingSavedArticle);
     }
 
     @Override
@@ -174,7 +283,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         clusterManager.setOnClusterItemClickListener(item -> {
             map.animateCamera(com.google.android.gms.maps.CameraUpdateFactory
                     .newLatLngZoom(item.getPosition(), Math.max(map.getCameraPosition().zoom, 13f)));
-            showPlaceSheet(item);
+            placeSheetController.showPlaceSheet(item);
             return true; // consume the click
         });
     }
@@ -194,205 +303,87 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private void showPlaceSheet(PlaceItem item) {
-        BottomSheetDialog dialog = new BottomSheetDialog(this);
+    private void loadNearbyFromCache(double lat, double lon) {
+        double delta = 0.25; // roughly a local area; tune later
 
-        if (item.getKind() == PlaceItem.Kind.ARTICLE) {
-            @SuppressLint("InflateParams")
-            View v = getLayoutInflater().inflate(R.layout.bottom_sheet_article, null);
-            dialog.setContentView(v);
+        double minLat = lat - delta;
+        double maxLat = lat + delta;
+        double minLon = lon - delta;
+        double maxLon = lon + delta;
 
-            TextView title = v.findViewById(R.id.title);
-            TextView snippet = v.findViewById(R.id.snippet);
-            ImageView thumb = v.findViewById(R.id.thumb);
-            thumb.setContentDescription("Image of " + item.getTitle());
-            MaterialButton openBtn = v.findViewById(R.id.openButton);
-            MaterialButton mapSightsBtn = v.findViewById(R.id.mapSightsButton);
+        diskIo.execute(() -> {
+            List<CachedArticleEntity> cached = articleDao.getArticlesInBounds(minLat, maxLat, minLon, maxLon);
 
-            thumb.setOnClickListener(val -> {
-                String thumbUrl = item.getThumbUrl();
-                if (thumbUrl == null) return;
+            mainHandler.post(() -> {
+                hideLoading();
 
-                // 1) remove '/thumb/' segment
-                String noThumb = thumbUrl.replace("/thumb/", "/");
-
-                // 2) strip the trailing '/<width>px-<filename>' segment entirely
-                // e.g. '/250px-Colosseo_2020.jpg' at the end
-                String fullUrl = noThumb.replaceAll("/\\d+px-[^/]+$", "");
-
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl)));
-            });
-
-            title.setText(item.getTitle());
-            setThumbOrHide(thumb, item.getThumbUrl(), item.getTitle());
-            snippet.setText(empty(item.getSnippet()) ? getString(R.string.no_actual_information) : item.getSnippet());
-
-            openBtn.setOnClickListener(b -> {
-                String url = "https://en.wikivoyage.org/?curid=" + item.getPageId();
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-            });
-            mapSightsBtn.setOnClickListener(b -> {
-                dialog.dismiss();
-                mapSightsForPage(item);
-            });
-
-        } else {
-            @SuppressLint("InflateParams")
-            View v = getLayoutInflater().inflate(R.layout.bottom_sheet_sight, null);
-            dialog.setContentView(v);
-
-            TextView title = v.findViewById(R.id.title);
-            TextView content = v.findViewById(R.id.content);
-            ImageView thumb = v.findViewById(R.id.thumb);
-            thumb.setContentDescription("Image of " + item.getTitle());
-            ImageButton directionsButton = v.findViewById(R.id.directionsButton);
-
-            thumb.setOnClickListener(val -> {
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(buildCommonsThumbUrl(item.getThumbUrl(), 600)));
-                startActivity(i);
-            });
-
-            directionsButton.setOnClickListener(val -> {
-                Uri gmm = Uri.parse("geo:" + item.getPosition().latitude + "," + item.getPosition().longitude +
-                        "?q=" + Uri.encode(item.getTitle()));
-                startActivity(new Intent(Intent.ACTION_VIEW, gmm));
-            });
-
-            title.setText(item.getTitle());
-            content.setText(empty(item.getSnippet()) ? getString(R.string.no_actual_information) : item.getSnippet());
-            content.setMovementMethod(new ScrollingMovementMethod());
-
-            BottomSheetBehavior<?> behavior = dialog.getBehavior();
-            behavior.setDraggable(true); // default
-            content.setMovementMethod(new ScrollingMovementMethod());
-            content.setOnTouchListener(new View.OnTouchListener() {
-                float startY;
-
-                @Override
-                public boolean onTouch(View tv, MotionEvent e) {
-                    switch (e.getActionMasked()) {
-                        case MotionEvent.ACTION_DOWN: {
-                            startY = e.getY();
-                            // Start by prioritizing text scrolling
-                            behavior.setDraggable(false);
-                            tv.getParent().requestDisallowInterceptTouchEvent(true);
-                            break;
-                        }
-
-                        case MotionEvent.ACTION_MOVE: {
-                            float dy = e.getY() - startY;
-                            boolean fingerMovingDown = dy > 0;
-
-                            boolean atTop = !tv.canScrollVertically(-1);     // can't scroll up any further
-
-                            // If user is pulling down while already at top, let the sheet drag/dismiss.
-                            boolean letSheetDrag = atTop && fingerMovingDown;
-
-                            behavior.setDraggable(letSheetDrag);
-                            tv.getParent().requestDisallowInterceptTouchEvent(!letSheetDrag);
-                            break;
-                        }
-
-                        case MotionEvent.ACTION_UP:
-                        case MotionEvent.ACTION_CANCEL: {
-                            // Restore default
-                            behavior.setDraggable(true);
-                            tv.getParent().requestDisallowInterceptTouchEvent(false);
-                            break;
-                        }
-                    }
-
-                    // IMPORTANT: consume the touch stream (prevents "ACTION_DOWN not received" issues)
-                    // and still let the TextView do its internal scrolling.
-                    tv.onTouchEvent(e);
-                    return true;
+                if (cached == null || cached.isEmpty()) {
+                    Toast.makeText(
+                            MapActivity.this,
+                            "No internet connection and no cached articles for this area",
+                            Toast.LENGTH_LONG
+                    ).show();
+                    return;
                 }
+
+                updateMapMarkersFromCache(cached);
+
+                int count = cached.size();
+                Toast.makeText(
+                        MapActivity.this,
+                        "Showing " + count + " cached article" + (count == 1 ? "" : "s"),
+                        Toast.LENGTH_LONG
+                ).show();
             });
-
-            setThumbOrHide(thumb, buildCommonsThumbUrl(item.getThumbUrl(), 600), item.getTitle());
-
-            bindRow(v, R.id.phone, item.getPhone(), val ->
-                    startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + val))));
-
-            bindRow(v, R.id.website, item.getUrl(), val ->
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(val))));
-
-            bindRow(v, R.id.address, item.getAddress(), val -> {
-                Uri gmm = Uri.parse("geo:" + item.getPosition().latitude + "," + item.getPosition().longitude +
-                        "?q=" + Uri.encode(val));
-                startActivity(new Intent(Intent.ACTION_VIEW, gmm));
-            });
-
-            bindRow(v, R.id.hours, item.getHours(), null);
-            bindRow(v, R.id.price, item.getPrice(), null);
-
-            // If you extract a Wikipedia link out of the listing:
-            bindRow(v, R.id.wiki, item.getWikipediaUrl(), val ->
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://en.wikipedia.org/wiki/" + val))));
-        }
-
-        dialog.show();
+        });
     }
 
-    // Turn "Some Place.jpg" into a 600px-wide URL you can feed to Glide/Picasso
-    public static String buildCommonsThumbUrl(String rawName, int widthPx) {
-        if (empty(rawName)) {
-            return null;
-        }
+    private void updateMapMarkersFromCache(List<CachedArticleEntity> cachedArticles) {
+        List<PlaceItem> places = new ArrayList<>();
 
-        // Ensure "File:" prefix
-        String name = rawName;
-        if (!name.regionMatches(true, 0, "File:", 0, 5)) {
-            name = "File:" + name;
+        for (CachedArticleEntity a : cachedArticles) {
+            places.add(new PlaceItem(
+                    a.lat,
+                    a.lon,
+                    a.title,
+                    a.snippet != null ? a.snippet : "",
+                    a.thumbUrl,
+                    a.pageId,
+                    PlaceItem.Kind.ARTICLE
+            ));
         }
-        // Commons expects underscores
-        name = name.replace(' ', '_');
-
-        try {
-            // URL-encode the whole title (keep underscores)
-            String encoded = java.net.URLEncoder.encode(name, "UTF-8").replace("+", "%20");
-            return "https://commons.wikimedia.org/wiki/Special:FilePath/" + encoded + "?width=" + widthPx;
-        } catch (Exception e) {
-            return null;
-        }
+        updateClusteredMarkers(places);
     }
 
-    private void bindRow(View root, int textId, @Nullable String value,
-            @Nullable java.util.function.Consumer<String> onClick) {
-        MaterialTextView tv = root.findViewById(textId);
-        if (empty(value)) {
-            tv.setVisibility(View.GONE);
-        } else {
-            tv.setVisibility(View.VISIBLE);
-            tv.setText(value);
-            if (onClick != null) tv.setOnClickListener(v -> onClick.accept(value));
+    private void updateClusteredMarkers(List<PlaceItem> places) {
+        // Clear existing markers/clusters
+        clusterManager.clearItems();
+        clusterManager.addItems(places);
+        clusterManager.cluster();
+        zoomToBounds(places);
+    }
+
+    private void prefetchListingsForArticles(List<PlaceItem> places) {
+        if (places == null || places.isEmpty()) {
+            return;
+        }
+
+        int prefetched = 0;
+        for (PlaceItem place : places) {
+            if (place.getKind() == PlaceItem.Kind.ARTICLE) {
+                listingRepository.prefetchListingsForArticle(place);
+                prefetched++;
+                if (prefetched >= 20) {
+                    break;
+                }
+            }
         }
     }
-
-    private void setThumbOrHide(ImageView iv, @Nullable String url, String title) {
-        if (!empty(url)) {
-            iv.setVisibility(View.VISIBLE);
-            iv.setContentDescription(title);
-            Glide.with(this).load(url).into(iv);
-        } else {
-            iv.setVisibility(View.GONE);
-            iv.setContentDescription(null);
-        }
-    }
-
-    private static boolean empty(@Nullable String s) {
-        return s == null || s.trim().isEmpty();
-    }
-
 
     // ---- WIKIVOYAGE FETCH + CLUSTERING ----
     private void loadNearbyFor(double lat, double lon) {
-
-        if (!NetworkUtils.isNetworkAvailable(this)) {
-            Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
-            hideLoading();
+        if (!isNetworkAvailable()) {
+            loadNearbyFromCache(lat, lon);
             return;
         }
 
@@ -419,6 +410,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         });
 
                 updateMapMarkers(new ArrayList<>(pagesWithCoords));
+
                 hideLoading();
                 if (pages.isEmpty()) {
                     Toast.makeText(
@@ -433,31 +425,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onError(@NonNull Throwable t) {
-                hideLoading();
-                View root = findViewById(android.R.id.content);
-                NetworkErrorHandler.handle(root, (Exception) t);
+                Log.e("loadNearbyFor", "Nearby fetch failed, trying cache", t);
                 FirebaseCrashlytics.getInstance().recordException(t);
+                loadNearbyFromCache(lat, lon);
             }
         });
     }
 
     private void updateMapMarkers(List<WikiResponse.Page> pages) {
-        // Clear existing markers/clusters
-        clusterManager.clearItems();
-
         List<PlaceItem> places = new ArrayList<>();
         for (WikiResponse.Page p : pages) {
             if (p.coordinates != null && !p.coordinates.isEmpty()) {
                 WikiResponse.Coordinate c = p.coordinates.get(0);
-                String snippet = p.extract != null ? MediaWikiUtils.expandSimpleUnits(p.extract) : "";
+                String snippet = p.extract != null ?
+                        fixDerry(expandSimpleUnits(p.extract), p.title) : "";
                 String thumb = p.thumbnail != null ? p.thumbnail.source : null;
-                places.add(new PlaceItem(
-                        c.lat, c.lon, p.title, snippet, thumb, p.pageid, PlaceItem.Kind.ARTICLE));
+                PlaceItem placeItem = new PlaceItem(
+                        c.lat, c.lon, fixDerry(p.title, p.title), snippet, thumb, p.pageid, PlaceItem.Kind.ARTICLE);
+                places.add(placeItem);
+                articleRepository.cacheArticleSummary(placeItem);
             }
         }
-        clusterManager.addItems(places);
-        clusterManager.cluster();
-        zoomToBounds(places);
+        updateClusteredMarkers(places);
+        prefetchListingsForArticles(places);
     }
 
     private void setLocationEnabled() {
@@ -489,87 +479,114 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void mapSightsForPage(PlaceItem currentItem) {
-
-        if (!NetworkUtils.isNetworkAvailable(this)) {
-            Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        repo.fetchPageWikitext(currentItem.getPageId(), new Callback<>() {
-            @Override public void onResponse(@NonNull retrofit2.Call<PageContentResponse> call,
-                    @NonNull retrofit2.Response<PageContentResponse> res) {
-                if (!res.isSuccessful() || res.body() == null || res.body().query == null
-                        || res.body().query.pages == null || res.body().query.pages.isEmpty()) {
-                    View root = findViewById(android.R.id.content);
-                    Snackbar.make(root, "Server error: " + res.code(), Snackbar.LENGTH_LONG).show();
-                    return;
-                }
-                String wikitext = res.body().query.pages.get(0).revisions.get(0).slots.main.content;
-
-                List<SeeListing> listings = TemplateMatcher.parse(wikitext);
-                if (listings.isEmpty()) {
-                    Toast.makeText(
-                            MapActivity.this,
-                            R.string.boring_or_district,
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                WikidataCoordsFetcher wikidataFetcher = new WikidataCoordsFetcher();
-
-                List<PlaceItem> initialPins = new ArrayList<>();
-                List<SeeListing> missing = new ArrayList<>();
-
-                for (SeeListing s : listings) {
-                    Double lat = s.lat();
-                    Double lon = s.lon();
-
-                    if (lat != null && lon != null && !Double.isNaN(lat) && !Double.isNaN(lon)) {
-                        initialPins.add(toPlaceItem(s, lat, lon, currentItem.getPageId()));
-                    } else if (s.wikidata() != null && !s.wikidata().isEmpty()) {
-                        missing.add(s);
+        listingRepository.getCachedListingsForPage(currentItem.getPageId(), new ListingRepository.ListingsCallback() {
+            @Override
+            public void onSuccess(List<SeeListing> cachedListings) {
+                runOnUiThread(() -> {
+                    if (cachedListings != null && !cachedListings.isEmpty()) {
+                        showListingsOnMap(currentItem, cachedListings);
+                        return;
                     }
-                }
 
-                // Add the ones we already have
-                clusterManager.addItems(initialPins);
-                clusterManager.cluster();
+                    if (isNetworkAvailable()) {
+                        Toast.makeText(
+                                MapActivity.this,
+                                "No internet connection and no cached sights available",
+                                Toast.LENGTH_LONG
+                        ).show();
+                        return;
+                    }
 
-                // Now fetch missing ones
-                if (!missing.isEmpty()) {
-
-                    for (SeeListing s : missing) {
-                        wikidataFetcher.fetchCoords(s.wikidata(), coords -> {
-                            if (coords == null) return;
-
+                    listingRepository.fetchListingsForPage(currentItem.getPageId(), new ListingRepository.ListingsCallback() {
+                        @Override
+                        public void onSuccess(List<SeeListing> listings) {
                             runOnUiThread(() -> {
-                                PlaceItem p = toPlaceItem(
-                                        s,
-                                        coords.latitude,
-                                        coords.longitude,
-                                        currentItem.getPageId()
-                                );
-                                clusterManager.addItem(p);
-                                clusterManager.cluster();
-                            });
-                        });
-                    }
-                }
+                                if (listings.isEmpty()) {
+                                    Toast.makeText(
+                                            MapActivity.this,
+                                            R.string.boring_or_district,
+                                            Toast.LENGTH_LONG
+                                    ).show();
+                                    return;
+                                }
 
-                // adding current place to pins to make sure we get the correct bounded zoom
-                initialPins.add(currentItem);
-                zoomToBounds(initialPins);
+                                listingRepository.cacheListingsForArticle(currentItem.getPageId(), listings);
+                                showListingsOnMap(currentItem, listings);
+                            });
+                        }
+
+                        @Override
+                        public void onError(Throwable t) {
+                            runOnUiThread(() -> {
+                                Log.w("mapSightsForPage", "failed to load sights for "
+                                        + currentItem.getTitle() + ": "
+                                        + t.getLocalizedMessage());
+                                View root = findViewById(android.R.id.content);
+                                NetworkErrorHandler.handle(root, (Exception) t);
+                                FirebaseCrashlytics.getInstance().recordException(t);
+                            });
+                        }
+                    });
+                });
             }
 
-            @Override public void onFailure(@NonNull retrofit2.Call<PageContentResponse> call, @NonNull Throwable t) {
-                Log.w("mapSightsForPage", "failed to load sights for "
+            @Override
+            public void onError(Throwable t) {
+                runOnUiThread(() -> Log.w("mapSightsForPage", "failed to read cached sights for "
                         + currentItem.getTitle() + ": "
-                        + t.getLocalizedMessage());
-                View root = findViewById(android.R.id.content);
-                NetworkErrorHandler.handle(root, (Exception) t);
-                FirebaseCrashlytics.getInstance().recordException(t);
+                        + t.getLocalizedMessage()));
             }
         });
+    }
+
+    private void showListingsOnMap(PlaceItem currentItem, List<SeeListing> listings) {
+        WikidataCoordsFetcher wikidataFetcher = new WikidataCoordsFetcher();
+
+        List<PlaceItem> initialPins = new ArrayList<>();
+        List<SeeListing> missing = new ArrayList<>();
+
+        for (SeeListing s : listings) {
+            Double lat = s.lat();
+            Double lon = s.lon();
+
+            if (lat != null && lon != null && !Double.isNaN(lat) && !Double.isNaN(lon)) {
+                initialPins.add(toPlaceItem(s, lat, lon, currentItem.getPageId()));
+            } else if (s.wikidata() != null && !s.wikidata().isEmpty()) {
+                missing.add(s);
+            }
+        }
+
+        clusterManager.addItems(initialPins);
+        clusterManager.cluster();
+
+        if (!missing.isEmpty()) {
+            for (SeeListing s : missing) {
+                wikidataFetcher.fetchCoords(s.wikidata(), coords -> {
+                    if (coords == null) return;
+
+                    diskIo.execute(() -> listingRepository.updateCoordsForListing(
+                            currentItem.getPageId(),
+                            s.name(),
+                            coords.latitude,
+                            coords.longitude
+                    ));
+
+                    runOnUiThread(() -> {
+                        PlaceItem p = toPlaceItem(
+                                s,
+                                coords.latitude,
+                                coords.longitude,
+                                currentItem.getPageId()
+                        );
+                        clusterManager.addItem(p);
+                        clusterManager.cluster();
+                    });
+                });
+            }
+        }
+
+        initialPins.add(currentItem);
+        zoomToBounds(initialPins);
     }
 
     @Override public void onRequestPermissionsResult(int r, @NonNull String[] p, @NonNull int[] g) {
@@ -595,20 +612,112 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private PlaceItem toPlaceItem(SeeListing s, double lat, double lon, long pageId) {
-        return new PlaceItem(
+        PlaceItem placeItem =  new PlaceItem(
                 s.phone(),
                 s.url(),
-                s.address(),
+                fixDerry(s.address(), s.name()),
                 s.hours(),
                 s.price(),
                 s.wikipediaUrl(),
                 lat,
                 lon,
-                s.name(),
-                MediaWikiUtils.expandSimpleUnits(s.content()),
+                fixDerry(s.name(), s.name()),
+                expandSimpleUnits(s.content()),
                 s.thumbUrl(),
                 pageId,
                 PlaceItem.Kind.SIGHT
         );
+        articleRepository.cacheArticleSummary(placeItem);
+        return placeItem;
+    }
+
+    private void updateSaveArticleIcon(long pageId, ImageButton button) {
+        articleRepository.isSaved(pageId, isSaved ->
+                mainHandler.post(() -> {
+                    button.setSelected(isSaved);
+                    button.setImageResource(
+                            isSaved ? R.drawable.ic_bookmark_added : R.drawable.ic_bookmark_add
+                    );
+                    button.setContentDescription(
+                            getString(isSaved ? R.string.saved_article : R.string.save_article)
+                    );
+                })
+        );
+    }
+
+    private void toggleSavedArticle(PlaceItem item, ImageButton button) {
+        if (item == null || item.getKind() != PlaceItem.Kind.ARTICLE) {
+            return;
+        }
+
+        button.animate().scaleX(1.3f).scaleY(1.3f).setDuration(100)
+                .withEndAction(() -> button.animate().scaleX(1f).scaleY(1f).setDuration(100));
+
+        articleRepository.getArticleByPageId(item.getPageId(), new ArticleRepository.ArticleCallback() {
+            @Override
+            public void onSuccess(CachedArticleEntity cached) {
+                boolean isSaved = cached != null && cached.isSaved;
+
+                if (isSaved) {
+                    articleRepository.setSaved(item.getPageId(), false);
+                    listingRepository.deleteListingsForPage(item.getPageId());
+
+                    mainHandler.post(() -> {
+                        Toast.makeText(MapActivity.this, "Offline article removed", Toast.LENGTH_SHORT).show();
+                        updateSaveArticleIcon(item.getPageId(), button);
+                    });
+                } else {
+                    saveArticleAndListings(item, button);
+                }
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                mainHandler.post(() ->
+                        Toast.makeText(MapActivity.this, "Could not update saved article", Toast.LENGTH_SHORT).show()
+                );
+            }
+        });
+    }
+
+    private void saveArticleAndListings(PlaceItem item, ImageButton button) {
+        if (item == null || item.getKind() != PlaceItem.Kind.ARTICLE) {
+            return;
+        }
+
+        articleRepository.saveArticleRecord(item);
+
+        listingRepository.fetchListingsForPage(item.getPageId(), new ListingRepository.ListingsCallback() {
+            @Override
+            public void onSuccess(List<SeeListing> listings) {
+                listingRepository.cacheListingsForArticle(item.getPageId(), listings);
+
+                mainHandler.post(() -> {
+                    Toast.makeText(
+                            MapActivity.this,
+                            item.getTitle() + getString(R.string.sights_saved),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    updateSaveArticleIcon(item.getPageId(), button);
+                });
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                mainHandler.post(() -> {
+                    Toast.makeText(
+                            MapActivity.this,
+                            "Article saved, but sights could not be downloaded",
+                            Toast.LENGTH_LONG
+                    ).show();
+                    updateSaveArticleIcon(item.getPageId(), button);
+                });
+            }
+        });
+    }
+
+    @Override
+    public boolean isNetworkAvailable() {
+        return NetworkUtils.isNetworkAvailable(MapActivity.this);
     }
 }

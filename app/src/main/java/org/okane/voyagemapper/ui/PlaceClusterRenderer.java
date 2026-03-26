@@ -13,7 +13,7 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 import org.okane.voyagemapper.R;
-import org.okane.voyagemapper.model.PlaceItem;
+import org.okane.voyagemapper.ui.model.PlaceItem;
 
 import java.util.HashMap;
 import java.util.Map;

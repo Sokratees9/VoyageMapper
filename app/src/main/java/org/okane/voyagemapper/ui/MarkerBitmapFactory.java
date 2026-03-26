@@ -16,7 +16,7 @@ public class MarkerBitmapFactory {
     private final @LayoutRes int layoutId;
 
     public MarkerBitmapFactory(Context ctx, @LayoutRes int layoutId) {
-        this.ctx = ctx;
+        this.ctx = ctx.getApplicationContext();
         this.layoutId = layoutId;
     }
 
@@ -24,7 +24,9 @@ public class MarkerBitmapFactory {
         View root = LayoutInflater.from(ctx).inflate(layoutId, null, false);
         TextView tv = root.findViewById(R.id.title);
         String t = title == null ? "" : title;
-        if (t.length() > 22) t = t.substring(0, 21) + "…";
+        if (t.length() > 22) {
+            t = t.substring(0, 21) + "…";
+        }
         tv.setText(t);
 
         int spec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -32,8 +34,9 @@ public class MarkerBitmapFactory {
         root.layout(0, 0, root.getMeasuredWidth(), root.getMeasuredHeight());
 
         Bitmap bmp = Bitmap.createBitmap(root.getMeasuredWidth(), root.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-        new Canvas(bmp).drawColor(0x00000000);
-        root.draw(new Canvas(bmp));
+        Canvas canvas = new Canvas(bmp);
+        canvas.drawColor(0x00000000);
+        root.draw(canvas);
         return bmp;
     }
 }

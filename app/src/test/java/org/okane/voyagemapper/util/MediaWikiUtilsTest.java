@@ -1,6 +1,7 @@
 package org.okane.voyagemapper.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -131,5 +132,32 @@ class MediaWikiUtilsTest {
     @ValueSource(strings = {" ", "  ", "\t", "\n"})
     void testNullOrEmptyExpandSimpleUnits(String input) {
         assertEquals(input, MediaWikiUtils.expandSimpleUnits(input));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "Londonderry, Derry",
+            "londonderry, Derry",
+            "Londonderry-based, Derry-based",
+            "Londonderry's walls, Derry's walls",
+            "lOnDoNdErRy, Derry",
+            "Something else, Something else",
+            ", "
+    })
+    void testFixDerry(String input, String expected) {
+        assertEquals(expected, MediaWikiUtils.fixDerry(input, null));
+        assertNull(MediaWikiUtils.fixDerry(null, null));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "Londonderry, Londonderry",
+            "Londonderry-based, Londonderry-based",
+            "Londonderry's walls, Londonderry's walls",
+            "Something else, Something else",
+            ", "
+    })
+    void testDoNotFixLondonDerryNewHampshire(String input, String expected) {
+        assertEquals(expected, MediaWikiUtils.fixDerry(input, "Londonderry (New Hampshire)"));
     }
 }

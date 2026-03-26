@@ -1,6 +1,21 @@
 package org.okane.voyagemapper.model;
 
-// SeeListing.java
+/**
+ * A parsed data object from Wikivoyage content.
+ *
+ * @param name
+ * @param lat
+ * @param lon
+ * @param phone
+ * @param url
+ * @param content
+ * @param address
+ * @param hours
+ * @param price
+ * @param wikipediaUrl
+ * @param wikidata
+ * @param thumbUrl
+ */
 public record SeeListing (
         String name,
         Double lat,

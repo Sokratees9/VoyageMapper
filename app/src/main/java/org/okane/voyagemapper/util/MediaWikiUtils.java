@@ -1,15 +1,30 @@
 package org.okane.voyagemapper.util;
 
+import androidx.annotation.Nullable;
+
 import java.util.regex.Pattern;
 
 public final class MediaWikiUtils {
     private MediaWikiUtils() {}
 
+    @Nullable
+    public static String fixDerry(@Nullable String text, @Nullable String pageTitle) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        // Skip normalization for this specific article
+        if (pageTitle != null && pageTitle.equals("Londonderry (New Hampshire)")) {
+            return text;
+        }
+
+        return text.replaceAll("(?i)Londonderry", "Derry");
+    }
+
     /**
      * Best-effort: expands common Wikivoyage measurement templates into a
      * simple metric/imperial label,
      * WITHOUT doing any unit conversion (e.g. "{{km|12}}" -> "12 km").
-     *
      * Notes:
      * - Keeps only the first parameter.
      * - Ignores extra params like "|adj" or "|on".

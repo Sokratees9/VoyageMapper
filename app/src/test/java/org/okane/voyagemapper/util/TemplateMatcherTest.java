@@ -24,7 +24,7 @@ import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
 
 @TestWithResources
 class TemplateMatcherTest {
-    AppLogger logger = mock(AppLogger.class);
+    final AppLogger logger = mock(AppLogger.class);
 
     @BeforeEach
     void setUp() {

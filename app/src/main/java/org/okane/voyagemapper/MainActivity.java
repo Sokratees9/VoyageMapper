@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -29,6 +30,7 @@ import org.okane.voyagemapper.model.PlaceResult;
 import org.okane.voyagemapper.service.NetworkErrorHandler;
 import org.okane.voyagemapper.ui.OnboardingBottomSheetDialogFragment;
 import org.okane.voyagemapper.ui.PlaceResultAdapter;
+import org.okane.voyagemapper.ui.SavedArticlesActivity;
 import org.okane.voyagemapper.util.NetworkUtils;
 
 import java.util.ArrayList;
@@ -82,12 +84,31 @@ public class MainActivity extends AppCompatActivity {
         searchEditText = findViewById(R.id.searchEditText);
         searchPrompt = findViewById(R.id.searchPrompt);
         resultsRecycler = findViewById(R.id.resultsRecycler);
-        ImageButton infoButton = findViewById(R.id.infoButton);
+        ImageButton menuButton = findViewById(R.id.menuButton);
         resultsRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        infoButton.setOnClickListener(v ->
-                new OnboardingBottomSheetDialogFragment()
-                        .show(getSupportFragmentManager(), "onboarding"));
+        menuButton.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(MainActivity.this, v);
+            popup.getMenuInflater().inflate(R.menu.main_overflow_menu, popup.getMenu());
+            popup.setForceShowIcon(true);
+
+            popup.setOnMenuItemClickListener(item -> {
+                int id = item.getItemId();
+
+                if (id == R.id.menu_saved_articles) {
+                    startActivity(new Intent(MainActivity.this, SavedArticlesActivity.class));
+                    return true;
+                } else if (id == R.id.menu_info) {
+                    new OnboardingBottomSheetDialogFragment()
+                            .show(getSupportFragmentManager(), "onboarding");
+                    return true;
+                }
+
+                return false;
+            });
+
+            popup.show();
+        });
 
         adapter = new PlaceResultAdapter(item -> {
             if (item.placeId() == null) {

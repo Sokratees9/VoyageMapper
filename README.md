@@ -63,6 +63,5 @@ Future Enhancements
 * Put in appropriate messaging when there is no network or results
 * Better home screen for the app, more enticing
 * Include places from Atlas Obscura and wikipedia
-* Replace Londonderry with Derry
 * Miles and km - known as true conversion in media wiki language
 * 

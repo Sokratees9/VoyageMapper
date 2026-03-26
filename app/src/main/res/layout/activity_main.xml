@@ -23,18 +23,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/welcome"
-                android:textAppearance="?attr/textAppearanceHeadlineMedium"
+                android:textAppearance="?attr/textAppearanceHeadlineSmallEmphasized"
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/infoButton"
+                android:id="@+id/menuButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/info"
+                android:contentDescription="@string/menu"
                 android:padding="6dp"
                 app:tint="?attr/colorPrimary"
-                app:srcCompat="@drawable/ic_info_24" />
+                app:srcCompat="@drawable/ic_more_vert" />
         </LinearLayout>
 
         <TextView

@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.places)
     implementation(libs.constraintlayout)
+    implementation(libs.room.rt)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter.api)
@@ -94,9 +95,12 @@ dependencies {
     testRuntimeOnly(libs.junit.jupiter.engine)
 
     androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.test.core)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.room.testing)
 
     coreLibraryDesugaring(libs.desugar)
 
     annotationProcessor(libs.compiler)
+    annotationProcessor(libs.room.compiler)
 }

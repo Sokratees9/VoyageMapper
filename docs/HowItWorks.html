@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Voyage Map Works</title>
+    <style>
+        body {
+          font-family: system-ui, -apple-system, Roboto, "Segoe UI", sans-serif;
+          max-width: 700px;
+          margin: 40px auto;
+          padding: 0 16px;
+          line-height: 1.6;
+          color: #222;
+          background-color: #fff;
+        }
+        h1 {
+          font-size: 2.2em;
+          margin-bottom: 0.4em;
+        }
+        h2 {
+          margin-top: 1.2em;
+          font-size: 1.6em;
+        }
+        h3 {
+          margin-top: 1.0em;
+          font-size: 1.2em;
+        }
+        h4 {
+          margin-top: 1em;
+          font-size: 1em;
+        }
+        p {
+          margin-bottom: 1em;
+        }
+        a {
+          color: #1a73e8;
+          text-decoration: none;
+        }
+        img {
+          width:400px;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+        footer {
+          margin-top: 2em;
+          font-size: 0.9em;
+          color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Voyage Map - How To Use It</h1>
+<p><strong>Last updated:</strong> 29th March 2026</p>
+<p>
+    Voyage Map is a free mobile application that displays travel information from
+    <a href="https://en.wikivoyage.org" target="_blank" rel="noopener noreferrer">Wikivoyage</a>.
+    Go check it out, it's nice crowd-sourced website that is basically Wikipedia for Travel Guides!
+</p>
+
+<h2>Overview</h2>
+<p>
+    When you open the app for the first time, you'll get some basic info about how to use
+    the app, but below we will detail a few more of the features of the app.  The app can
+    also use your location to show articles close to where you currently are.
+</p>
+<p>
+    The app allows you to save articles for offline use, as well as cache the last
+    few articles that you loaded up, in case you do not have an internet connection.
+</p>
+
+<h2>Homepage</h2>
+<p>
+    When you open the app, after viewing the info and agreeing to (or not to) share
+    your location, you will be presented with something that resembles this:
+</p>
+<img src="homePage.png" alt="Home screen of the Voyage Map app">
+
+<p>From here, you can:</p>
+<ul>
+    <li>use your current location</li>
+    <li>search for a place</li>
+    <li>open the menu for saved articles, info, and about</li>
+</ul>
+
+<h3>Use Current Location</h3>
+<p>
+    Ah yes, the big obvious button.  If you click this, the map view will open, and you will be shown
+    all Wikivoyage articles that are within 20km of your current location (if the app can determine
+    that).  Nice and easy
+</p>
+
+<h3>Search</h3>
+<p>
+    Before you hit the Search button, it's a good idea to type something into the search text box,
+    otherwise the app will simply do nothing.  Just one letter is good enough, but it might not be
+    precise enough to get you close to the answer you are looking for, so, you know, type as many
+    as you can, or feel comfortable with!
+</p>
+<p>
+    After you hit search, hopefully some results will show up.  I have tried searching for "xyz",
+    and nothing came up.  But generally speaking any sensible search term should show up something,
+    for example:
+</p>
+<img src="searchResults.png" alt="Example of search results after you type in some text and hit Search">
+
+<p>
+    Simply click on the result that is the right one for you, and you will be taken to the map
+    view - where the magic happens.  If you don't see your result there, maybe try to be a bit
+    more precise.  Unfortunately the search only returns 5 results at a time.
+</p>
+
+<h3>Dot, dot, dot</h3>
+<p>
+    But wait, there's more (but not that much more, but hopefully in the future with some enhancements)!
+    See the 3 vertical dots in the top right hand side of the app?  Click on that, and you'll get some
+    more features.
+</p>
+<img src="menuItems.png" alt="When clicking on the three dots you will see these 3 menu items,
+    Saved Articles, Info and About">
+
+<h4>Saved Articles</h4>
+<p>
+    If there is a place you are particularly interested in, you can save it so that it is always on your
+    phone, regardless of whether you have an internet connection or not.  More on how to do that later,
+    but when you do save an article, this is where you can find a way to display them in a clickable list.
+</p>
+
+<h4>Info</h4>
+<p>
+    This will display the dialog that gives a quick overview of how to use the app (the dialog that shows
+    up the first time you ever open the app), which also includes a link to this handy document.
+</p>
+
+<h4>About</h4>
+<p>
+    Yes, that is a beer icon, simply because I love beer, and I wrote the app, so I can put in whatever
+    I want to represent About.  And About is about me and the app.
+</p>
+
+<h2>The Map</h2>
+<p>
+    Now we're getting into the real meat of the app.  Everything up until this point was just setting
+    the scene.  Regardless of whether you have come to this step via the "Use Current Location" button,
+    saved articles or by searching for, and clicking on, a specific place, you'll be faced with something
+    like this:
+</p>
+
+<img src="map1.png" alt="The map view of the app with a number of place markers shown centred around
+    Edinburgh">
+
+<p>
+    I searched for Edinburgh, and there are quite a few Wikivoyage articles within 20km, hence we see
+    quite a lot of black pins on the map.  If you searched for somewhere quite remote, you may get zero or
+    just one or two results.  The map will usually zoom to a level whereby all the pins are viewable.
+</p>
+<p>
+    In this example of Edinburgh, there's a big 5 in the middle of the screen.  This simply means that
+    there are a lot of articles close together, so if you zoom in a bit more, then you will see what
+    they are.
+</p>
+<p>
+    Apart from the black pins on the map, there are a couple of other buttons on the map, one in the
+    top right and one in the bottom right.
+</p>
+
+<h3>Refresh</h3>
+<p>
+    The bottom right one is to refresh the articles.  Say you've
+    been zooming and panning around the map, if you go outside the original 20km zone, you can click this
+    to load articles that are close to where you moved to.
+</p>
+
+<h3>Current Location</h3>
+<p>
+    The top right one is the current location button - clicking on that will zoom the map to wherever you
+    are.  If you don't see any articles, a quick press of the Refresh button in the bottom right should
+    load anything within 20km of your location.  If you still see nothing, either you are offline, or you
+    are really out in the middle of nowhere!
+</p>
+
+<h2>Articles</h2>
+<p>
+    Clicking on one of the black pins will bring up some info about the place you clicked, along with
+    three buttons:
+</p>
+
+<img src="articleView.png" alt="This is the article view with details about the location and buttons
+    to go to Wikivoyage or view the sights">
+
+<h3>Go to Wikivoyage</h3>
+<p>
+    This simply does what it says it will do.  It will open the Wikivoyage article in your default browser
+</p>
+
+<h3>View Sights</h3>
+<p>
+    This is the next important part of the app.  On clicking this, hopefully a number of green pins will
+    appear on the app.  These are the sights that are listed in Wikivoyage for this location, all handily
+    mapped out on the, erm, map.
+</p>
+
+<img src="sights.png" alt="Article and sight listing in the Edinburgh Stockbridge area">
+<p>
+    Clicking any of these green pins will show you details about that sight. We try to
+    extract as much useful info as possible from the details in the Wikivoyage article, including:
+</p>
+<ul>
+    <li>Phone number</li>
+    <li>Website</li>
+    <li>Address</li>
+    <li>Opening hours</li>
+    <li>Entry cost</li>
+    <li>Wikipedia link</li>
+</ul>
+<img src="sightView.png" alt="Sight view details about the Royal Botanic Garden in Edinburgh">
+
+<p>
+    Not all articles have all this info, so if it is missing we can't display it.  This example does.
+    Sometimes you get a nice picture too.  This example doesn't have that, but plenty do.
+    Also, there is a directions button in the top right corner, if you click on that it should open up
+    in Google Maps, and you can navigate yourself there if interested in visiting.
+</p>
+
+<p>
+    You can also click on a few of the details, like phone number, website, address and Wikipedia link
+    and they should do what you would expect them to do (namely, open the phone app, open the website,
+    open Google Maps and open the wikipedia page respectively).
+</p>
+
+<h3>Save Article</h3>
+<p>
+    The final button on the Article view lets you save the article, and it's not quite as prominent
+    as the other two, hiding in the top right of the Article view.  It looks like
+    <img src="saveButton.png" alt="The icon for the save article button" style="width:32px;">.
+    Click on it to save the article, and the icon will update to
+    <img src="unsave.png" alt="The icon for the remove article button" style="width:32px;">.  Click it again
+    to remove it from your saved articles list.
+</p>
+<p>
+    Saving an article means that it will still be available to view if you are offline (including the sights
+    too).  Which can be handy when in a foreign country, as you do not always have access to mobile data.
+    You can access these saved articles via the three-vertical-dot menu on the home page.
+</p>
+<br>
+<hr>
+<p>
+    For details on privacy and data handling, see the
+    <a href="privacy.html">Privacy Policy</a>.
+</p>
+<hr>
+
+<h2>FAQ</h2>
+
+<h3>Why do you not include eat, sleep, drink etc section from Wikivoyage</h3>
+<p>
+    Quite simply as I have found that info to be either out of date or unreliable.  Sure, I reckon
+    some of the data is probably kept up to date, but those types of things are much more likely to
+    change frequently, unlike, say, the Eiffel Tower.  Use the "Go to Wikivoyage" button on the article
+    card to see all the other sections I've left out.
+</p>
+
+</body>

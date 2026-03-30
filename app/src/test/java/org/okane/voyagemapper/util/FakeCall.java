@@ -63,6 +63,7 @@ public class FakeCall implements Call {
         return Timeout.NONE;
     }
 
+    @NonNull
     @Override
     public Call clone() {
         return new FakeCall(request, response);

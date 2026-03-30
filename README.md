@@ -1,7 +1,9 @@
 # 🌍 VoyageMapper
 
-**VoyageMapper** is an Android app (built in Java) that helps you explore the world through [Wikivoyage](https://en.wikivoyage.org/) travel guides.  
-Use your **current location** or **search for a place**, view nearby articles, and explore the sights from within each destination — all on an interactive map.
+**VoyageMapper** is an Android app (built in Java) that helps you explore the world
+through [Wikivoyage](https://en.wikivoyage.org/) travel guides.  
+Use your **current location** or **search for a place**, view nearby articles, and
+explore the sights from within each destination — all on an interactive map.
 
 ---
 
@@ -12,20 +14,24 @@ Use your **current location** or **search for a place**, view nearby articles, a
 - 🗺️ **Map the Sights** — Tap a place to fetch all `{{see|do|listing}}` listings from Wikivoyage and plot them on the map (with contact and practical info).  
 - 📍 **Custom markers** — Black pins for places, green pins for sights, with labeled titles.  
 - 📱 **Bottom sheet previews** — Article details, images, and quick links.  
+- 🔍 **Save articles for offline** — When saved you can still load the info without a connection
 - 🧑‍💻 **Built in Java** — Uses AndroidX, Google Maps SDK, Retrofit, and Glide.
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Purpose        | Library / API                           |
-|----------------|-----------------------------------------|
-| Map & location | Google Maps SDK, Play Services Location |
-| HTTP / API     | Retrofit2 + OkHttp                      |
-| JSON parsing   | Gson                                    |
-| Image loading  | Glide                                   |
-| Clustering     | Google Maps Utils                       |
-| Material UI    | Material Components for Android         |
+| Purpose        | Library / API                            |
+|----------------|------------------------------------------|
+| Map & location | Google Maps SDK, Play Services Location  |
+| HTTP / API     | Retrofit2 + OkHttp                       |
+| JSON parsing   | Gson                                     |
+| Image loading  | Glide                                    |
+| Clustering     | Google Maps Utils                        |
+| Material UI    | Material Components for Android          |
+| Testing        | Junit 5, Mockito and Robolectric         |
+| Persistence    | Room DB used for caching and saving      |
+| Logging        | Android logging and firebase crashlytics |
 
 ---
 
@@ -50,9 +56,9 @@ Future Enhancements
 
 🏞️ Add support for more listing types ({{do}}, {{eat}}, etc.)
 
-🗂️ Offline caching of fetched Wikivoyage articles (and a recently views list)
+🗂️ ~~Offline caching of fetched Wikivoyage articles (and a recently views list)~~
 
-🔖 Bookmark favorite places and sights
+🔖 ~~__Bookmark favorite places and sights~~__
 
 🧭 Compass / route directions integration
 

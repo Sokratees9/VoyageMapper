@@ -53,21 +53,22 @@ class WikidataCoordsFetcherTest {
         Call<ResponseBody> call = mock(Call.class);
         when(svc.getEntity("Q1")).thenReturn(call);
 
-        String json = "{\n" +
-                "  \"entities\": {\n" +
-                "    \"Q1\": {\n" +
-                "      \"claims\": {\n" +
-                "        \"P625\": [ {\n" +
-                "          \"mainsnak\": {\n" +
-                "            \"datavalue\": {\n" +
-                "              \"value\": { \"latitude\": 12.34, \"longitude\": 56.78 }\n" +
-                "            }\n" +
-                "          }\n" +
-                "        } ]\n" +
-                "      }\n" +
-                "    }\n" +
-                "  }\n" +
-                "}";
+        String json = """
+                {
+                  "entities": {
+                    "Q1": {
+                      "claims": {
+                        "P625": [ {
+                          "mainsnak": {
+                            "datavalue": {
+                              "value": { "latitude": 12.34, "longitude": 56.78 }
+                            }
+                          }
+                        } ]
+                      }
+                    }
+                  }
+                }""";
 
         // Make enqueue call the callback immediately with a successful response
         doAnswer(inv -> {

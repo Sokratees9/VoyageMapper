@@ -32,7 +32,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             context.getApplicationContext(),
                             AppDatabase.class,
                             "voyagemapper.db"
-                    ).fallbackToDestructiveMigration().build();
+                    ).build();
                     Log.d("RoomDebug", "AppDatabase opened");
                 }
             }

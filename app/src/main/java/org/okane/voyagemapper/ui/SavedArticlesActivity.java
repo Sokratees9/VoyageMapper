@@ -22,12 +22,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SavedArticlesActivity extends AppCompatActivity {
-
-    public static final String EXTRA_PAGE_ID = "page_id";
-    public static final String EXTRA_LAT = "lat";
-    public static final String EXTRA_LON = "lon";
-    public static final String EXTRA_TITLE = "title";
-
     private CachedArticleDao articleDao;
     private final ExecutorService diskIo = Executors.newSingleThreadExecutor();
 

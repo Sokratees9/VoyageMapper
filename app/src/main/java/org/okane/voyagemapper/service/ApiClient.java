@@ -1,5 +1,7 @@
 package org.okane.voyagemapper.service;
 
+import org.okane.voyagemapper.R;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -8,22 +10,15 @@ import java.util.concurrent.TimeUnit;
 public final class ApiClient {
 
     private static final String USER_AGENT =
-            "VoyageMap/1.0 (sokratees99@gmail.com)";
+            "VoyageMap/1.0 (" + R.string.email + ")";
 
-    private static OkHttpClient client;
+    private static OkHttpClient client = buildClient();
 
     private ApiClient() {
         // no instances
     }
 
     public static OkHttpClient getHttpClient() {
-        if (client == null) {
-            synchronized (ApiClient.class) {
-                if (client == null) {
-                    client = buildClient();
-                }
-            }
-        }
         return client;
     }
 

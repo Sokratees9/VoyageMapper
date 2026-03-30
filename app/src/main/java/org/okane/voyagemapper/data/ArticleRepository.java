@@ -43,16 +43,6 @@ public class ArticleRepository {
         });
     }
 
-    public void getSavedArticles(@NonNull ArticlesCallback callback) {
-        diskIo.execute(() -> {
-            try {
-                callback.onSuccess(articleDao.getSavedArticles());
-            } catch (Exception e) {
-                callback.onError(e);
-            }
-        });
-    }
-
     public void cacheArticleSummary(@NonNull PlaceItem item) {
         if (item.getKind() != PlaceItem.Kind.ARTICLE) {
             return;

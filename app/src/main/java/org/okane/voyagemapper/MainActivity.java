@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.okane.voyagemapper.model.PlaceResult;
 import org.okane.voyagemapper.service.NetworkErrorHandler;
@@ -32,6 +37,7 @@ import org.okane.voyagemapper.ui.OnboardingBottomSheetDialogFragment;
 import org.okane.voyagemapper.ui.PlaceResultAdapter;
 import org.okane.voyagemapper.ui.SavedArticlesActivity;
 import org.okane.voyagemapper.util.NetworkUtils;
+import org.okane.voyagemapper.util.SimpleUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
         searchEditText = findViewById(R.id.searchEditText);
         searchPrompt = findViewById(R.id.searchPrompt);
         resultsRecycler = findViewById(R.id.resultsRecycler);
-        ImageButton menuButton = findViewById(R.id.menuButton);
         resultsRecycler.setLayoutManager(new LinearLayoutManager(this));
 
+        ImageButton menuButton = findViewById(R.id.menuButton);
         menuButton.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(MainActivity.this, v);
             popup.getMenuInflater().inflate(R.menu.main_overflow_menu, popup.getMenu());
@@ -101,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.menu_info) {
                     new OnboardingBottomSheetDialogFragment()
                             .show(getSupportFragmentManager(), "onboarding");
+                    return true;
+                } else if (id == R.id.menu_about) {
+                    showAboutDialog();
                     return true;
                 }
 
@@ -178,7 +187,9 @@ public class MainActivity extends AppCompatActivity {
             ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
             Bundle b = ai.metaData;
             return b.getString("com.google.android.geo.API_KEY");
-        } catch (Exception e) { return null; }
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private void doSearch() {
@@ -203,9 +214,9 @@ public class MainActivity extends AppCompatActivity {
         com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest req =
                 com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest.builder()
                         .setQuery(query)
-                        // Optional: bias to a region or to cities
-                        .setTypeFilter(com.google.android.libraries.places.api.model.TypeFilter.CITIES)
-                        // .setCountries(Arrays.asList("GB","AU")) // if you want to limit
+                        .setTypesFilter(java.util.Collections.singletonList(
+                                com.google.android.libraries.places.api.model.PlaceTypes.LOCALITY
+                        ))
                         .setSessionToken(token)
                         .build();
 
@@ -259,5 +270,51 @@ public class MainActivity extends AppCompatActivity {
         if (imm != null) {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private void showAboutDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_about, null);
+
+        TextView versionText = view.findViewById(R.id.aboutVersion);
+        TextView emailText = view.findViewById(R.id.aboutEmail);
+        TextView privacyPolicyText = view.findViewById(R.id.aboutPrivacyPolicy);
+        TextView howToUseText = view.findViewById(R.id.aboutHowToUse);
+
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String versionName = packageInfo.versionName;
+            long versionCode = packageInfo.versionCode;
+            versionText.setText(getString(R.string.about_version_value, versionName, versionCode));
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("MainActivity", "Failed to get package info", e);
+            versionText.setText(R.string.version_unknown);
+        }
+
+        emailText.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:" + R.string.email));
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Voyage Map");
+
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "No email app found", Toast.LENGTH_SHORT).show();
+                Log.e("MainActivity", "No email app found");
+            }
+        });
+
+        privacyPolicyText.setOnClickListener(v ->
+                SimpleUtils.startActivity(R.string.privacy_html, this)
+        );
+
+        howToUseText.setOnClickListener(v ->
+                SimpleUtils.startActivity(R.string.how_it_works_html, this)
+        );
+
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("About Voyage Map")
+                .setView(view)
+                .setPositiveButton("Close", null)
+                .show();
     }
 }

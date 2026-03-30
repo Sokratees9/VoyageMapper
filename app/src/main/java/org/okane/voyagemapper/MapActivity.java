@@ -46,7 +46,6 @@ import org.okane.voyagemapper.ui.model.PlaceItem;
 import org.okane.voyagemapper.model.SeeListing;
 import org.okane.voyagemapper.service.NearbyCallback;
 import org.okane.voyagemapper.service.NetworkErrorHandler;
-import org.okane.voyagemapper.service.PageContentResponse;
 import org.okane.voyagemapper.service.WikiRepository;
 import org.okane.voyagemapper.service.WikiResponse;
 import org.okane.voyagemapper.ui.PlaceClusterRenderer;
@@ -673,9 +672,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onError(Throwable t) {
-                mainHandler.post(() ->
-                        Toast.makeText(MapActivity.this, "Could not update saved article", Toast.LENGTH_SHORT).show()
-                );
+                mainHandler.post(() -> {
+                    Toast.makeText(MapActivity.this,
+                            "Could not update saved article", Toast.LENGTH_SHORT).show();
+                    Log.e("MapActivity", "Could not update saved article: " + t.getMessage());
+                });
             }
         });
     }

@@ -1,8 +1,6 @@
 package org.okane.voyagemapper.ui;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 
 import org.okane.voyagemapper.R;
+import org.okane.voyagemapper.util.SimpleUtils;
 
 public class OnboardingBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
@@ -32,11 +31,8 @@ public class OnboardingBottomSheetDialogFragment extends BottomSheetDialogFragme
 
         btnLearnMore.setOnClickListener(view -> {
             dismiss();
-            Intent i = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://sokratees9.github.io/VoyageMapper/privacy.html"));
-            startActivity(i);
+            SimpleUtils.startActivity(R.string.how_it_works_html, requireContext());
         });
-
         return v;
     }
 

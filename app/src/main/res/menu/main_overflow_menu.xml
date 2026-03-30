@@ -9,4 +9,9 @@
         android:id="@+id/menu_info"
         android:icon="@drawable/ic_info_24"
         android:title="@string/info" />
+
+    <item
+        android:id="@+id/menu_about"
+        android:icon="@drawable/ic_beer"
+        android:title="@string/about" />
 </menu>

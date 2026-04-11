@@ -31,7 +31,7 @@ public class OnboardingBottomSheetDialogFragment extends BottomSheetDialogFragme
 
         btnLearnMore.setOnClickListener(view -> {
             dismiss();
-            SimpleUtils.startActivity(R.string.how_it_works_html, requireContext());
+            SimpleUtils.startUrlActivity(R.string.how_it_works_html, requireContext());
         });
         return v;
     }

@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_saved_articles"
         android:icon="@drawable/ic_bookmark_border"
+        app:iconTint="?attr/colorOnSurfaceVariant"
         android:title="@string/saved_articles" />
 
     <item
         android:id="@+id/menu_info"
         android:icon="@drawable/ic_info_24"
+        app:iconTint="?attr/colorOnSurfaceVariant"
         android:title="@string/info" />
 
     <item
         android:id="@+id/menu_about"
         android:icon="@drawable/ic_beer"
+        app:iconTint="?attr/colorOnSurfaceVariant"
         android:title="@string/about" />
 </menu>

@@ -28,8 +28,8 @@
 
             <ImageButton
                 android:id="@+id/menuButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/menu"
                 android:padding="6dp"
@@ -78,6 +78,8 @@
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:hintTextColor="@color/search_hint_color"
+                    app:endIconMode="clear_text"
                     android:hint="@string/search_box">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -85,7 +87,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionSearch"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Search button as secondary action -->

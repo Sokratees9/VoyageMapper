@@ -299,16 +299,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "No email app found", Toast.LENGTH_SHORT).show();
-                Log.e("MainActivity", "No email app found");
             }
         });
 
         privacyPolicyText.setOnClickListener(v ->
-                SimpleUtils.startActivity(R.string.privacy_html, this)
+                SimpleUtils.startUrlActivity(R.string.privacy_html, this)
         );
 
         howToUseText.setOnClickListener(v ->
-                SimpleUtils.startActivity(R.string.how_it_works_html, this)
+                SimpleUtils.startUrlActivity(R.string.how_it_works_html, this)
         );
 
         new MaterialAlertDialogBuilder(this)

@@ -319,7 +319,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (cached == null || cached.isEmpty()) {
                     Toast.makeText(
                             MapActivity.this,
-                            "No internet connection and no cached articles for this area",
+                            R.string.no_internet_no_cached_articles,
                             Toast.LENGTH_LONG
                     ).show();
                     return;
@@ -487,10 +487,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         return;
                     }
 
-                    if (isNetworkAvailable()) {
+                    if (!isNetworkAvailable()) {
                         Toast.makeText(
                                 MapActivity.this,
-                                "No internet connection and no cached sights available",
+                                R.string.no_internet_no_cached_sights,
                                 Toast.LENGTH_LONG
                         ).show();
                         return;

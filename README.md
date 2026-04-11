@@ -70,4 +70,5 @@ Future Enhancements
 * Better home screen for the app, more enticing
 * Include places from Atlas Obscura and wikipedia
 * Miles and km - known as true conversion in media wiki language
+* Allow listing with no type (see isSeeOrDo in TemplateMatcher) - often used for tourist info, e.g https://en.wikivoyage.org/wiki/Rijswijk
 * 

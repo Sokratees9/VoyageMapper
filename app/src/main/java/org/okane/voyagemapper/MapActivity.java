@@ -531,9 +531,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onError(Throwable t) {
-                runOnUiThread(() -> Log.w("mapSightsForPage", "failed to read cached sights for "
+                Log.w("mapSightsForPage", "failed to read cached sights for "
                         + currentItem.getTitle() + ": "
-                        + t.getLocalizedMessage()));
+                        + t.getLocalizedMessage());
+                FirebaseCrashlytics.getInstance().recordException(t);
             }
         });
     }
@@ -561,7 +562,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (!missing.isEmpty()) {
             for (SeeListing s : missing) {
                 wikidataFetcher.fetchCoords(s.wikidata(), coords -> {
-                    if (coords == null) return;
+                    if (coords == null) {
+                        return;
+                    }
 
                     diskIo.execute(() -> listingRepository.updateCoordsForListing(
                             currentItem.getPageId(),

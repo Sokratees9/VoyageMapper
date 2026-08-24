@@ -22,14 +22,14 @@ tasks.withType<Test>().configureEach {
 
 android {
     namespace = "org.okane.voyagemapper"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "org.okane.voyagemapper"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 10
-        versionName = "1.1.3"
+        targetSdk = 36
+        versionCode = 11
+        versionName = "1.1.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

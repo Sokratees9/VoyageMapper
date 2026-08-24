@@ -55,9 +55,7 @@ class TemplateMatcherTest {
     })
     public void testParseWithNoNameOrNameTag(String input) {
         List<SeeListing> out = TemplateMatcher.parse(input); // whatever your class is called
-        assertEquals(1, out.size());
-        assertEquals("Sight Name Unknown", out.get(0).name());
-
+        assertEquals(0, out.size());
         verify(logger).w(eq("TemplateMatcher.parse"), contains("No Name for"));
     }
 
@@ -67,8 +65,26 @@ class TemplateMatcherTest {
                 "* {{marker | name=Test | lat=55.9427 | long=-3.2081 }} is the east terminus."
         ); // whatever your class is called
         assertEquals(0, out.size());
-
         verifyNoInteractions(logger);
+    }
+
+    @Test
+    public void testParseWithNoLatLonOrWikiData() {
+        List<SeeListing> out = TemplateMatcher.parse(
+                "* {{marker | name=Test | type=see }} is the east terminus."
+        );
+        assertEquals(0, out.size());
+        verify(logger).w(eq("TemplateMatcher.parse"), contains("No Lat/Lon for"));
+        verify(logger).w(eq("TemplateMatcher.parse"), contains("No wikidata either"));
+    }
+
+    @Test
+    public void testParseWithNoLatLonButWikiData() {
+        List<SeeListing> out = TemplateMatcher.parse(
+                "* {{marker | name=Test | type=see | wikidata=Q12345678 }} is the east terminus."
+        );
+        assertEquals(1, out.size());
+        verify(logger).w(eq("TemplateMatcher.parse"), contains("No Lat/Lon for"));
     }
 
     @Test
@@ -209,7 +225,7 @@ class TemplateMatcherTest {
     }
 
     @Test
-    public void testBarcelonaEixampleSee(
+    public void testBarcelonaExampleSee(
             @GivenTextResource("Barcelona_eixample_see.txt") String eixample) {
 
         SeeListing sagradaFamilia = new SeeListing(
@@ -668,8 +684,8 @@ class TemplateMatcherTest {
         );
         SeeListing beerAndOktoberfestMuseum = new SeeListing(
                 "Beer and Oktoberfest Museum",
-                null,
-                null,
+                48.13526,
+                11.58032,
                 "+49 89 242 31607",
                 "https://www.bier-und-oktoberfestmuseum.de/",
                 "History of the festival, in a townhouse of 1340. The \"Himmelsleiter\" is its characteristic early staircase, a straight flight with no corners.",
@@ -789,7 +805,6 @@ class TemplateMatcherTest {
                 alpineMuseum,
                 beerAndOktoberfestMuseum,
                 isartor,
-                valentinKarlstadt,
                 maximiliansplatzMarker,
                 briennerStrasse,
                 michaelskirche,
@@ -1055,7 +1070,6 @@ class TemplateMatcherTest {
                 silverknowes,
                 balerno,
                 murrayfieldStadium,
-                murrayfieldIceRink,
                 cineworld,
                 corstorphineHill,
                 royalHighlandShowground,

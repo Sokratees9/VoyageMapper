@@ -97,9 +97,9 @@ public class TemplateMatcher {
     }
 
     public static List<SeeListing> parse(String wikitext) {
-        List<SeeListing> out = new ArrayList<>();
+        List<SeeListing> seeListings = new ArrayList<>();
         if (wikitext == null || wikitext.isEmpty()) {
-            return out;
+            return seeListings;
         }
 
         List<TemplateMatch> templates = extractTemplates(wikitext);
@@ -113,13 +113,22 @@ public class TemplateMatcher {
                 continue;
             }
 
-            Double lat = parseDouble(firstNonEmpty(params, "lat", "latitude"));
-            Double lon = parseDouble(firstNonEmpty(params, "long", "lon", "longitude"));
-
+            // Not interested in anything without a name or coordinates/wikidata
             String name = firstNonEmpty(params, "name", "alt");
             if (name == null || name.isEmpty()) {
                 LOGGER.w("TemplateMatcher.parse", "No Name for " + tm.body);
-                name = "Sight Name Unknown";
+                continue;
+            }
+
+            Double lat = parseDouble(firstNonEmpty(params, "lat", "latitude"));
+            Double lon = parseDouble(firstNonEmpty(params, "long", "lon", "longitude"));
+            String wikidata = firstNonEmpty(params, "wikidata");
+            if (lat == null || lon == null) {
+                LOGGER.w("TemplateMatcher.parse", "No Lat/Lon for " + name);
+                if (wikidata == null) {
+                    LOGGER.w("TemplateMatcher.parse", "No wikidata either");
+                    continue;
+                }
             }
 
             String phone = firstNonEmpty(params, "phone", "tel");
@@ -129,7 +138,6 @@ public class TemplateMatcher {
             String price = firstNonEmpty(params, "price");
             String wiki = firstNonEmpty(params, "wikipedia");
             String image = firstNonEmpty(params, "image");
-            String wikidata = firstNonEmpty(params, "wikidata");
 
             String content = firstNonEmpty(params, "content");
             if (content == null || content.trim().isEmpty()) {
@@ -138,12 +146,12 @@ public class TemplateMatcher {
                 content = cleanWikiText(content);
             }
 
-            out.add(new SeeListing(
+            seeListings.add(new SeeListing(
                     name, lat, lon, phone, url, content, address, hours, price, wiki, wikidata, image
             ));
         }
 
-        return out;
+        return seeListings;
     }
 
     private static boolean isSeeOrDo(String tplName, Map<String,String> params) {

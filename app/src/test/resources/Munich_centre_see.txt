@@ -145,7 +145,7 @@ This area north of medieval Altstadt was developed in the 19th century. The squa
 }}
 * {{see
 | name=Beer and Oktoberfest Museum | alt= | url=https://www.bier-und-oktoberfestmuseum.de/| email=
-| address=Sterneckerstraße 2 | lat=NA | long=NA | directions=alley between Tal and Westenriederstraße
+| address=Sterneckerstraße 2 | lat=48.13526 | long=11.58032 | directions=alley between Tal and Westenriederstraße
 | phone=+49 89 242 31607 | tollfree= | fax= | hours=Tu-Sa 13:00-18:00 | price=
 | lastedit=2022-10-21
 | content=History of the festival, in a townhouse of 1340. The "Himmelsleiter" is its characteristic early staircase, a straight flight with no corners.

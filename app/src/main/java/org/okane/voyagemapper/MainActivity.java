@@ -27,7 +27,13 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.PlaceTypes;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -76,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
         String apiKey = readMapsKeyFromManifest();
         Log.d("VoyageMapper", "Maps/Places key prefix: " + (apiKey != null && apiKey.length() >= 8 ? apiKey.substring(0,8) : "NULL"));
-        if (!com.google.android.libraries.places.api.Places.isInitialized()) {
-            com.google.android.libraries.places.api.Places.initialize(getApplicationContext(), apiKey);
+        if (!Places.isInitialized()) {
+            Places.initializeWithNewPlacesApiEnabled(getApplicationContext(), apiKey);
         }
-        placesClient = com.google.android.libraries.places.api.Places.createClient(this);
+        placesClient = Places.createClient(this);
 
         findViewById(R.id.useCurrentLocationBtn).setOnClickListener(v -> {
             Intent i = new Intent(this, MapActivity.class);
@@ -130,26 +136,25 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            List<com.google.android.libraries.places.api.model.Place.Field> fields = Arrays.asList(
-                    com.google.android.libraries.places.api.model.Place.Field.ID,
-                    com.google.android.libraries.places.api.model.Place.Field.NAME,
-                    com.google.android.libraries.places.api.model.Place.Field.LAT_LNG,
-                    com.google.android.libraries.places.api.model.Place.Field.ADDRESS,
-                    com.google.android.libraries.places.api.model.Place.Field.WEBSITE_URI,
-                    com.google.android.libraries.places.api.model.Place.Field.PHONE_NUMBER
+            List<Place.Field> fields = Arrays.asList(
+                    Place.Field.ID,
+                    Place.Field.DISPLAY_NAME,
+                    Place.Field.LOCATION,
+                    Place.Field.FORMATTED_ADDRESS,
+                    Place.Field.WEBSITE_URI,
+                    Place.Field.INTERNATIONAL_PHONE_NUMBER
             );
 
-            com.google.android.libraries.places.api.net.FetchPlaceRequest req =
-                    com.google.android.libraries.places.api.net.FetchPlaceRequest.newInstance(item.placeId(), fields);
+            FetchPlaceRequest req = FetchPlaceRequest.newInstance(item.placeId(), fields);
 
             placesClient.fetchPlace(req).addOnSuccessListener(response -> {
-                com.google.android.libraries.places.api.model.Place place = response.getPlace();
-                if (place.getLatLng() == null) {
+                Place place = response.getPlace();
+                if (place.getLocation() == null) {
                     return;
                 }
 
-                double lat = place.getLatLng().latitude;
-                double lon = place.getLatLng().longitude;
+                double lat = place.getLocation().latitude;
+                double lon = place.getLocation().longitude;
 
                 // Launch your MapActivity centered here (your existing flow)
                 Intent i = new Intent(MainActivity.this, MapActivity.class);
@@ -208,14 +213,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // One token per “search session” helps billing & quality
-        com.google.android.libraries.places.api.model.AutocompleteSessionToken token =
-                com.google.android.libraries.places.api.model.AutocompleteSessionToken.newInstance();
+        AutocompleteSessionToken token =
+                AutocompleteSessionToken.newInstance();
 
-        com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest req =
-                com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest.builder()
+        FindAutocompletePredictionsRequest req =
+                FindAutocompletePredictionsRequest.builder()
                         .setQuery(query)
-                        .setTypesFilter(java.util.Collections.singletonList(
-                                com.google.android.libraries.places.api.model.PlaceTypes.LOCALITY
+                        .setTypesFilter(Collections.singletonList(
+                                PlaceTypes.LOCALITY
                         ))
                         .setSessionToken(token)
                         .build();

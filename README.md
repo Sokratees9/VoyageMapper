@@ -68,7 +68,5 @@ Future Enhancements
 * Fix entries like "** {{marker | name=Cloonacauneen | url=https://www.clooncastle.com/ | type=see | lat=53.323 | long=-8.988 }} is a restored 15th-century towerhouse that's now a restaurant, often booked for weddings." to use the trailing text
 * Put in appropriate messaging when there is no network or results
 * Better home screen for the app, more enticing
-* Include places from Atlas Obscura and wikipedia
+* Include places from Atlas Obscura and wikipedia if feasible
 * Miles and km - known as true conversion in media wiki language
-* Allow listing with no type (see isSeeOrDo in TemplateMatcher) - often used for tourist info, e.g https://en.wikivoyage.org/wiki/Rijswijk
-* 

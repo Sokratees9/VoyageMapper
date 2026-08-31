@@ -7,8 +7,11 @@ import androidx.annotation.NonNull;
 import org.okane.voyagemapper.data.local.dao.CachedSeeListingDao;
 import org.okane.voyagemapper.data.local.model.CachedSeeListingEntity;
 import org.okane.voyagemapper.model.SeeListing;
+import org.okane.voyagemapper.service.ApiException;
 import org.okane.voyagemapper.service.NetworkChecker;
 import org.okane.voyagemapper.service.PageContentResponse;
+import org.okane.voyagemapper.service.PrefetchCooldown;
+import org.okane.voyagemapper.service.PrefetchTracker;
 import org.okane.voyagemapper.service.WikiRepository;
 import org.okane.voyagemapper.ui.model.PlaceItem;
 import org.okane.voyagemapper.util.TemplateMatcher;
@@ -16,6 +19,10 @@ import org.okane.voyagemapper.util.TemplateMatcher;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +33,10 @@ public class ListingRepository {
     private final ExecutorService diskIo;
     private final CachedSeeListingDao seeListingDao;
     private final NetworkChecker networkChecker;
+    private final ScheduledExecutorService prefetchExecutor = Executors.newScheduledThreadPool(2);
+    private final PrefetchTracker prefetchTracker = new PrefetchTracker();
+    private final Semaphore prefetchSlots = new Semaphore(2);
+    private final PrefetchCooldown prefetchCooldown = new PrefetchCooldown();
 
     public ListingRepository(@NonNull CachedSeeListingDao seeListingDao,
             @NonNull ExecutorService diskIo,
@@ -56,7 +67,8 @@ public class ListingRepository {
                     @NonNull Response<PageContentResponse> res) {
                 if (!res.isSuccessful() || res.body() == null || res.body().query == null
                         || res.body().query.pages == null || res.body().query.pages.isEmpty()) {
-                    callback.onError(new RuntimeException("Server error: " + res.code()));
+                    String retryAfter = res.code() == 429 ? res.headers().get("Retry-After") : null;
+                    callback.onError(new ApiException(res.code(), "Server error: " + res.code(), retryAfter));
                     return;
                 }
 
@@ -80,7 +92,7 @@ public class ListingRepository {
         diskIo.execute(() -> {
             try {
                 List<CachedSeeListingEntity> entities = new ArrayList<>();
-                Log.d("RoomDebug", "Caching " + entities.size() + " listings for page " + pageId);
+                Log.d("RoomDebug", "Caching " + listings.size() + " listings for page " + pageId);
 
                 for (SeeListing s : listings) {
                     CachedSeeListingEntity e = new CachedSeeListingEntity();
@@ -139,36 +151,95 @@ public class ListingRepository {
             return;
         }
 
+        long pageId = article.getPageId();
+        if (!prefetchTracker.tryStart(pageId)) {
+            return; // already being prefetched
+        }
+
         diskIo.execute(() -> {
             try {
-                List<CachedSeeListingEntity> cached = seeListingDao.getListingsForPage(article.getPageId());
-
+                List<CachedSeeListingEntity> cached = seeListingDao.getListingsForPage(pageId);
                 if (cached != null && !cached.isEmpty()) {
+                    prefetchTracker.finish(pageId);
                     return;
                 }
 
                 if (!networkChecker.isNetworkAvailable()) {
+                    prefetchTracker.finish(pageId);
                     return;
                 }
 
-                fetchListingsForPage(article.getPageId(), new ListingsCallback() {
-                    @Override
-                    public void onSuccess(List<SeeListing> listings) {
-                        if (listings == null || listings.isEmpty()) {
-                            return;
-                        }
-                        cacheListingsForArticle(article.getPageId(), listings);
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        Log.w("prefetchListings", "Failed for " + article.getTitle(), t);
-                    }
-                 });
+                schedulePrefetch(article, 0);
             } catch (Exception e) {
-                Log.e("ListingRepository", "Prefetch crashed for page " + article.getPageId(), e);
+                prefetchTracker.finish(pageId);
+                Log.e("ListingRepository", "Prefetch crashed for page " + pageId, e);
             }
         });
+    }
+
+    private void schedulePrefetch(PlaceItem article, long delayMillis) {
+        prefetchExecutor.schedule(
+                () -> runPrefetch(article),
+                delayMillis,
+                TimeUnit.MILLISECONDS
+        );
+    }
+
+    private void runPrefetch(PlaceItem article) {
+        long pageId = article.getPageId();
+
+        try {
+            if (prefetchCooldown.isBlocked()) {
+                schedulePrefetch(article, prefetchCooldown.remainingMillis());
+                return;
+            }
+
+            prefetchSlots.acquire();
+
+            // Check again because we may have waited for a semaphore permit.
+            if (prefetchCooldown.isBlocked()) {
+                prefetchSlots.release();
+                schedulePrefetch(article, prefetchCooldown.remainingMillis());
+                return;
+            }
+
+            fetchListingsForPage(pageId, new ListingsCallback() {
+                @Override
+                public void onSuccess(List<SeeListing> listings) {
+                    try {
+                        if (listings != null && !listings.isEmpty()) {
+                            cacheListingsForArticle(pageId, listings);
+                        }
+                        prefetchTracker.finish(pageId);
+                    } finally {
+                        prefetchSlots.release();
+                    }
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    try {
+                        if (t instanceof ApiException apiException && apiException.getStatusCode() == 429) {
+                            long retryAfterSeconds = apiException.getRetryAfterSeconds();
+                            prefetchCooldown.blockForSeconds(retryAfterSeconds);
+                            Log.w("prefetchListings", "429 received; pausing prefetch for "
+                                    + retryAfterSeconds + " seconds");
+
+                            // Do NOT remove pageId: we still intend to fetch it.
+                            schedulePrefetch(article, TimeUnit.SECONDS.toMillis(retryAfterSeconds));
+                        } else {
+                            prefetchTracker.finish(pageId);
+                            Log.w("prefetchListings", "Failed for " + article.getTitle(), t);
+                        }
+                    } finally {
+                        prefetchSlots.release();
+                    }
+                }
+            });
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            prefetchTracker.finish(pageId);
+        }
     }
 
     public void updateCoordsForListing(long pageId, String name, Double lat, Double lon) {

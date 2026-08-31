@@ -8,9 +8,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -32,6 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.maps.android.clustering.ClusterManager;
@@ -82,6 +85,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public static final String EXTRA_TITLE = "title";
     public static final String EXTRA_SNIPPET = "snippet";
     public static final String EXTRA_THUMB_URL = "thumb_url";
+    private static final String PREFS_NAME = "voyage_prefs";
+    private static final String PREF_LOCATION_REQUESTED = "location_permission_requested";
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,21 +185,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             double lat = intent.getDoubleExtra("lat", fallback.latitude);
             double lon = intent.getDoubleExtra("lon", fallback.longitude);
             LatLng target = new LatLng(lat, lon);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(target, 11f));
-            setLocationEnabled();
-//            String title = intent.getStringExtra("title");
-//            if (title != null) {
-//                map.addMarker(new com.google.android.gms.maps.model.MarkerOptions()
-//                        .position(target).title(title));
-//            }
-            // 👉 Load articles within 20 km of the searched place
-            loadNearbyFor(target.latitude, target.longitude);
 
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(target, 11f));
+            enableMyLocationLayerIfPermitted();
+            loadNearbyFor(target.latitude, target.longitude);
         } else if ("MY_LOCATION".equals(mode)) {
             showLoading(getString(R.string.loading_articles_near_you));
             // 👉 Center on the user, then load articles within 20 km
             enableMyLocationAndCenterAndLoad();
-
         } else if (pendingSavedArticle != null) {
             showLoading(getString(R.string.loading_articles));
             PlaceItem savedArticle = pendingSavedArticle;
@@ -218,6 +216,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 loadNearbyFor(center.latitude, center.longitude);
             }
         });
+    }
+
+    private void enableMyLocationLayerIfPermitted() {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            map.setMyLocationEnabled(true);
+        }
     }
 
     private void openPendingSavedArticle() {
@@ -372,7 +377,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (place.getKind() == PlaceItem.Kind.ARTICLE) {
                 listingRepository.prefetchListingsForArticle(place);
                 prefetched++;
-                if (prefetched >= 20) {
+                if (prefetched >= 40) {
                     break;
                 }
             }
@@ -449,32 +454,84 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         prefetchListingsForArticles(places);
     }
 
-    private void setLocationEnabled() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQ_LOC);
-            return;
-        }
-        map.setMyLocationEnabled(true);
+    private void loadDefaultLocation() {
+        LatLng london = new LatLng(51.5074, -0.1278);
+        showLoading(getString(R.string.loading_default_location));
+        map.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(london, 11f)
+        );
+        loadNearbyFor(london.latitude, london.longitude);
     }
 
-    // ---- LOCATION PERMISSION + CENTER ----
-    @SuppressLint("MissingPermission")
     private void enableMyLocationAndCenterAndLoad() {
-        setLocationEnabled();
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+            boolean requestedBefore = prefs.getBoolean(PREF_LOCATION_REQUESTED, false);
+
+            boolean shouldShowRationale =
+                    ActivityCompat.shouldShowRequestPermissionRationale(
+                            this,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    );
+
+            // Permission has previously been requested, but Android will
+            // no longer show the permission dialog.
+            if (requestedBefore && !shouldShowRationale) {
+                showLocationSettingsDialog();
+                loadDefaultLocation();
+                return;
+            }
+
+            // First request, or Android still permits us to ask again.
+            prefs.edit().putBoolean(PREF_LOCATION_REQUESTED, true).apply();
+
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQ_LOC
+            );
+            return;
+        }
+
+        map.setMyLocationEnabled(true);
         FusedLocationProviderClient fused =
                 LocationServices.getFusedLocationProviderClient(this);
 
-        fused.getLastLocation().addOnSuccessListener(loc -> {
-            if (loc != null) {
-                LatLng me = new LatLng(loc.getLatitude(), loc.getLongitude());
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(me, 11f));
-                loadNearbyFor(me.latitude, me.longitude); // 👉 fetch after centering
-            } else {
-                hideLoading();
-            }
-        });
+        fused.getLastLocation()
+                .addOnSuccessListener(loc -> {
+                    if (loc != null) {
+                        LatLng me = new LatLng(loc.getLatitude(), loc.getLongitude());
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(me, 11f));
+                        loadNearbyFor(me.latitude, me.longitude);
+                    } else {
+                        loadDefaultLocation();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("MapActivity", "Failed to get location", e);
+                    loadDefaultLocation();
+                });
+    }
+
+    private void showLocationSettingsDialog() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.location_permission_required_title)
+                .setMessage(R.string.location_permission_required_message)
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> loadDefaultLocation())
+                .setPositiveButton(R.string.open_settings, (dialog, which) -> {
+                    Intent intent = new Intent(
+                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    );
+
+                    intent.setData(
+                            Uri.fromParts("package", getPackageName(), null)
+                    );
+
+                    startActivity(intent);
+                })
+                .show();
     }
 
     private void mapSightsForPage(PlaceItem currentItem) {
@@ -521,7 +578,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                         + currentItem.getTitle() + ": "
                                         + t.getLocalizedMessage());
                                 View root = findViewById(android.R.id.content);
-                                NetworkErrorHandler.handle(root, (Exception) t);
+                                NetworkErrorHandler.handle(root, t);
                                 FirebaseCrashlytics.getInstance().recordException(t);
                             });
                         }
@@ -593,8 +650,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override public void onRequestPermissionsResult(int r, @NonNull String[] p, @NonNull int[] g) {
         super.onRequestPermissionsResult(r, p, g);
-        if (r == REQ_LOC && g.length > 0 && g[0] == PackageManager.PERMISSION_GRANTED) {
+        if (r != REQ_LOC) {
+            return;
+        }
+        if (g.length > 0 && g[0] == PackageManager.PERMISSION_GRANTED) {
             enableMyLocationAndCenterAndLoad();
+        } else {
+            loadDefaultLocation();
         }
     }
 

@@ -1,16 +1,22 @@
 package org.okane.voyagemapper.service;
 
+import android.util.Log;
+
+import org.okane.voyagemapper.BuildConfig;
 import org.okane.voyagemapper.R;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ApiClient {
+    private static final AtomicInteger REQUEST_COUNT = new AtomicInteger(0);
 
     private static final String USER_AGENT =
-            "VoyageMap/1.0 (" + R.string.email + ")";
+            "VoyageMap/" + BuildConfig.VERSION_NAME + " (" + R.string.email + ")";
 
     private static OkHttpClient client = buildClient();
 
@@ -34,6 +40,19 @@ public final class ApiClient {
                 .callTimeout(25, TimeUnit.SECONDS)
                 // OkHttp already retries some connection failures
                 .retryOnConnectionFailure(true)
+                .eventListener(new RequestEventListener())
+                .addInterceptor(chain -> {
+                    int n = REQUEST_COUNT.incrementAndGet();
+                    Request request = chain.request();
+//                    Log.d("HTTP_SOK_COUNT", "#" + n + " " + request.method() + " " + request.url());
+                    Response response = chain.proceed(request);
+//                    Log.d("HTTP_SOK_COUNT", "#" + n + " -> " + response.code());
+                    if (response.code() == 429) {
+                        Log.w("HTTP_429",
+                                "#" + n + " Retry-After=" + response.header("Retry-After"));
+                    }
+                    return response;
+                })
                 .addInterceptor(chain -> {
                     Request original = chain.request();
                     Request req = original.newBuilder()

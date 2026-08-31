@@ -47,7 +47,8 @@ public class WikiRepository {
             public void onResponse(@NonNull Call<WikiResponse> c,
                     @NonNull retrofit2.Response<WikiResponse> res) {
                 if (!res.isSuccessful() || res.body() == null) {
-                    callback.onError(new RuntimeException("Bad response"));
+                    String retryAfter = res.code() == 429 ? res.headers().get("Retry-After") : null;
+                    callback.onError(new ApiException(res.code(), "Bad response: " + res.code(), retryAfter));
                     return;
                 }
 

@@ -15,22 +15,28 @@ import java.io.IOException;
 
 public class NetworkErrorHandler {
 
-    public static void handle(View view, Exception e) {
+    public static void handle(View view, Throwable t) {
         Resources resources = view.getResources();
         // Fallback for unexpected exceptions
         String message = resources.getString(R.string.an_error_occurred);
 
-        if (e instanceof UnknownHostException) {
+        if (t instanceof UnknownHostException) {
             // No network access / DNS failed
             message = resources.getString(R.string.no_internet_connection);
-        } else if (e instanceof ConnectException) {
+        } else if (t instanceof ConnectException) {
             message = resources.getString(R.string.unable_to_reach_server);
-        } else if (e instanceof SocketTimeoutException) {
+        } else if (t instanceof SocketTimeoutException) {
             message = resources.getString(R.string.connection_timed_out);
-        } else if (e instanceof IOException) {
+        } else if (t instanceof ApiException apiException) {
+            if (apiException.getStatusCode() == 429) {
+                message = resources.getString(R.string.too_many_requests);
+            } else {
+                message = resources.getString(R.string.an_error_occurred) + ": " + apiException.getStatusCode();
+            }
+        } else if (t instanceof IOException) {
             message = resources.getString(R.string.network_error_occurred);
         }
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
-        Log.e("NetworkErrorHandler", message, e);
+        Log.e("NetworkErrorHandler", message, t);
     }
 }

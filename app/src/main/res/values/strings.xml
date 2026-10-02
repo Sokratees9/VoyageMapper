@@ -24,7 +24,7 @@
     <string name="hours">Hours</string>
     <string name="price">Price</string>
     <string name="wikipedia">Wikipedia</string>
-    <string name="instructions">• Voyage Map uses crowd sourced data from Wikivoyage, which is like Wikipedia, but for Travel Guides\n• Tap the Use Current Location button to find nearby Wikivoyage guides within a 20 km radius of where you are.\n• Or search for a location to view it in a map with nearby guides.\n• Tap black pins on the map to view the opening information from the Wikivoyage article on that place.\n• The green pins are for sights, click on one to see info about the sight.</string>
+    <string name="instructions">• Voyage Map uses crowdsourced data from Wikivoyage, which is like Wikipedia, but for Travel Guides\n• Tap the Use Current Location button to find nearby Wikivoyage guides within a 20 km radius of where you are.\n• Or search for a location to view it in a map with nearby guides.\n• Tap black pins on the map to view the opening information from the Wikivoyage article on that place.\n• The green pins are for sights, click on one to see info about the sight.</string>
     <string name="directions">Directions</string>
     <string name="google_maps">Open Google Maps</string>
     <string name="loading_articles">Loading articles…</string>
@@ -44,7 +44,8 @@
     <string name="an_error_occurred">An error occurred</string>
     <string name="save_article">Save article</string>
     <string name="saved_article">Article saved</string>
-    <string name="saved_articles">Saved Articles</string>
+    <string name="saved_places">Saved Places</string>
+    <string name="saved_places_subtitle">Available offline</string>
     <string name="sights_saved">" sights saved"</string>
     <string name="image_of">"Image of "</string>
     <string name="no_saved_articles_yet">No saved articles yet</string>
@@ -66,4 +67,6 @@
     <string name="location_permission_required_message">Voyage Map needs location access to show articles near you. You can enable it in Android Settings.</string>
     <string name="open_settings">Open Settings</string>
     <string name="cancel">Cancel</string>
+    <string name="article_removed">Article Removed</string>
+    <string name="undo">Undo</string>
 </resources>

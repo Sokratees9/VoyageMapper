@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -80,11 +81,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        String apiKey = readMapsKeyFromManifest();
-        Log.d("VoyageMapper", "Maps/Places key prefix: " + (apiKey != null && apiKey.length() >= 8 ? apiKey.substring(0,8) : "NULL"));
-        if (!Places.isInitialized()) {
-            Places.initializeWithNewPlacesApiEnabled(getApplicationContext(), apiKey);
-        }
         placesClient = Places.createClient(this);
 
         findViewById(R.id.useCurrentLocationBtn).setOnClickListener(v -> {
@@ -187,16 +183,6 @@ public class MainActivity extends AppCompatActivity {
         searchEditText.clearFocus();
     }
 
-    private String readMapsKeyFromManifest() {
-        try {
-            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-            Bundle b = ai.metaData;
-            return b.getString("com.google.android.geo.API_KEY");
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     private void doSearch() {
         String q = String.valueOf(searchEditText.getText()).trim();
         if (q.isEmpty()) {
@@ -288,7 +274,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String versionName = packageInfo.versionName;
-            long versionCode = packageInfo.versionCode;
+            long versionCode;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                versionCode = packageInfo.getLongVersionCode();
+            } else {
+                versionCode = packageInfo.versionCode;
+            }
             versionText.setText(getString(R.string.about_version_value, versionName, versionCode));
         } catch (PackageManager.NameNotFoundException e) {
             Log.e("MainActivity", "Failed to get package info", e);

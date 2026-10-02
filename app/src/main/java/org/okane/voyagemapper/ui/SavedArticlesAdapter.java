@@ -34,8 +34,8 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticlesAdap
         if (newItems != null) {
             items.addAll(newItems);
         }
-        // Change this is you think the data set will become very big
-        // Remove the suppress and see the warning to work out what to do
+        // Change this if you think the data set will become very big
+        // Remove the suppression and see the warning to work out what to do
         // Seems like DiffUtil.calculateDiff will be needed
         notifyDataSetChanged();
     }
@@ -67,5 +67,19 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticlesAdap
             super(itemView);
             title = itemView.findViewById(R.id.placeTitle);
         }
+    }
+
+    public CachedArticleEntity getItem(int position) {
+        return items.get(position);
+    }
+
+    public void removeArticle(CachedArticleEntity article) {
+        items.remove(article);
+        notifyDataSetChanged();
+    }
+
+    public void restoreSavedArticle(CachedArticleEntity article) {
+        items.add(article);
+        notifyDataSetChanged();
     }
 }

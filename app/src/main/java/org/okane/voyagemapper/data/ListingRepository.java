@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
@@ -89,37 +90,41 @@ public class ListingRepository {
             return;
         }
 
-        diskIo.execute(() -> {
-            try {
-                List<CachedSeeListingEntity> entities = new ArrayList<>();
-                Log.d("RoomDebug", "Caching " + listings.size() + " listings for page " + pageId);
+        try {
+            diskIo.execute(() -> {
+                try {
+                    List<CachedSeeListingEntity> entities = new ArrayList<>();
+                    Log.d("RoomDebug", "Caching " + listings.size() + " listings for page " + pageId);
 
-                for (SeeListing s : listings) {
-                    CachedSeeListingEntity e = new CachedSeeListingEntity();
-                    e.pageId = pageId;
-                    e.name = s.name();
-                    e.lat = s.lat();
-                    e.lon = s.lon();
-                    e.phone = s.phone();
-                    e.url = s.url();
-                    e.content = s.content();
-                    e.address = s.address();
-                    e.hours = s.hours();
-                    e.price = s.price();
-                    e.wikipediaUrl = s.wikipediaUrl();
-                    e.wikidata = s.wikidata();
-                    e.thumbUrl = s.thumbUrl();
-                    entities.add(e);
+                    for (SeeListing s : listings) {
+                        CachedSeeListingEntity e = new CachedSeeListingEntity();
+                        e.pageId = pageId;
+                        e.name = s.name();
+                        e.lat = s.lat();
+                        e.lon = s.lon();
+                        e.phone = s.phone();
+                        e.url = s.url();
+                        e.content = s.content();
+                        e.address = s.address();
+                        e.hours = s.hours();
+                        e.price = s.price();
+                        e.wikipediaUrl = s.wikipediaUrl();
+                        e.wikidata = s.wikidata();
+                        e.thumbUrl = s.thumbUrl();
+                        entities.add(e);
+                    }
+
+                    seeListingDao.deleteForPage(pageId);
+                    seeListingDao.insertAll(entities);
+                    int count = seeListingDao.getListingsForPage(pageId).size();
+                    Log.d("RoomDebug", "After insert, page " + pageId + " has " + count + " cached listings");
+                } catch (Exception ex) {
+                    Log.e("cacheListingsForArticle", "Failed to cache listings for page " + pageId, ex);
                 }
-
-                seeListingDao.deleteForPage(pageId);
-                seeListingDao.insertAll(entities);
-                int count = seeListingDao.getListingsForPage(pageId).size();
-                Log.d("RoomDebug", "After insert, page " + pageId + " has " + count + " cached listings");
-            } catch (Exception ex) {
-                Log.e("cacheListingsForArticle", "Failed to cache listings for page " + pageId, ex);
-            }
-        });
+            });
+        } catch (RejectedExecutionException ree) {
+            Log.w("cacheListingsForArticle", "Cache executor unavailable for page " + pageId, ree);
+        }
     }
 
     public List<SeeListing> mapCachedEntitiesToSeeListings(List<CachedSeeListingEntity> cached) {

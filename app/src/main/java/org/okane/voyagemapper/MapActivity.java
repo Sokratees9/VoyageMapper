@@ -59,7 +59,6 @@ import org.okane.voyagemapper.util.WikidataCoordsFetcher;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, NetworkChecker {
@@ -75,7 +74,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private ArticleRepository articleRepository;
     private PlaceSheetController placeSheetController;
     private CachedArticleDao articleDao;
-    private final ExecutorService diskIo = Executors.newSingleThreadExecutor();
+    private ExecutorService diskIo;
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private static final int REQ_LOC = 42;
     public static final String EXTRA_OPEN_SAVED_ARTICLE = "open_saved_article";
@@ -95,10 +94,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment == null) {
+            throw new IllegalStateException("Map fragment not found in activity_map");
+        }
         mapFragment.getMapAsync(this);
 
         AppDatabase db = AppDatabase.getInstance(this);
         articleDao = db.cachedArticleDao();
+        diskIo = ((VoyageMapApplication) getApplication()).getDiskIo();
         articleRepository = new ArticleRepository(db.cachedArticleDao(), diskIo);
         listingRepository = new ListingRepository(db.cachedSeeListingDao(), diskIo, repo, this);
 
@@ -149,12 +152,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             );
         }
         articleRepository.pruneOldCache();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        diskIo.shutdown();
     }
 
     @Override public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -377,7 +374,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (place.getKind() == PlaceItem.Kind.ARTICLE) {
                 listingRepository.prefetchListingsForArticle(place);
                 prefetched++;
-                if (prefetched >= 40) {
+                if (prefetched >= 20) {
                     break;
                 }
             }

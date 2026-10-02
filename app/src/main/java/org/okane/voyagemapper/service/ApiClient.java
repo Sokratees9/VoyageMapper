@@ -18,7 +18,7 @@ public final class ApiClient {
     private static final String USER_AGENT =
             "VoyageMap/" + BuildConfig.VERSION_NAME + " (" + R.string.email + ")";
 
-    private static OkHttpClient client = buildClient();
+    private static final OkHttpClient client = buildClient();
 
     private ApiClient() {
         // no instances
